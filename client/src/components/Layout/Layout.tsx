@@ -46,9 +46,9 @@ const Layout = () => {
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 
-				<main>
-					<Header />
+				<Header />
 
+				<main className='container'>
 					<Outlet />
 				</main>
 			</ThemeProvider>
