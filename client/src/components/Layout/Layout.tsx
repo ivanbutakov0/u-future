@@ -1,5 +1,6 @@
 import { ThemeProvider } from '@emotion/react'
 import {
+	Container,
 	createTheme,
 	CssBaseline,
 	PaletteMode,
@@ -39,7 +40,7 @@ const Layout = () => {
 	return (
 		<ColorModeContext.Provider
 			value={{
-				mode: prefersMode,
+				mode,
 				toggleColorMode: colorMode.toggleColorMode,
 			}}
 		>
@@ -48,9 +49,11 @@ const Layout = () => {
 
 				<Header />
 
-				<main className='container'>
-					<Outlet />
-				</main>
+				<Container maxWidth='lg' sx={{ minHeight: '100vh', paddingTop: 10 }}>
+					<main>
+						<Outlet />
+					</main>
+				</Container>
 			</ThemeProvider>
 		</ColorModeContext.Provider>
 	)
