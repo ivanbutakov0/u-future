@@ -1,14 +1,16 @@
 const express = require('express')
 const cors = require('cors')
+const mongoose = require('mongoose')
 require('dotenv').config()
 
 const PORT = process.env.PORT || 3000
+const ORIGIN = process.env.ORIGIN
 const app = express()
 
 app.use(express.json())
 app.use(
 	cors({
-		origin: 'http://localhost:5173',
+		origin: ORIGIN,
 	})
 )
 
@@ -18,6 +20,8 @@ app.get('/', (req, res) => {
 
 const start = async () => {
 	try {
+		await mongoose.connect(process.env.MONGODB_URL)
+
 		app.listen(PORT, () => {
 			console.log(`Server is running on port http://localhost:${PORT}`)
 		})
