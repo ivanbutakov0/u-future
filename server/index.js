@@ -18,6 +18,18 @@ app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+	const statusCode = err.statusCode || 500
+	const message = err.message || 'Internal Server Error'
+
+	res.status(statusCode).json({
+		success: false,
+		statusCode,
+		message,
+	})
+})
+
 const start = async () => {
 	try {
 		await mongoose.connect(process.env.MONGODB_URL)
