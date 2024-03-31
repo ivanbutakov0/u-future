@@ -15,7 +15,6 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { setCurrentUser } from '../redux/user/userSlice'
 import { login } from '../services/AuthService'
-import { fetchUsers } from '../services/UserService'
 import loginSchema from '../zod/loginSchema'
 
 type TLoginSchema = z.infer<typeof loginSchema>
@@ -41,14 +40,8 @@ const LoginForm = () => {
 		}
 	}
 
-	const onClickHandler = async () => {
-		const response = await fetchUsers()
-		console.log('fetched users: ', response.data)
-	}
-
 	return (
 		<Container component='main' maxWidth='xs'>
-			<button onClick={onClickHandler}>Get Users</button>
 			<Box
 				sx={{
 					marginTop: 8,
