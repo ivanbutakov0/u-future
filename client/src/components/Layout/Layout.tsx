@@ -6,7 +6,7 @@ import {
 	useMediaQuery,
 } from '@mui/material'
 import axios from 'axios'
-import { createContext, useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { API_URL } from '../../http'
@@ -16,17 +16,12 @@ import { setCurrentUser, setLoading } from '../../redux/user/userSlice'
 import { AuthResponse } from '../../types/response/AuthResponse'
 import Header from '../Header/Header'
 
-export const ColorModeContext = createContext({
-	mode: 'light',
-	toggleColorMode: () => {},
-})
-
 const Layout = () => {
 	const dispatch = useDispatch()
 	const themeMode = useSelector((state: any) => state.theme.mode)
-	const prefersMode = useMediaQuery('(prefers-color-scheme: dark)')
-		? 'dark'
-		: 'light'
+	const prefersMode =
+		localStorage.getItem('themeMode') ||
+		(useMediaQuery('(prefers-color-scheme: dark)') ? 'dark' : 'light')
 
 	useEffect(() => {
 		if (prefersMode) {

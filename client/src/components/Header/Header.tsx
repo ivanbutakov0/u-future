@@ -17,6 +17,11 @@ const Header = () => {
 	const themeMode = useSelector((state: any) => state.theme.mode)
 	const dispatch = useDispatch()
 
+	const onSwitchToggle = () => {
+		dispatch(toggleColorMode())
+		localStorage.setItem('themeMode', themeMode === 'light' ? 'dark' : 'light')
+	}
+
 	return (
 		<AppBar position='fixed' color='default'>
 			<Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -57,7 +62,7 @@ const Header = () => {
 						</List>
 					</nav>
 					<DarkModeSwitch
-						onClick={() => dispatch(toggleColorMode())}
+						onClick={onSwitchToggle}
 						checked={themeMode === 'dark'}
 					/>
 				</Stack>
