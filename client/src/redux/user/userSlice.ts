@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { userState } from '../../types/storeTypes'
+import { userState } from '../../types/storeTypes/userSliceTypes'
 
 const initialState: userState = {
 	currentUser: null,

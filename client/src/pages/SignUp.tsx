@@ -13,9 +13,9 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
+import registrationSchema from '../libs/zod/registrationSchema'
 import { setCurrentUser } from '../redux/user/userSlice'
 import { registration } from '../services/AuthService'
-import registrationSchema from '../zod/registrationSchema'
 
 type TRegistrationSchema = z.infer<typeof registrationSchema>
 

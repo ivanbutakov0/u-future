@@ -8,13 +8,14 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material'
-import { useContext } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { ColorModeContext } from '../Layout/Layout'
+import { toggleColorMode } from '../../redux/theme/themeSlice'
 import DarkModeSwitch from '../ui/DarkModeSwitch/DarkModeSwitch'
 
 const Header = () => {
-	const colorMode = useContext(ColorModeContext)
+	const themeMode = useSelector((state: any) => state.theme.mode)
+	const dispatch = useDispatch()
 
 	return (
 		<AppBar position='fixed' color='default'>
@@ -56,8 +57,8 @@ const Header = () => {
 						</List>
 					</nav>
 					<DarkModeSwitch
-						onClick={colorMode.toggleColorMode}
-						checked={colorMode.mode === 'dark'}
+						onClick={() => dispatch(toggleColorMode())}
+						checked={themeMode === 'dark'}
 					/>
 				</Stack>
 			</Toolbar>

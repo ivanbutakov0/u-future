@@ -13,9 +13,9 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
+import loginSchema from '../libs/zod/loginSchema'
 import { setCurrentUser } from '../redux/user/userSlice'
 import { login } from '../services/AuthService'
-import loginSchema from '../zod/loginSchema'
 
 type TLoginSchema = z.infer<typeof loginSchema>
 

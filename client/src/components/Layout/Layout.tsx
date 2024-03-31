@@ -3,16 +3,16 @@ import {
 	Container,
 	createTheme,
 	CssBaseline,
-	PaletteMode,
 	useMediaQuery,
 } from '@mui/material'
 import axios from 'axios'
-import { createContext, useEffect, useMemo, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { createContext, useEffect, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Outlet } from 'react-router-dom'
 import { API_URL } from '../../http'
+import getPalette from '../../libs/theme/getPalette'
+import { setColorMode } from '../../redux/theme/themeSlice'
 import { setCurrentUser, setLoading } from '../../redux/user/userSlice'
-import getPalette from '../../theme/getPalette'
 import { AuthResponse } from '../../types/response/AuthResponse'
 import Header from '../Header/Header'
 
@@ -22,28 +22,20 @@ export const ColorModeContext = createContext({
 })
 
 const Layout = () => {
-	const location = useLocation()
 	const dispatch = useDispatch()
-	const navigate = useNavigate()
+	const themeMode = useSelector((state: any) => state.theme.mode)
 	const prefersMode = useMediaQuery('(prefers-color-scheme: dark)')
 		? 'dark'
 		: 'light'
-	const [mode, setMode] = useState<PaletteMode>(prefersMode)
 
-	const colorMode = useMemo(
-		() => ({
-			// The dark mode switch would invoke this method
-			toggleColorMode: () => {
-				setMode((prevMode: PaletteMode) =>
-					prevMode === 'light' ? 'dark' : 'light'
-				)
-			},
-		}),
-		[]
-	)
+	useEffect(() => {
+		if (prefersMode) {
+			dispatch(setColorMode(prefersMode))
+		}
+	}, [prefersMode])
 
 	// Update the theme only if the mode changes
-	const theme = useMemo(() => createTheme(getPalette(mode)), [mode])
+	const theme = useMemo(() => createTheme(getPalette(themeMode)), [themeMode])
 
 	useEffect(() => {
 		const checkAuth = async () => {
@@ -71,24 +63,17 @@ const Layout = () => {
 	}, [])
 
 	return (
-		<ColorModeContext.Provider
-			value={{
-				mode,
-				toggleColorMode: colorMode.toggleColorMode,
-			}}
-		>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
 
-				<Header />
+			<Header />
 
-				<Container maxWidth='lg' sx={{ minHeight: '100vh', paddingTop: 10 }}>
-					<main>
-						<Outlet />
-					</main>
-				</Container>
-			</ThemeProvider>
-		</ColorModeContext.Provider>
+			<Container maxWidth='lg' sx={{ minHeight: '100vh', paddingTop: 10 }}>
+				<main>
+					<Outlet />
+				</main>
+			</Container>
+		</ThemeProvider>
 	)
 }
 export default Layout
