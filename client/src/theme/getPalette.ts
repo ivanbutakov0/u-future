@@ -6,11 +6,13 @@ const getPalette = (mode: PaletteMode) => ({
 		...(mode === 'light'
 			? {
 					primary: {
-						main: '#2f27ce',
-						accent: '#443dff',
+						main: '#11519a',
 					},
 					secondary: {
-						main: '#DDDBFF',
+						main: '#9c27b0',
+					},
+					accent: {
+						main: '#443dff',
 					},
 					text: {
 						primary: '#040316',
@@ -19,11 +21,13 @@ const getPalette = (mode: PaletteMode) => ({
 			  }
 			: {
 					primary: {
-						main: '#3a31d8',
-						accent: '#0600c2',
+						main: '#11519a',
 					},
 					secondary: {
-						main: '#020024',
+						main: '#9c27b0',
+					},
+					accent: {
+						main: '#0600c2',
 					},
 					text: {
 						primary: '#EAE9FC',

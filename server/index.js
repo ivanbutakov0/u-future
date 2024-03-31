@@ -1,34 +1,34 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
+const userRouter = require('./routes/user.route')
+const { errorMiddleware } = require('./middleware/error.middleware')
 require('dotenv').config()
 
 const PORT = process.env.PORT || 3000
-const ORIGIN = process.env.ORIGIN
+const CLIENT_URL = process.env.CLIENT_URL
 const app = express()
 
+// Middleware for parsing request body
 app.use(express.json())
+
+// Middleware for parsing cookies
+app.use(cookieParser())
+
+// Enable CORS
 app.use(
 	cors({
-		origin: ORIGIN,
+		origin: CLIENT_URL,
+		credentials: true,
 	})
 )
 
-app.get('/', (req, res) => {
-	res.send('Hello World!')
-})
+// Routes
+app.use('/api/user', userRouter)
 
 // Error handling middleware
-app.use((err, req, res, next) => {
-	const statusCode = err.statusCode || 500
-	const message = err.message || 'Internal Server Error'
-
-	res.status(statusCode).json({
-		success: false,
-		statusCode,
-		message,
-	})
-})
+app.use(errorMiddleware)
 
 const start = async () => {
 	try {
