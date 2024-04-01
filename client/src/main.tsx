@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout'
 import './index.scss'
+import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import { store } from './redux/store'
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
 				element: <SignUp />,
 			},
 		],
+	},
+	{
+		path: '*',
+		element: <ErrorPage />,
 	},
 ])
 
