@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom'
 
 const ErrorPage = () => {
 	return (
-		<Box component='div' sx={{ textAlign: 'center', pt: 4 }}>
+		<Box component='section' sx={{ textAlign: 'center', pt: 4 }}>
 			<Typography variant='h2'>404</Typography>
 			<Box
 				component='div'

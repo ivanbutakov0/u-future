@@ -72,7 +72,7 @@ const Header = () => {
 								disablePadding
 							>
 								<Link
-									to='/coursers'
+									to='/courses'
 									component={RouterNavLink}
 									underline='none'
 									color='inherit'

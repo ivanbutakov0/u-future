@@ -7,6 +7,7 @@ import './index.scss'
 import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
+import UnderConstruction from './pages/UnderConstruction'
 import { store } from './redux/store'
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
 			{
 				path: '/signup',
 				element: <SignUp />,
+			},
+			{
+				path: '/courses',
+				element: <UnderConstruction />,
 			},
 		],
 	},
