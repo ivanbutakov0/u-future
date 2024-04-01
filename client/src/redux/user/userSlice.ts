@@ -4,7 +4,7 @@ import { userState } from '../../types/storeTypes/userSliceTypes'
 const initialState: userState = {
 	currentUser: null,
 	error: null,
-	loading: false,
+	isLoading: false,
 }
 
 export const userSlice = createSlice({
@@ -17,12 +17,12 @@ export const userSlice = createSlice({
 		setError: (state, action) => {
 			state.error = action.payload
 		},
-		setLoading: (state, action) => {
-			state.loading = action.payload
+		setIsLoading: (state, action) => {
+			state.isLoading = action.payload
 		},
 	},
 })
 
-export const { setCurrentUser, setError, setLoading } = userSlice.actions
+export const { setCurrentUser, setError, setIsLoading } = userSlice.actions
 
 export default userSlice.reducer

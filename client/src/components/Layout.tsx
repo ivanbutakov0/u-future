@@ -9,12 +9,12 @@ import axios from 'axios'
 import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
-import { API_URL } from '../../http'
-import getPalette from '../../libs/theme/getPalette'
-import { setColorMode } from '../../redux/theme/themeSlice'
-import { setCurrentUser, setLoading } from '../../redux/user/userSlice'
-import { AuthResponse } from '../../types/response/AuthResponse'
-import Header from '../Header/Header'
+import { API_URL } from '../http'
+import getPalette from '../libs/theme/getPalette'
+import { setColorMode } from '../redux/theme/themeSlice'
+import { setCurrentUser, setIsLoading } from '../redux/user/userSlice'
+import { AuthResponse } from '../types/response/AuthResponse'
+import Header from './Header'
 
 const Layout = () => {
 	const dispatch = useDispatch()
@@ -34,8 +34,8 @@ const Layout = () => {
 
 	useEffect(() => {
 		const checkAuth = async () => {
-			dispatch(setLoading(true))
 			if (localStorage.getItem('token')) {
+				dispatch(setIsLoading(true))
 				try {
 					const response = await axios.get<AuthResponse>(
 						`${API_URL}/user/refresh`,
@@ -49,7 +49,7 @@ const Layout = () => {
 				} catch (err) {
 					console.log(err)
 				} finally {
-					dispatch(setLoading(false))
+					dispatch(setIsLoading(false))
 				}
 			}
 		}
