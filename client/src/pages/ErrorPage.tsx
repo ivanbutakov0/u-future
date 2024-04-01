@@ -1,5 +1,5 @@
-import { Box, Link, Typography } from '@mui/material'
-import { Link as RouterLink } from 'react-router-dom'
+import { Box, Typography } from '@mui/material'
+import CustomLink from '../components/ui/CustomLink'
 
 const ErrorPage = () => {
 	return (
@@ -24,23 +24,21 @@ const ErrorPage = () => {
 				страница, которую вы ищете, недоступна!
 			</Typography>
 			<Typography>
-				<Link
-					component={RouterLink}
+				<CustomLink
 					to='/'
-					sx={{
-						textDecoration: 'none',
-						color: 'white',
+					type='button'
+					paddings='large'
+					styles={{
 						backgroundColor: '#11519a',
-						padding: '10px 20px',
-						borderRadius: '10px',
-						transition: 'all 0.3s ease-in-out',
+						color: 'white',
+						transition: 'all 0.2s ease-in-out',
 						':hover': {
 							backgroundColor: '#342fcc',
 						},
 					}}
 				>
 					Перейти на главную
-				</Link>
+				</CustomLink>
 			</Typography>
 		</Box>
 	)

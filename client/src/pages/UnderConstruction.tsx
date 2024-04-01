@@ -1,5 +1,5 @@
-import { Box, Link, Typography } from '@mui/material'
-import { Link as RouterLink } from 'react-router-dom'
+import { Box, Typography } from '@mui/material'
+import CustomLink from '../components/ui/CustomLink'
 
 const UnderConstruction = () => {
 	return (
@@ -80,23 +80,9 @@ const UnderConstruction = () => {
 				</svg>
 			</Box>
 
-			<Link
-				component={RouterLink}
-				to='/'
-				sx={{
-					textDecoration: 'none',
-					color: 'white',
-					backgroundColor: 'primary.main',
-					padding: '10px 20px',
-					borderRadius: '10px',
-					transition: 'all 0.3s ease-in-out',
-					':hover': {
-						backgroundColor: 'accent.main',
-					},
-				}}
-			>
+			<CustomLink to='/' type='button' paddings='large'>
 				Перейти на главную
-			</Link>
+			</CustomLink>
 		</Box>
 	)
 }

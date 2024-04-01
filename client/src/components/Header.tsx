@@ -14,6 +14,7 @@ import { Link as RouterLink, NavLink as RouterNavLink } from 'react-router-dom'
 import { RootState } from '../redux/store'
 import { toggleColorMode } from '../redux/theme/themeSlice'
 import CustomAvatar from './ui/CustomAvatar'
+import CustomLink from './ui/CustomLink'
 import DarkModeSwitch from './ui/DarkModeSwitch'
 
 const Header = () => {
@@ -44,41 +45,15 @@ const Header = () => {
 				<Stack direction='row' alignItems='center' gap={2}>
 					<Box component='nav'>
 						<List sx={{ display: 'flex', gap: 2, fontSize: 16 }} disablePadding>
-							<ListItem
-								sx={{
-									transition: 'all 0.2s ease-in-out',
-									':hover': {
-										color: 'text.secondary',
-									},
-								}}
-								disablePadding
-							>
-								<Link
-									to='/'
-									component={RouterNavLink}
-									underline='none'
-									color='inherit'
-								>
+							<ListItem disablePadding>
+								<CustomLink to='/' navLink>
 									Главная
-								</Link>
+								</CustomLink>
 							</ListItem>
-							<ListItem
-								sx={{
-									transition: 'all 0.2s ease-in-out',
-									':hover': {
-										color: 'text.secondary',
-									},
-								}}
-								disablePadding
-							>
-								<Link
-									to='/courses'
-									component={RouterNavLink}
-									underline='none'
-									color='inherit'
-								>
+							<ListItem disablePadding>
+								<CustomLink to='/courses' navLink>
 									Курсы
-								</Link>
+								</CustomLink>
 							</ListItem>
 
 							<ListItem

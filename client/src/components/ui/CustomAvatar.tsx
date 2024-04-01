@@ -2,7 +2,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import {
 	Avatar,
-	Link,
 	List,
 	ListItem,
 	Popover,
@@ -11,11 +10,12 @@ import {
 } from '@mui/material'
 import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { RootState } from '../../redux/store'
 import { setCurrentUser } from '../../redux/user/userSlice'
 import { logout } from '../../services/AuthService'
 import generateRandomHexColor from '../../utils/generateRandomHexColor'
+import CustomLink from './CustomLink'
 
 const CustomAvatar = () => {
 	const user = useSelector((state: RootState) => state.user.currentUser)
@@ -74,24 +74,13 @@ const CustomAvatar = () => {
 			>
 				<List>
 					<ListItem>
-						<Link
-							component={RouterLink}
-							underline='none'
-							color='inherit'
+						<CustomLink
 							to='/profile'
-							sx={{
-								display: 'flex',
-								alignItems: 'center',
-								gap: 1,
-								transition: 'all 0.2s ease-in-out',
-								':hover': {
-									color: 'text.secondary',
-								},
-							}}
+							styles={{ display: 'flex', alignItems: 'center', gap: 1 }}
 						>
 							<AccountCircleIcon />
 							Профиль
-						</Link>
+						</CustomLink>
 					</ListItem>
 					<ListItem>
 						<Typography
