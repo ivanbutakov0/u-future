@@ -45,6 +45,7 @@ const CustomLink = ({
 			: {
 					transition: 'all 0.2s ease-in-out',
 					backgroundColor: 'primary.main',
+					color: '#eae9fc',
 					':hover': {
 						backgroundColor: 'accent.main',
 					},

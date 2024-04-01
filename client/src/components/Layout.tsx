@@ -27,7 +27,7 @@ const Layout = () => {
 		if (prefersMode) {
 			dispatch(setColorMode(prefersMode))
 		}
-	}, [prefersMode])
+	}, [])
 
 	// Update the theme only if the mode changes
 	const theme = useMemo(() => createTheme(getPalette(themeMode)), [themeMode])
