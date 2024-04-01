@@ -10,7 +10,7 @@ import {
 	Toolbar,
 } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link as RouterLink, NavLink as RouterNavLink } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import { RootState } from '../redux/store'
 import { toggleColorMode } from '../redux/theme/themeSlice'
 import CustomAvatar from './ui/CustomAvatar'
@@ -70,23 +70,14 @@ const Header = () => {
 
 							{!user && !isUserLoading && (
 								<ListItem disablePadding>
-									<Link
+									<CustomLink
 										to='/login'
-										component={RouterNavLink}
-										underline='none'
-										sx={{
-											backgroundColor: 'primary.main',
-											color: 'white',
-											padding: '2px 12px',
-											borderRadius: '14px',
-											':hover': {
-												backgroundColor: 'accent.main',
-											},
-											transition: 'all 0.2s ease-in-out',
-										}}
+										navLink
+										type='button'
+										paddings='small'
 									>
 										Войти
-									</Link>
+									</CustomLink>
 								</ListItem>
 							)}
 						</List>

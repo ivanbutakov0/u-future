@@ -9,7 +9,7 @@ const getPalette = (mode: PaletteMode) => ({
 						main: '#11519a',
 					},
 					secondary: {
-						main: '#9c27b0',
+						main: '#90caf9',
 					},
 					accent: {
 						main: '#342fcc',
@@ -24,7 +24,7 @@ const getPalette = (mode: PaletteMode) => ({
 						main: '#11519a',
 					},
 					secondary: {
-						main: '#9c27b0',
+						main: '#90caf9',
 					},
 					accent: {
 						main: '#342fcc',

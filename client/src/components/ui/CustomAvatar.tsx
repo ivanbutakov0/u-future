@@ -2,6 +2,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import {
 	Avatar,
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
 	List,
 	ListItem,
 	Popover,
@@ -20,18 +26,28 @@ import CustomLink from './CustomLink'
 const CustomAvatar = () => {
 	const user = useSelector((state: RootState) => state.user.currentUser)
 	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false)
+	const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
 	const avatarRef = useRef<HTMLDivElement>(null)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
 	const bgColor = generateRandomHexColor()
 
-	const handleClick = () => {
+	const handleAvatarClick = () => {
 		setIsPopoverOpen(prev => !prev)
 	}
 
-	const handleClose = () => {
+	const handlePopoverClose = () => {
 		setIsPopoverOpen(false)
+	}
+
+	const handleDialogOpen = () => {
+		setIsDialogOpen(true)
+	}
+
+	const handleDialogClose = () => {
+		setIsDialogOpen(false)
+		handlePopoverClose()
 	}
 
 	const handleLogout = async () => {
@@ -46,7 +62,7 @@ const CustomAvatar = () => {
 		<>
 			<Avatar
 				ref={avatarRef}
-				onClick={handleClick}
+				onClick={handleAvatarClick}
 				sx={{
 					bgcolor: bgColor,
 					fontWeight: 'bold',
@@ -63,7 +79,7 @@ const CustomAvatar = () => {
 			<Popover
 				anchorEl={avatarRef.current}
 				open={isPopoverOpen}
-				onClose={handleClose}
+				onClose={handlePopoverClose}
 				anchorOrigin={{
 					vertical: 'bottom',
 					horizontal: 'right',
@@ -84,7 +100,7 @@ const CustomAvatar = () => {
 					</ListItem>
 					<ListItem>
 						<Typography
-							onClick={handleLogout}
+							onClick={handleDialogOpen}
 							sx={{
 								display: 'flex',
 								alignItems: 'center',
@@ -101,6 +117,43 @@ const CustomAvatar = () => {
 					</ListItem>
 				</List>
 			</Popover>
+
+			<Dialog
+				open={isDialogOpen}
+				onClose={handleDialogClose}
+				maxWidth='xs'
+				aria-labelledby='alert-dialog-title'
+				aria-describedby='alert-dialog-description'
+			>
+				<DialogTitle id='alert-dialog-title'>
+					Вы уверены, что хотите выйти?
+				</DialogTitle>
+				<DialogContent>
+					<DialogContentText id='alert-dialog-description'>
+						Если после выхода вы вновь захотите воспользоваться нашим сервисом,
+						вам придется войти снова
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button
+						onClick={handleDialogClose}
+						variant='outlined'
+						color='secondary'
+						size='small'
+					>
+						Отмена
+					</Button>
+					<Button
+						onClick={handleLogout}
+						variant='outlined'
+						color='error'
+						size='small'
+						autoFocus
+					>
+						Выход
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</>
 	)
 }
