@@ -13,6 +13,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
+import GoogleAuth from '../components/GoogleAuth'
 import loginSchema from '../libs/zod/loginSchema'
 import { setCurrentUser } from '../redux/user/userSlice'
 import { login } from '../services/AuthService'
@@ -29,6 +30,7 @@ const LoginForm = () => {
 	} = useForm<TLoginSchema>({
 		resolver: zodResolver(loginSchema),
 	})
+
 	const onSubmit: SubmitHandler<TLoginSchema> = async data => {
 		try {
 			const response = await login(data.email, data.password)
@@ -101,7 +103,9 @@ const LoginForm = () => {
 					>
 						Войти
 					</Button>
-					<Box component='div' sx={{ textAlign: 'end' }}>
+
+					<GoogleAuth />
+					<Box component='div' sx={{ textAlign: 'end', mt: 2 }}>
 						<Link component={RouterLink} to='/signup' variant='body2'>
 							Нет аккаунта? Зарегистрироваться
 						</Link>

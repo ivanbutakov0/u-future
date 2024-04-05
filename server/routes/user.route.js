@@ -5,6 +5,7 @@ const {
 	registration,
 	logout,
 	login,
+	googleAuth,
 } = require('../controllers/user.controller')
 const { body } = require('express-validator')
 const { authMiddleware } = require('../middleware/auth.middleware')
@@ -26,6 +27,7 @@ router.post(
 	}),
 	registration
 )
+router.post('/google-auth', googleAuth)
 router.post('/login', login)
 router.post('/logout', logout)
 

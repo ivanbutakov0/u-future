@@ -23,6 +23,7 @@ const Layout = () => {
 		localStorage.getItem('themeMode') ||
 		(useMediaQuery('(prefers-color-scheme: dark)') ? 'dark' : 'light')
 
+	// Set color mode
 	useEffect(() => {
 		if (prefersMode) {
 			dispatch(setColorMode(prefersMode))
@@ -32,6 +33,7 @@ const Layout = () => {
 	// Update the theme only if the mode changes
 	const theme = useMemo(() => createTheme(getPalette(themeMode)), [themeMode])
 
+	// Check authentication
 	useEffect(() => {
 		const checkAuth = async () => {
 			if (localStorage.getItem('token')) {

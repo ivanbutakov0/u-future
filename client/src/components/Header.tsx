@@ -83,7 +83,7 @@ const Header = () => {
 						</List>
 					</Box>
 
-					{isUserLoading && <CustomAvatar.Skeleton />}
+					{isUserLoading && !user && <CustomAvatar.Skeleton />}
 
 					{user && <CustomAvatar />}
 				</Stack>

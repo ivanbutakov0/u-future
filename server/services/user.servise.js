@@ -29,6 +29,39 @@ const registerUser = async (username, email, password) => {
 	}
 }
 
+const loginGoogleUser = async (email, username) => {
+	const user = await User.findOne({ email })
+
+	let response
+
+	if (user) {
+		const tokens = await generateTokens({ id: user._id })
+		await saveToken(user._id, tokens.refreshToken)
+
+		const { password: pass, ...userData } = user._doc
+
+		response = {
+			...tokens,
+			userData,
+		}
+	} else {
+		const generatedPassword =
+			Math.random().toString(36).slice(-8) +
+			Math.random().toString(36).slice(-8)
+		const newName = username.slice(0, 20)
+
+		response = await registerUser(newName, email, generatedPassword)
+	}
+
+	if (!response) {
+		return errorHandler(401, 'Ошибка при регистрации или авторизации')
+	}
+
+	return {
+		...response,
+	}
+}
+
 const loginUser = async (email, password) => {
 	const user = await User.findOne({ email })
 	if (!user) {
@@ -57,12 +90,12 @@ const logoutService = async refreshToken => {
 
 const refreshService = async refreshToken => {
 	if (!refreshToken) {
-		throw errorHandler(401, 'Нужно авторизоваться')
+		throw errorHandler(401, 'Нужно авторизоваться, отсутствует refreshToken')
 	}
 	const userData = await validateRefreshToken(refreshToken)
 	const tokenFromDb = await findToken(refreshToken)
 	if (!userData || !tokenFromDb) {
-		throw errorHandler(401, 'Нужно авторизоваться')
+		throw errorHandler(401, 'Нужно авторизоваться, неверный refreshToken')
 	}
 
 	const user = await User.findById(userData.id)
@@ -83,6 +116,7 @@ const getAllUsers = async () => {
 
 module.exports = {
 	registerUser,
+	loginGoogleUser,
 	loginUser,
 	logoutService,
 	refreshService,

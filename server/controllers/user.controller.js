@@ -4,9 +4,11 @@ const {
 	logoutService,
 	refreshService,
 	getAllUsers,
+	loginGoogleUser,
 } = require('../services/user.servise')
 const { validationResult } = require('express-validator')
 const { errorHandler } = require('../utils/error')
+const { OAuth2Client } = require('google-auth-library')
 
 const registration = async (req, res, next) => {
 	try {
@@ -23,6 +25,39 @@ const registration = async (req, res, next) => {
 		})
 		res.json(userData)
 	} catch (err) {
+		next(err)
+	}
+}
+
+const googleAuth = async (req, res, next) => {
+	const googleClient = new OAuth2Client(
+		process.env.GOOGLE_CLIENT_ID,
+		process.env.GOOGLE_CLIENT_SECRET,
+		'postmessage'
+	)
+
+	try {
+		const { tokens } = await googleClient.getToken(req.body.code) // exchange code for tokens
+
+		const ticket = await googleClient.verifyIdToken({
+			idToken: tokens.id_token,
+			audience: process.env.GOOGLE_CLIENT_ID,
+		})
+
+		const payload = ticket.getPayload()
+
+		const userData = await loginGoogleUser(
+			(email = payload.email),
+			(username = payload.name)
+		)
+
+		res.cookie('refreshToken', userData.refreshToken, {
+			maxAge: 30 * 24 * 60 * 60 * 1000,
+			httpOnly: true,
+		})
+		res.json(userData)
+	} catch (err) {
+		console.log(err)
 		next(err)
 	}
 }
@@ -77,6 +112,7 @@ const getUsers = async (req, res, next) => {
 
 module.exports = {
 	registration,
+	googleAuth,
 	login,
 	logout,
 	refresh,
