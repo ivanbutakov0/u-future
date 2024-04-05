@@ -48,7 +48,8 @@ const googleAuth = async (req, res, next) => {
 
 		const userData = await loginGoogleUser(
 			(email = payload.email),
-			(username = payload.name)
+			(username = payload.name),
+			(avatar = payload.picture)
 		)
 
 		res.cookie('refreshToken', userData.refreshToken, {

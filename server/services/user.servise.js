@@ -7,17 +7,24 @@ const {
 	validateRefreshToken,
 	findToken,
 } = require('./token.servise')
-const Token = require('../models/token.model')
 const { errorHandler } = require('../utils/error')
+const generateRandomHexColor = require('../utils/generateRandomHexColor')
 
-const registerUser = async (username, email, password) => {
+const registerUser = async (username, email, password, avatar = '') => {
 	const candidate = await User.findOne({ email })
 	if (candidate) {
 		return errorHandler(409, 'Пользователь с таким email уже существует')
 	}
 
+	const backgroundColor = generateRandomHexColor()
 	const hashedPassword = await bcrypt.hash(password, 5)
-	const user = await User.create({ username, email, password: hashedPassword })
+	const user = await User.create({
+		username,
+		email,
+		password: hashedPassword,
+		backgroundAvatar: backgroundColor,
+		avatar,
+	})
 	const tokens = await generateTokens({ id: user._id })
 	await saveToken(user._id, tokens.refreshToken)
 
@@ -29,7 +36,7 @@ const registerUser = async (username, email, password) => {
 	}
 }
 
-const loginGoogleUser = async (email, username) => {
+const loginGoogleUser = async (email, username, avatar) => {
 	const user = await User.findOne({ email })
 
 	let response
@@ -50,7 +57,7 @@ const loginGoogleUser = async (email, username) => {
 			Math.random().toString(36).slice(-8)
 		const newName = username.slice(0, 20)
 
-		response = await registerUser(newName, email, generatedPassword)
+		response = await registerUser(newName, email, generatedPassword, avatar)
 	}
 
 	if (!response) {

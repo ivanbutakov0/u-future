@@ -8,4 +8,4 @@ const generateRandomHexColor = () => {
 	return hexColor
 }
 
-export default generateRandomHexColor
+module.exports = generateRandomHexColor

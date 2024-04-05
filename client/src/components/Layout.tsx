@@ -45,7 +45,6 @@ const Layout = () => {
 							withCredentials: true,
 						}
 					)
-					console.log(response)
 					localStorage.setItem('token', response.data.accessToken)
 					dispatch(setCurrentUser(response.data.userData))
 				} catch (err) {

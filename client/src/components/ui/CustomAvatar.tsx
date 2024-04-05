@@ -20,7 +20,6 @@ import { useNavigate } from 'react-router-dom'
 import { RootState } from '../../redux/store'
 import { setCurrentUser } from '../../redux/user/userSlice'
 import { logout } from '../../services/AuthService'
-import generateRandomHexColor from '../../utils/generateRandomHexColor'
 import CustomLink from './CustomLink'
 
 const CustomAvatar = () => {
@@ -30,8 +29,6 @@ const CustomAvatar = () => {
 	const avatarRef = useRef<HTMLDivElement>(null)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
-
-	const bgColor = generateRandomHexColor()
 
 	const handleAvatarClick = () => {
 		setIsPopoverOpen(prev => !prev)
@@ -63,8 +60,9 @@ const CustomAvatar = () => {
 			<Avatar
 				ref={avatarRef}
 				onClick={handleAvatarClick}
+				src={user?.avatar || ''}
 				sx={{
-					bgcolor: bgColor,
+					bgcolor: user?.backgroundAvatar || 'gray',
 					fontWeight: 'bold',
 					color: 'white',
 					cursor: 'pointer',
