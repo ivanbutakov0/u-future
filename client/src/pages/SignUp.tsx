@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
+import GoogleAuth from '../components/GoogleAuth'
 import registrationSchema from '../libs/zod/registrationSchema'
 import { setCurrentUser } from '../redux/user/userSlice'
 import { registration } from '../services/AuthService'
@@ -121,7 +122,8 @@ const SignUp = () => {
 					>
 						Регистрация
 					</Button>
-					<Box component='div' sx={{ textAlign: 'end' }}>
+					<GoogleAuth />
+					<Box component='div' sx={{ textAlign: 'end', mt: 2 }}>
 						<Link component={RouterLink} to='/login' variant='body2'>
 							Уже есть аккаунт? Войти
 						</Link>
