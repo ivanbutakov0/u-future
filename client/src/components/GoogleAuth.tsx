@@ -1,10 +1,9 @@
 import { Button } from '@mui/material'
 import { useGoogleLogin } from '@react-oauth/google'
-import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setCurrentUser, setIsLoading } from '../redux/user/userSlice'
-import { AuthResponse } from '../types/response/AuthResponse'
+import { googleAuth } from '../services/AuthService'
 
 const GoogleAuth = () => {
 	const dispatch = useDispatch()
@@ -15,15 +14,7 @@ const GoogleAuth = () => {
 		onSuccess: async ({ code }) => {
 			try {
 				dispatch(setIsLoading(true))
-				const response = await axios.post<AuthResponse>(
-					`${import.meta.env.VITE_API_URL}/user/google-auth`,
-					{
-						code,
-					},
-					{
-						withCredentials: true,
-					}
-				)
+				const response = await googleAuth(code)
 				localStorage.setItem('token', response.data.accessToken)
 				dispatch(setCurrentUser(response.data.userData))
 				dispatch(setIsLoading(false))

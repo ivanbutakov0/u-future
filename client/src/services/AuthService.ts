@@ -3,9 +3,9 @@ import api from '../http'
 import { AuthResponse } from '../types/response/AuthResponse'
 
 export const googleAuth = async (
-	token: string
+	code: string
 ): Promise<AxiosResponse<AuthResponse>> => {
-	return api.post<AuthResponse>('/user/google-auth', { token })
+	return api.post<AuthResponse>('/user/google-auth', { code })
 }
 
 export const login = async (
