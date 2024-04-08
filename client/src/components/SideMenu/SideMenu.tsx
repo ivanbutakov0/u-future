@@ -12,7 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { useTheme } from '@mui/material/styles'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { setSideMenuOpen } from '../../redux/generalSettings/generalSettingsSlice'
 import { RootState } from '../../redux/store'
 import { toggleColorMode } from '../../redux/theme/themeSlice'
@@ -46,6 +46,7 @@ const SideMenu = () => {
 	const isSideMenuOpen = useSelector(
 		(state: RootState) => state.generalSettings.isSideMenuOpen
 	)
+	const { pathname } = useLocation()
 
 	const handleDrawerClose = () => {
 		dispatch(setSideMenuOpen(false))
@@ -70,7 +71,17 @@ const SideMenu = () => {
 			<Divider />
 			<List>
 				{navigationItems.map(item => (
-					<ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
+					<ListItem
+						key={item.text}
+						disablePadding
+						sx={{
+							display: 'block',
+							...(pathname === item.link && {
+								backgroundColor: theme.palette.secondary.light,
+								borderRight: `3px solid ${theme.palette.primary.main}`,
+							}),
+						}}
+					>
 						<ListItemButton
 							sx={{
 								minHeight: 48,
