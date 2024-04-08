@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import generalSettingsReducer from './generalSettings/generalSettingsSlice'
 import themeReducer from './theme/themeSlice'
 import userReducer from './user/userSlice'
 
@@ -6,6 +7,7 @@ export const store = configureStore({
 	reducer: {
 		user: userReducer,
 		theme: themeReducer,
+		generalSettings: generalSettingsReducer,
 	},
 })
 

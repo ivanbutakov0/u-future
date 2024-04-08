@@ -1,92 +1,80 @@
+import MenuIcon from '@mui/icons-material/Menu'
 import SchoolIcon from '@mui/icons-material/School'
-import {
-	AppBar,
-	Box,
-	IconButton,
-	Link,
-	List,
-	ListItem,
-	Stack,
-	Toolbar,
-} from '@mui/material'
+import { IconButton, Link, ListItem, Stack, Toolbar } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
+import { setSideMenuOpen } from '../redux/generalSettings/generalSettingsSlice'
 import { RootState } from '../redux/store'
-import { toggleColorMode } from '../redux/theme/themeSlice'
+import { AppBar } from './SideMenu/settings'
 import CustomAvatar from './ui/CustomAvatar'
 import CustomLink from './ui/CustomLink'
-import DarkModeSwitch from './ui/DarkModeSwitch'
 
 const Header = () => {
-	const themeMode = useSelector((state: any) => state.theme.mode)
+	const isSideMenuOpen = useSelector(
+		(state: RootState) => state.generalSettings.isSideMenuOpen
+	)
 	const user = useSelector((state: RootState) => state.user.currentUser)
 	const isUserLoading = useSelector((state: RootState) => state.user.isLoading)
 	const dispatch = useDispatch()
 
-	const onSwitchToggle = () => {
-		dispatch(toggleColorMode())
-		localStorage.setItem('themeMode', themeMode === 'light' ? 'dark' : 'light')
+	const handleSideMenuOpen = () => {
+		dispatch(setSideMenuOpen(true))
 	}
 
 	return (
-		<AppBar position='fixed' color='default'>
+		<AppBar position='fixed' color='default' open={isSideMenuOpen}>
 			<Toolbar sx={{ justifyContent: 'space-between' }}>
-				<Stack direction='row' alignItems='center'>
-					<Link component={RouterLink} color='inherit' underline='none' to='/'>
-						<IconButton edge='start' color='inherit' aria-label='menu'>
-							<SchoolIcon />
-						</IconButton>
-					</Link>
-					<Link component={RouterLink} color='inherit' underline='none' to='/'>
-						uFUTURE
-					</Link>
-				</Stack>
-
 				<Stack direction='row' alignItems='center' gap={2}>
-					<Box component='nav'>
-						<List sx={{ display: 'flex', gap: 2, fontSize: 16 }} disablePadding>
-							<ListItem disablePadding>
-								<CustomLink to='/' navLink>
-									Главная
-								</CustomLink>
-							</ListItem>
-							<ListItem disablePadding>
-								<CustomLink to='/courses' navLink>
-									Курсы
-								</CustomLink>
-							</ListItem>
-
-							<ListItem
-								sx={{
-									marginLeft: '15px',
-								}}
-								disablePadding
-							>
-								<DarkModeSwitch
-									onClick={onSwitchToggle}
-									checked={themeMode === 'dark'}
-								/>
-							</ListItem>
-
-							{!user && !isUserLoading && (
-								<ListItem disablePadding>
-									<CustomLink
-										to='/login'
-										navLink
-										type='button'
-										paddings='small'
-									>
-										Войти
-									</CustomLink>
-								</ListItem>
-							)}
-						</List>
-					</Box>
-
-					{isUserLoading && !user && <CustomAvatar.Skeleton />}
-
-					{user && <CustomAvatar />}
+					<IconButton
+						color='inherit'
+						aria-label='open drawer'
+						onClick={handleSideMenuOpen}
+						edge='start'
+						sx={{
+							...(isSideMenuOpen && { display: 'none' }),
+						}}
+					>
+						<MenuIcon />
+					</IconButton>
+					<Stack direction='row' alignItems='center'>
+						<Link
+							component={RouterLink}
+							color='inherit'
+							underline='none'
+							to='/'
+						>
+							<IconButton edge='start' color='inherit' aria-label='menu'>
+								<SchoolIcon />
+							</IconButton>
+						</Link>
+						<Link
+							component={RouterLink}
+							color='inherit'
+							underline='none'
+							to='/'
+						>
+							uFUTURE
+						</Link>
+					</Stack>
 				</Stack>
+
+				<Stack
+					direction='row'
+					alignItems='center'
+					gap={2}
+					sx={{ display: { xs: 'none', sm: 'flex' } }}
+				></Stack>
+
+				{!user && !isUserLoading && (
+					<ListItem disablePadding>
+						<CustomLink to='/login' navLink type='button' paddings='small'>
+							Войти
+						</CustomLink>
+					</ListItem>
+				)}
+
+				{isUserLoading && !user && <CustomAvatar.Skeleton />}
+				{user && <CustomAvatar />}
 			</Toolbar>
 		</AppBar>
 	)

@@ -1,5 +1,6 @@
 import { ThemeProvider } from '@emotion/react'
 import {
+	Box,
 	Container,
 	createTheme,
 	CssBaseline,
@@ -11,13 +12,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { API_URL } from '../http'
 import getPalette from '../libs/theme/getPalette'
+import { RootState } from '../redux/store'
 import { setColorMode } from '../redux/theme/themeSlice'
 import { setCurrentUser, setIsLoading } from '../redux/user/userSlice'
 import { AuthResponse } from '../types/response/AuthResponse'
 import Header from './Header'
+import SideMenu from './SideMenu/SideMenu'
+import { drawerWidth } from './SideMenu/settings'
 
 const Layout = () => {
 	const dispatch = useDispatch()
+	const isSideMenuOpen = useSelector(
+		(state: RootState) => state.generalSettings.isSideMenuOpen
+	)
 	const themeMode = useSelector((state: any) => state.theme.mode)
 	const prefersMode =
 		localStorage.getItem('themeMode') ||
@@ -64,10 +71,23 @@ const Layout = () => {
 
 			<Header />
 
-			<Container maxWidth='lg' sx={{ minHeight: '100vh', paddingTop: 10 }}>
-				<main>
+			<SideMenu />
+			<Container
+				maxWidth='lg'
+				sx={{
+					minHeight: '100vh',
+					paddingTop: 10,
+				}}
+			>
+				<Box
+					component='main'
+					sx={{
+						pl: 8,
+						...(isSideMenuOpen && { paddingLeft: `${drawerWidth}px` }),
+					}}
+				>
 					<Outlet />
-				</main>
+				</Box>
 			</Container>
 		</ThemeProvider>
 	)
