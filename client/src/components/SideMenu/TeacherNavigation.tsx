@@ -20,7 +20,7 @@ type teacherNavigationItem = {
 const teacherNavigationItems: teacherNavigationItem[] = [
 	{
 		text: 'Создать курс',
-		link: '/create',
+		link: '/teachers/create',
 		icon: <AddCircleOutlineIcon />,
 	},
 ]

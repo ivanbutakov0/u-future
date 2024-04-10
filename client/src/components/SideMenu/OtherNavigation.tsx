@@ -1,4 +1,4 @@
-import SettingsIcon from '@mui/icons-material/settings'
+import SettingsIcon from '@mui/icons-material/Settings'
 import {
 	List,
 	ListItem,
