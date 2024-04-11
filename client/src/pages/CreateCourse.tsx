@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import createCourseSchema from '../libs/zod/createCourseSchema'
@@ -17,9 +17,9 @@ const CreateCourse = () => {
 	})
 
 	const navigate = useNavigate()
-	const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault()
-		console.log('submit')
+
+	const onSubmit: SubmitHandler<TCreateCourseSchema> = async data => {
+		console.log(data.name)
 	}
 
 	const handleGoBack = () => {
@@ -38,18 +38,21 @@ const CreateCourse = () => {
 				</Typography>
 			</Box>
 
-			<Box component='form' onSubmit={handleFormSubmit}>
+			<Box component='form' onSubmit={handleSubmit(onSubmit)}>
 				<TextField
 					size='small'
 					label='Название курса'
-					sx={{ minWidth: { sm: '300px' }, mb: 2 }}
+					sx={{ minWidth: { sm: '300px' }, mb: 0.5 }}
 					{...register('name')}
 				/>
-				{errors.name && (
-					<Typography variant='body2' color='error' component='span'>
-						{errors.name.message}
-					</Typography>
-				)}
+				<Box sx={{ mb: 2 }}>
+					{errors.name && (
+						<Typography variant='body2' color='error' component='span'>
+							{errors.name.message}
+						</Typography>
+					)}
+				</Box>
+
 				<Stack direction='row' spacing={2}>
 					<Button
 						variant='outlined'
@@ -62,7 +65,7 @@ const CreateCourse = () => {
 					<Button
 						type='submit'
 						size='small'
-						disabled={!isValid}
+						disabled={!isValid || isSubmitting}
 						variant='contained'
 					>
 						Продолжить
