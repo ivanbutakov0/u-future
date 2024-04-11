@@ -51,7 +51,12 @@ const CreateCourse = () => {
 					</Typography>
 				)}
 				<Stack direction='row' spacing={2}>
-					<Button variant='outlined' size='small' onClick={handleGoBack}>
+					<Button
+						variant='outlined'
+						size='small'
+						color='primary'
+						onClick={handleGoBack}
+					>
 						Отмена
 					</Button>
 					<Button
