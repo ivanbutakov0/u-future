@@ -3,6 +3,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const userRouter = require('./routes/user.route')
+const courseRouter = require('./routes/course.route')
 const { errorMiddleware } = require('./middleware/error.middleware')
 require('dotenv').config()
 
@@ -26,6 +27,7 @@ app.use(
 
 // Routes
 app.use('/api/user', userRouter)
+app.use('/api/course', courseRouter)
 
 // Error handling middleware
 app.use(errorMiddleware)
