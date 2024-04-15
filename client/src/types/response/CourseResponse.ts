@@ -1,6 +1,8 @@
-import { TCourse } from '../TCourse'
-
 export type CourseResponse = {
-	data: TCourse
-	status: number
+	id: string
+	title: string
+	userId: string
+	isPublished: boolean
+	createdAt: string
+	updatedAt: string
 }

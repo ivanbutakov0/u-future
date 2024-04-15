@@ -3,6 +3,7 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { z } from 'zod'
 import createCourseSchema from '../libs/zod/createCourseSchema'
 import { RootState } from '../redux/store'
@@ -29,11 +30,10 @@ const CreateCourse = () => {
 
 		try {
 			const response = await createCourse(data.name, userId!)
-
-			// TODO: add notification
-			console.log(response)
+			toast.success(`Курс "${response.data.title}" успешно создан`)
+			navigate('/')
 		} catch (err: any) {
-			// TODO: add notification
+			toast.error('Произошла ошибка при создании курса')
 			console.log(err)
 		}
 	}
