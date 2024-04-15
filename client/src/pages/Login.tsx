@@ -34,7 +34,6 @@ const LoginForm = () => {
 	const onSubmit: SubmitHandler<TLoginSchema> = async data => {
 		try {
 			const response = await login(data.email, data.password)
-			console.log(response)
 			localStorage.setItem('token', response.data.accessToken)
 			dispatch(setCurrentUser(response.data.userData))
 			navigate('/')

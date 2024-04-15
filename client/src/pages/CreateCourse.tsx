@@ -1,13 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import createCourseSchema from '../libs/zod/createCourseSchema'
+import { RootState } from '../redux/store'
+import { createCourse } from '../services/CourseService'
 
 type TCreateCourseSchema = z.infer<typeof createCourseSchema>
 
 const CreateCourse = () => {
+	const userId = useSelector((state: RootState) => state.user.currentUser?._id)
 	const {
 		register,
 		handleSubmit,
@@ -19,7 +23,19 @@ const CreateCourse = () => {
 	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<TCreateCourseSchema> = async data => {
-		console.log(data.name)
+		if (!userId) {
+			navigate('/login')
+		}
+
+		try {
+			const response = await createCourse(data.name, userId!)
+
+			// TODO: add notification
+			console.log(response)
+		} catch (err: any) {
+			// TODO: add notification
+			console.log(err)
+		}
 	}
 
 	const handleGoBack = () => {
