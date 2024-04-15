@@ -1,4 +1,7 @@
-const { createCourseService } = require('../services/course.servise')
+const {
+	createCourseService,
+	getCourseService,
+} = require('../services/course.servise')
 
 const createCourse = async (req, res, next) => {
 	try {
@@ -11,4 +14,15 @@ const createCourse = async (req, res, next) => {
 	}
 }
 
-module.exports = { createCourse }
+const editCourse = async (req, res, next) => {
+	const { id } = req.params
+
+	try {
+		const course = getCourseService(id)
+		res.json(course)
+	} catch (err) {
+		next(err)
+	}
+}
+
+module.exports = { createCourse, editCourse }
