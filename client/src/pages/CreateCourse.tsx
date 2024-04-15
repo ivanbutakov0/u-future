@@ -26,6 +26,7 @@ const CreateCourse = () => {
 	const onSubmit: SubmitHandler<TCreateCourseSchema> = async data => {
 		if (!userId) {
 			navigate('/login')
+			toast.error('Для создания курса необходимо авторизоваться')
 		}
 
 		try {
