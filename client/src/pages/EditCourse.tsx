@@ -1,6 +1,8 @@
+import { Box, Grid, Typography, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import TitleForm from '../components/EditCourse/TitleForm'
 import { getCourse } from '../services/CourseService'
 import { CourseResponse } from '../types/response/CourseResponse'
 
@@ -8,6 +10,7 @@ const EditCourse = () => {
 	const params = useParams()
 	const [courseData, setCourseData] = useState<CourseResponse | null>(null)
 	const navigate = useNavigate()
+	const theme = useTheme()
 
 	useEffect(() => {
 		const fetchCourse = async () => {
@@ -26,9 +29,15 @@ const EditCourse = () => {
 	}, [])
 
 	return (
-		<div>
-			<h1>Курс: {courseData?.title}</h1>
-		</div>
+		<Box component='section' sx={{ pt: 4 }}>
+			<Typography variant='h4'>Редактирование курса</Typography>
+			<Grid container spacing={4} sx={{ mt: 2 }}>
+				<Grid item xs={6}>
+					<TitleForm initialData={courseData} setData={setCourseData} />
+				</Grid>
+				<Grid item xs={6}></Grid>
+			</Grid>
+		</Box>
 	)
 }
 export default EditCourse
