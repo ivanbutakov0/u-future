@@ -2,6 +2,7 @@ import { Box, Grid, Typography, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import DescForm from '../components/EditCourse/DescForm'
 import TitleForm from '../components/EditCourse/TitleForm'
 import { getCourse } from '../services/CourseService'
 import { CourseResponse } from '../types/response/CourseResponse'
@@ -32,10 +33,12 @@ const EditCourse = () => {
 		<Box component='section' sx={{ pt: 4 }}>
 			<Typography variant='h4'>Редактирование курса</Typography>
 			<Grid container spacing={4} sx={{ mt: 2 }}>
-				<Grid item xs={6}>
+				<Grid item xs={12} md={6}>
 					<TitleForm initialData={courseData} setData={setCourseData} />
 				</Grid>
-				<Grid item xs={6}></Grid>
+				<Grid item xs={12} md={6}>
+					<DescForm initialData={courseData} setData={setCourseData} />
+				</Grid>
 			</Grid>
 		</Box>
 	)

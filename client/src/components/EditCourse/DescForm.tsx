@@ -13,7 +13,7 @@ import {
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { titleFormSchema } from '../../libs/zod/editCourseSchemas'
+import { descFormSchema } from '../../libs/zod/editCourseSchemas'
 import { CourseResponse } from '../../types/response/CourseResponse'
 
 type Props = {
@@ -21,9 +21,9 @@ type Props = {
 	setData: (data: CourseResponse) => void
 }
 
-type TLoginSchema = z.infer<typeof titleFormSchema>
+type TLoginSchema = z.infer<typeof descFormSchema>
 
-const TitleForm = ({ initialData, setData }: Props) => {
+const DescForm = ({ initialData, setData }: Props) => {
 	const [isEditing, setIsEditing] = useState(false)
 	const theme = useTheme()
 	const {
@@ -31,7 +31,7 @@ const TitleForm = ({ initialData, setData }: Props) => {
 		handleSubmit,
 		formState: { errors, isSubmitting },
 	} = useForm<TLoginSchema>({
-		resolver: zodResolver(titleFormSchema),
+		resolver: zodResolver(descFormSchema),
 	})
 
 	const handleEditClick = () => {
@@ -41,7 +41,7 @@ const TitleForm = ({ initialData, setData }: Props) => {
 	const onSubmit: SubmitHandler<TLoginSchema> = async data => {
 		setData({
 			...initialData!,
-			title: data.title,
+			description: data.description,
 		})
 		setIsEditing(false)
 	}
@@ -55,7 +55,7 @@ const TitleForm = ({ initialData, setData }: Props) => {
 				justifyContent={'space-between'}
 			>
 				<Typography variant='body1' component='p' sx={{ fontWeight: 'bold' }}>
-					Название курса
+					Описание курса
 				</Typography>
 				{!isEditing ? (
 					<Stack
@@ -87,7 +87,7 @@ const TitleForm = ({ initialData, setData }: Props) => {
 			</Stack>
 			{!isEditing ? (
 				<Typography component='p' sx={{ mt: 2 }}>
-					{initialData?.title || `Введите название курса`}
+					{initialData?.description || '...'}
 				</Typography>
 			) : (
 				<Box component='form' onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -100,16 +100,16 @@ const TitleForm = ({ initialData, setData }: Props) => {
 							<TextField
 								margin='normal'
 								required
-								id='title'
-								label='Название курса'
+								id='description'
+								label='Описание курса'
 								autoFocus
 								size='small'
-								defaultValue={initialData?.title}
-								{...register('title')}
+								defaultValue={initialData?.description}
+								{...register('description')}
 							/>
-							{errors.title && (
+							{errors.description && (
 								<Typography variant='body2' color='error' component='p'>
-									{errors.title.message}
+									{errors.description.message}
 								</Typography>
 							)}
 						</Box>
@@ -132,4 +132,4 @@ const TitleForm = ({ initialData, setData }: Props) => {
 		</Paper>
 	)
 }
-export default TitleForm
+export default DescForm
