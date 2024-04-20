@@ -10,16 +10,7 @@ import { CourseResponse } from '../types/response/CourseResponse'
 
 const EditCourse = () => {
 	const params = useParams()
-	const [courseData, setCourseData] = useState<CourseResponse>({
-		id: '',
-		title: '',
-		userId: '',
-		isPublished: false,
-		description: '',
-		imageUrl: '',
-		createdAt: '',
-		updatedAt: '',
-	})
+	const [courseData, setCourseData] = useState<CourseResponse | null>(null)
 	const navigate = useNavigate()
 
 	useEffect(() => {

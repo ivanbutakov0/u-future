@@ -4,7 +4,6 @@ import EditIcon from '@mui/icons-material/Edit'
 import {
 	Box,
 	Button,
-	Paper,
 	Stack,
 	TextField,
 	Typography,
@@ -15,6 +14,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { descFormSchema } from '../../libs/zod/editCourseSchemas'
 import { CourseResponse } from '../../types/response/CourseResponse'
+import CardBackground from './CardBackground'
 
 type Props = {
 	initialData: CourseResponse | null
@@ -47,10 +47,7 @@ const DescForm = ({ initialData, setData }: Props) => {
 	}
 
 	return (
-		<Paper
-			elevation={3}
-			sx={{ backgroundColor: theme.palette.secondary.light, p: 3 }}
-		>
+		<CardBackground>
 			<Stack
 				direction='row'
 				spacing={1}
@@ -132,7 +129,7 @@ const DescForm = ({ initialData, setData }: Props) => {
 					</Stack>
 				</Box>
 			)}
-		</Paper>
+		</CardBackground>
 	)
 }
 export default DescForm

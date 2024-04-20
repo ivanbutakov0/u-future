@@ -4,7 +4,6 @@ import ImageIcon from '@mui/icons-material/Image'
 import {
 	Box,
 	CircularProgress,
-	Paper,
 	Stack,
 	Typography,
 	useTheme,
@@ -20,6 +19,7 @@ import { useDropzone } from 'react-dropzone'
 import { toast } from 'react-toastify'
 import { app } from '../../libs/firebase'
 import { CourseResponse } from '../../types/response/CourseResponse'
+import CardBackground from './CardBackground'
 
 type Props = {
 	initialData: CourseResponse | null
@@ -99,10 +99,7 @@ const ImageForm = ({ initialData, setData }: Props) => {
 	}
 
 	return (
-		<Paper
-			elevation={3}
-			sx={{ backgroundColor: theme.palette.secondary.light, p: 3 }}
-		>
+		<CardBackground>
 			<Stack
 				direction='row'
 				spacing={1}
@@ -204,7 +201,7 @@ const ImageForm = ({ initialData, setData }: Props) => {
 
 				{isUploading && <CircularProgress />}
 			</Box>
-		</Paper>
+		</CardBackground>
 	)
 }
 export default ImageForm
