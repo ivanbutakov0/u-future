@@ -4,6 +4,7 @@ export type CourseResponse = {
 	userId: string
 	isPublished: boolean
 	description?: string
+	imageUrl?: string
 	createdAt: string
 	updatedAt: string
 }

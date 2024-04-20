@@ -47,7 +47,10 @@ const DescForm = ({ initialData, setData }: Props) => {
 	}
 
 	return (
-		<Paper sx={{ backgroundColor: theme.palette.secondary.light, p: 3 }}>
+		<Paper
+			elevation={3}
+			sx={{ backgroundColor: theme.palette.secondary.light, p: 3 }}
+		>
 			<Stack
 				direction='row'
 				spacing={1}

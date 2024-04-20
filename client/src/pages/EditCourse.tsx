@@ -1,17 +1,26 @@
-import { Box, Grid, Typography, useTheme } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import DescForm from '../components/EditCourse/DescForm'
+import ImageForm from '../components/EditCourse/ImageForm'
 import TitleForm from '../components/EditCourse/TitleForm'
 import { getCourse } from '../services/CourseService'
 import { CourseResponse } from '../types/response/CourseResponse'
 
 const EditCourse = () => {
 	const params = useParams()
-	const [courseData, setCourseData] = useState<CourseResponse | null>(null)
+	const [courseData, setCourseData] = useState<CourseResponse>({
+		id: '',
+		title: '',
+		userId: '',
+		isPublished: false,
+		description: '',
+		imageUrl: '',
+		createdAt: '',
+		updatedAt: '',
+	})
 	const navigate = useNavigate()
-	const theme = useTheme()
 
 	useEffect(() => {
 		const fetchCourse = async () => {
@@ -38,6 +47,9 @@ const EditCourse = () => {
 				</Grid>
 				<Grid item xs={12} md={6}>
 					<DescForm initialData={courseData} setData={setCourseData} />
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<ImageForm initialData={courseData} setData={setCourseData} />
 				</Grid>
 			</Grid>
 		</Box>
