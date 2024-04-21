@@ -16,6 +16,6 @@ const ParentCategorySchema = new mongoose.Schema(
 	{ timestamps: true }
 )
 
-const ParentCategory = mongoose.model('Category', ParentCategorySchema)
+const ParentCategory = mongoose.model('ParentCategory', ParentCategorySchema)
 
 module.exports = ParentCategory
