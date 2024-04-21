@@ -9,8 +9,10 @@ import {
 	ListSubheader,
 	Typography,
 } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getAllParentCategories } from '../../services/CategoryService'
 import { CourseResponse } from '../../types/response/CourseResponse'
+import { ParentCategory } from '../../types/TParentCategory'
 import CardBackground from './CardBackground'
 
 type Props = {
@@ -20,7 +22,23 @@ type Props = {
 
 const CourseForm = ({ initialData, setData }: Props) => {
 	const [open, setOpen] = useState(false)
-	const [category, setCategory] = useState<string>('')
+	const [parentCategories, setParentCategories] = useState<ParentCategory[]>([])
+
+	useEffect(() => {
+		const getCategories = async () => {
+			try {
+				const parentCategories = await getAllParentCategories()
+				if (!parentCategories) {
+					console.log('No parent categories')
+					return
+				}
+				setParentCategories(parentCategories.data)
+			} catch (err) {
+				console.log(err)
+			}
+		}
+		getCategories()
+	}, [])
 
 	const handleEditClick = () => {
 		console.log('edit click')
