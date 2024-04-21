@@ -1,14 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import CloseIcon from '@mui/icons-material/Close'
 import EditIcon from '@mui/icons-material/Edit'
-import {
-	Box,
-	Button,
-	Stack,
-	TextField,
-	Typography,
-	useTheme,
-} from '@mui/material'
+import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -25,7 +18,6 @@ type TLoginSchema = z.infer<typeof titleFormSchema>
 
 const TitleForm = ({ initialData, setData }: Props) => {
 	const [isEditing, setIsEditing] = useState(false)
-	const theme = useTheme()
 	const {
 		register,
 		handleSubmit,
