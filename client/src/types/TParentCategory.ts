@@ -1,9 +1,9 @@
-import { Category } from './TCategory'
+import { TCategory } from './TCategory'
 
 export type ParentCategory = {
 	_id: string
 	name: string
-	categories: Category[]
+	categories: TCategory[]
 	createdAt: string
 	updatedAt: string
 }

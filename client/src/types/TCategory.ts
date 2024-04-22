@@ -1,6 +1,6 @@
 import { CourseResponse } from './response/CourseResponse'
 
-export type Category = {
+export type TCategory = {
 	_id: string
 	courses: CourseResponse[]
 	name: string

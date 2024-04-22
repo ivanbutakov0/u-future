@@ -1,10 +1,14 @@
+import { TCategory } from '../TCategory'
+
 export type CourseResponse = {
 	id: string
 	title: string
-	userId: string
-	isPublished: boolean
 	description?: string
+	userId: string
 	imageUrl?: string
+	price?: number
+	isPublished: boolean
+	category?: TCategory
 	createdAt: string
 	updatedAt: string
 }

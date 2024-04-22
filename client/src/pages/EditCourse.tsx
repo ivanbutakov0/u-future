@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import CourseForm from '../components/EditCourse/CourseForm'
+import CategoryForm from '../components/EditCourse/Category/CategoryForm'
 import DescForm from '../components/EditCourse/DescForm'
 import ImageForm from '../components/EditCourse/ImageForm'
 import TitleForm from '../components/EditCourse/TitleForm'
@@ -44,7 +44,7 @@ const EditCourse = () => {
 					<ImageForm initialData={courseData} setData={setCourseData} />
 				</Grid>
 				<Grid item xs={12} md={6}>
-					<CourseForm initialData={courseData} setData={setCourseData} />
+					<CategoryForm initialData={courseData} setData={setCourseData} />
 				</Grid>
 			</Grid>
 		</Box>
