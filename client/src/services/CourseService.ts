@@ -14,3 +14,10 @@ export const getCourse = async (
 ): Promise<AxiosResponse<CourseResponse>> => {
 	return api.get<CourseResponse>(`/course/${courseId}`)
 }
+
+export const editCourseService = async (
+	id: string,
+	data: CourseResponse
+): Promise<AxiosResponse<CourseResponse>> => {
+	return api.put<CourseResponse>(`/course/edit/${id}`, data)
+}

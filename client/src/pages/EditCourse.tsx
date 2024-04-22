@@ -6,7 +6,7 @@ import CategoryForm from '../components/EditCourse/Category/CategoryForm'
 import DescForm from '../components/EditCourse/DescForm'
 import ImageForm from '../components/EditCourse/ImageForm'
 import TitleForm from '../components/EditCourse/TitleForm'
-import { getCourse } from '../services/CourseService'
+import { editCourseService, getCourse } from '../services/CourseService'
 import { CourseResponse } from '../types/response/CourseResponse'
 
 const EditCourse = () => {
@@ -17,9 +17,12 @@ const EditCourse = () => {
 	useEffect(() => {
 		const fetchCourse = async () => {
 			const courseId = params.id
+
 			try {
 				const course = await getCourse(courseId!)
-				setCourseData(course.data)
+				if (!ignore) {
+					setCourseData(course.data)
+				}
 			} catch (err) {
 				console.log(err)
 				toast.error('Курс не найден')
@@ -27,8 +30,27 @@ const EditCourse = () => {
 			}
 		}
 
+		let ignore = false
 		fetchCourse()
+		return () => {
+			ignore = true
+		}
 	}, [])
+
+	useEffect(() => {
+		const editCourse = async () => {
+			try {
+				if (courseData) {
+					await editCourseService(courseData._id, courseData)
+				}
+			} catch (err) {
+				console.log(err)
+				toast.error('Произошла ошибка при редактировании курса')
+			}
+		}
+
+		editCourse()
+	}, [courseData])
 
 	return (
 		<Box component='section' sx={{ pt: 4 }}>

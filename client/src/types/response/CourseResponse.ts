@@ -1,7 +1,7 @@
 import { TCategory } from '../TCategory'
 
 export type CourseResponse = {
-	id: string
+	_id: string
 	title: string
 	description?: string
 	userId: string

@@ -10,11 +10,23 @@ const createCourseService = async (title, userId) => {
 }
 
 const getCourseService = async id => {
-	const course = await Course.findById(id)
+	const course = await Course.findById(id).populate('category')
 	if (!course) {
 		throw errorHandler(404, 'Курс не найден')
 	}
 	return course
 }
 
-module.exports = { createCourseService, getCourseService }
+const editCourseService = async (id, data) => {
+	const editedCourse = await Course.findByIdAndUpdate(id, data, {
+		new: true,
+	})
+
+	if (!editedCourse) {
+		throw errorHandler(404, 'Курс не найден')
+	}
+
+	return editedCourse
+}
+
+module.exports = { createCourseService, getCourseService, editCourseService }
