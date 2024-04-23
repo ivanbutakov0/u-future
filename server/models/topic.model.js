@@ -6,10 +6,9 @@ const CategorySchema = new mongoose.Schema({
 		required: true,
 		unique: true,
 	},
-	courses: {
-		type: [mongoose.Schema.Types.ObjectId],
-		ref: 'Course',
-		required: false,
+	category: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Category',
 	},
 })
 

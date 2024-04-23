@@ -29,6 +29,11 @@ const CourseSchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Category',
 		},
+
+		topics: {
+			type: [mongoose.Schema.Types.ObjectId],
+			ref: 'Topic',
+		},
 	},
 	{ timestamps: true }
 )

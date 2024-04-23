@@ -12,7 +12,7 @@ const CategorySchema = new mongoose.Schema(
 			ref: 'Course',
 			required: false,
 		},
-		topics: {
+		allowedTopics: {
 			type: [mongoose.Schema.Types.ObjectId],
 			ref: 'Topic',
 			required: false,
