@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import CategoryForm from '../components/EditCourse/Category/CategoryForm'
 import DescForm from '../components/EditCourse/DescForm'
 import ImageForm from '../components/EditCourse/ImageForm'
+import PriceForm from '../components/EditCourse/PriceForm'
 import TitleForm from '../components/EditCourse/TitleForm'
 import TopicsForm from '../components/EditCourse/TopicsForm'
 import { editCourseService, getCourse } from '../services/CourseService'
@@ -60,7 +61,7 @@ const EditCourse = () => {
 			</Typography>
 
 			<Stack direction={{ sm: 'row', xs: 'column' }} spacing={4}>
-				<Stack direction='column' spacing={2}>
+				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
 					<Typography variant='h6' sx={{ fontWeight: 'bold' }}>
 						Информация о курсе
 					</Typography>
@@ -74,11 +75,12 @@ const EditCourse = () => {
 						setData={setCourseData}
 					/>
 				</Stack>
-				<Box component='div'>
+				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
 					<Typography variant='h6' sx={{ fontWeight: 'bold' }}>
 						Информация о видео
 					</Typography>
-				</Box>
+					<PriceForm initialData={courseData} setData={setCourseData} />
+				</Stack>
 			</Stack>
 		</Box>
 	)
