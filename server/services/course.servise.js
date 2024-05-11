@@ -1,4 +1,5 @@
 const Course = require('../models/course.model')
+const Topic = require('../models/topic.model')
 const { errorHandler } = require('../utils/error')
 
 const createCourseService = async (title, userId) => {
@@ -10,7 +11,13 @@ const createCourseService = async (title, userId) => {
 }
 
 const getCourseService = async id => {
-	const course = await Course.findById(id).populate('category')
+	const course = await Course.findById(id)
+		.populate({
+			path: 'category',
+			populate: 'allowedTopics',
+		})
+		.populate('topics')
+
 	if (!course) {
 		throw errorHandler(404, 'Курс не найден')
 	}

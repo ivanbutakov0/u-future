@@ -7,3 +7,7 @@ export const titleFormSchema = z.object({
 export const descFormSchema = z.object({
 	description: z.string().min(1, { message: 'Введите описание' }),
 })
+
+export const topicFormSchema = z.object({
+	topics: z.array(z.string()).min(1, { message: 'Выберите хотя бы одну тему' }),
+})

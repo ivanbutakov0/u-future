@@ -6,6 +6,7 @@ import CategoryForm from '../components/EditCourse/Category/CategoryForm'
 import DescForm from '../components/EditCourse/DescForm'
 import ImageForm from '../components/EditCourse/ImageForm'
 import TitleForm from '../components/EditCourse/TitleForm'
+import TopicsForm from '../components/EditCourse/TopicsForm'
 import { editCourseService, getCourse } from '../services/CourseService'
 import { CourseResponse } from '../types/response/CourseResponse'
 
@@ -24,7 +25,7 @@ const EditCourse = () => {
 					setCourseData(course.data)
 				}
 			} catch (err) {
-				console.log(err)
+				console.log('error', err)
 				toast.error('Курс не найден')
 				navigate('/')
 			}
@@ -53,7 +54,7 @@ const EditCourse = () => {
 	}, [courseData])
 
 	return (
-		<Box component='section' sx={{ pt: 4 }}>
+		<Box component='section' sx={{ pt: 4, pb: 2 }}>
 			<Typography variant='h4'>Редактирование курса</Typography>
 			<Grid container spacing={4} sx={{ mt: 2 }}>
 				<Grid item xs={12} md={6}>
@@ -67,6 +68,13 @@ const EditCourse = () => {
 				</Grid>
 				<Grid item xs={12} md={6}>
 					<CategoryForm initialData={courseData} setData={setCourseData} />
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<TopicsForm
+						topics={courseData?.category?.allowedTopics}
+						initialData={courseData}
+						setData={setCourseData}
+					/>
 				</Grid>
 			</Grid>
 		</Box>

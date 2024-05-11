@@ -1,17 +1,20 @@
 const mongoose = require('mongoose')
 
-const CategorySchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
-		unique: true,
+const TopicSchema = new mongoose.Schema(
+	{
+		name: {
+			type: String,
+			required: true,
+			unique: true,
+		},
+		category: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Category',
+		},
 	},
-	category: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Category',
-	},
-})
+	{ timestamps: true }
+)
 
-const Topic = mongoose.model('Topic', CategorySchema)
+const Topic = mongoose.model('Topic', TopicSchema)
 
 module.exports = Topic
