@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -54,29 +54,32 @@ const EditCourse = () => {
 	}, [courseData])
 
 	return (
-		<Box component='section' sx={{ pt: 4, pb: 2 }}>
-			<Typography variant='h4'>Редактирование курса</Typography>
-			<Grid container spacing={4} sx={{ mt: 2 }}>
-				<Grid item xs={12} md={6}>
+		<Box component='section' sx={{ pt: 4, pb: 4 }}>
+			<Typography variant='h4' sx={{ mb: 6 }}>
+				Редактирование курса
+			</Typography>
+
+			<Stack direction={{ sm: 'row', xs: 'column' }} spacing={4}>
+				<Stack direction='column' spacing={2}>
+					<Typography variant='h6' sx={{ fontWeight: 'bold' }}>
+						Информация о курсе
+					</Typography>
 					<TitleForm initialData={courseData} setData={setCourseData} />
-				</Grid>
-				<Grid item xs={12} md={6}>
 					<DescForm initialData={courseData} setData={setCourseData} />
-				</Grid>
-				<Grid item xs={12} md={6}>
 					<ImageForm initialData={courseData} setData={setCourseData} />
-				</Grid>
-				<Grid item xs={12} md={6}>
 					<CategoryForm initialData={courseData} setData={setCourseData} />
-				</Grid>
-				<Grid item xs={12} md={6}>
 					<TopicsForm
 						topics={courseData?.category?.allowedTopics}
 						initialData={courseData}
 						setData={setCourseData}
 					/>
-				</Grid>
-			</Grid>
+				</Stack>
+				<Box component='div'>
+					<Typography variant='h6' sx={{ fontWeight: 'bold' }}>
+						Информация о видео
+					</Typography>
+				</Box>
+			</Stack>
 		</Box>
 	)
 }
