@@ -128,7 +128,7 @@ const TopicsForm = ({ topics, initialData, setData }: Props) => {
 								{index === (initialData?.topics?.length ?? 0) - 1 ? '. ' : ', '}
 							</Typography>
 					  ))
-					: '...'}
+					: 'Нет тематики'}
 			</Typography>
 
 			{isEditing && (

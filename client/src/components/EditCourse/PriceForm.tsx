@@ -88,7 +88,7 @@ const PriceForm = ({ initialData, setData }: Props) => {
 			</Stack>
 			{!isEditing ? (
 				<Typography component='p' sx={{ mt: 2 }}>
-					{initialData?.price + '₽' || '...'}
+					{initialData?.price + '₽' || 'Нет цены'}
 				</Typography>
 			) : (
 				<Box component='form' onSubmit={handleSubmit(onSubmit)} noValidate>

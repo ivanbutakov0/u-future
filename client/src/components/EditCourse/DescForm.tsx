@@ -87,7 +87,7 @@ const DescForm = ({ initialData, setData }: Props) => {
 			</Stack>
 			{!isEditing ? (
 				<Typography component='p' sx={{ mt: 2 }}>
-					{initialData?.description || '...'}
+					{initialData?.description || 'Нет описания'}
 				</Typography>
 			) : (
 				<Box component='form' onSubmit={handleSubmit(onSubmit)} noValidate>

@@ -79,7 +79,7 @@ const TitleForm = ({ initialData, setData }: Props) => {
 			</Stack>
 			{!isEditing ? (
 				<Typography component='p' sx={{ mt: 2 }}>
-					{initialData?.title || `Введите название курса`}
+					{initialData?.title || 'Нет названия'}
 				</Typography>
 			) : (
 				<Box component='form' onSubmit={handleSubmit(onSubmit)} noValidate>
