@@ -1,5 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import CategoryForm from '../components/EditCourse/Category/CategoryForm'
@@ -9,16 +10,22 @@ import ImageForm from '../components/EditCourse/ImageForm'
 import PriceForm from '../components/EditCourse/PriceForm'
 import TitleForm from '../components/EditCourse/TitleForm'
 import TopicsForm from '../components/EditCourse/TopicsForm'
+import { RootState } from '../redux/store'
 import { editCourseService, getCourse } from '../services/CourseService'
 import { CourseResponse } from '../types/response/CourseResponse'
 
 const EditCourse = () => {
 	const params = useParams()
 	const [courseData, setCourseData] = useState<CourseResponse | null>(null)
+	const [isFetching, setIsFetching] = useState<boolean>(true)
+	const user = useSelector((state: RootState) => state.user.currentUser)
 	const navigate = useNavigate()
+
+	// TODO: create skeleton if isFetching
 
 	useEffect(() => {
 		const fetchCourse = async () => {
+			setIsFetching(true)
 			const courseId = params.id
 
 			try {
@@ -26,7 +33,9 @@ const EditCourse = () => {
 				if (!ignore) {
 					setCourseData(course.data)
 				}
+				setIsFetching(false)
 			} catch (err) {
+				setIsFetching(false)
 				console.log('error', err)
 				toast.error('Курс не найден')
 				navigate('/')
@@ -54,6 +63,16 @@ const EditCourse = () => {
 
 		editCourse()
 	}, [courseData])
+
+	useEffect(() => {
+		const courseUserId = courseData?.userId.toString()
+		const userId = user?._id.toString()
+
+		if (!isFetching && courseUserId !== userId) {
+			toast.error('Этот курс не принадлежит вам')
+			navigate('/')
+		}
+	}, [isFetching])
 
 	return (
 		<Box component='section' sx={{ pt: 4, pb: 4 }}>
