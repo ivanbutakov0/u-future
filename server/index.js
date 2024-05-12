@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const userRouter = require('./routes/user.route')
 const courseRouter = require('./routes/course.route')
 const categoryRouter = require('./routes/category.route')
+const chapterRouter = require('./routes/chapter.route')
 const { errorMiddleware } = require('./middleware/error.middleware')
 require('dotenv').config()
 
@@ -30,6 +31,7 @@ app.use(
 app.use('/api/user', userRouter)
 app.use('/api/course', courseRouter)
 app.use('/api/category', categoryRouter)
+app.use('/api/chapter', chapterRouter)
 
 // Error handling middleware
 app.use(errorMiddleware)
