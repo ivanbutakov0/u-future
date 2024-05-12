@@ -25,15 +25,17 @@ const CourseSchema = new mongoose.Schema(
 			type: Boolean,
 			default: false,
 		},
-
 		category: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Category',
 		},
-
 		topics: {
 			type: [mongoose.Schema.Types.ObjectId],
 			ref: 'Topic',
+		},
+		chapters: {
+			type: [mongoose.Schema.Types.ObjectId],
+			ref: 'Chapter',
 		},
 	},
 	{ timestamps: true }
