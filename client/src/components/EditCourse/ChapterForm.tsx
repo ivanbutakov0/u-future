@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { titleFormSchema } from '../../libs/zod/editCourseSchemas'
+import { createChapter } from '../../services/ChapterService'
 import { CourseResponse } from '../../types/response/CourseResponse'
 import CardBackground from './CardBackground'
 
@@ -31,7 +32,24 @@ const ChaptersForm = ({ initialData, setData }: Props) => {
 	}
 
 	const onSubmit: SubmitHandler<TChaptersSchema> = async data => {
-		console.log('new chapter: ', data.title)
+		try {
+			const response = await createChapter(data.title, initialData?._id!)
+			const newChapter = response.data
+			if (initialData?.chapters) {
+				setData({
+					...initialData,
+					chapters: [...initialData.chapters, newChapter],
+				})
+			} else {
+				setData({
+					...initialData!,
+					chapters: [newChapter],
+				})
+			}
+		} catch (err) {
+			console.log(err)
+		}
+		setIsCreating(false)
 	}
 
 	return (
@@ -81,8 +99,17 @@ const ChaptersForm = ({ initialData, setData }: Props) => {
 								Нет глав
 							</Typography>
 						) : (
-							// TODO: Add chapters list
-							<p>chapters list</p>
+							initialData?.chapters?.map(chapter => (
+								// TODO: create chapter list
+								<Typography
+									key={chapter._id}
+									variant='body2'
+									component='p'
+									sx={{ mt: 2 }}
+								>
+									{chapter.title}
+								</Typography>
+							))
 						)}
 					</Box>
 					<Typography

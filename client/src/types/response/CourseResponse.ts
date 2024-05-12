@@ -12,7 +12,7 @@ export type CourseResponse = {
 	isPublished: boolean
 	category?: TCategory
 	topics?: TTopic[]
+	chapters?: TChapter[]
 	createdAt: string
 	updatedAt: string
-	chapters?: TChapter[]
 }

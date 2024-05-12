@@ -17,6 +17,7 @@ const getCourseService = async id => {
 			populate: 'allowedTopics',
 		})
 		.populate('topics')
+		.populate('chapters')
 
 	if (!course) {
 		throw errorHandler(404, 'Курс не найден')
