@@ -1,4 +1,5 @@
 import { TCategory } from '../TCategory'
+import { TChapter } from '../TChapter'
 import { TTopic } from '../TTopic'
 
 export type CourseResponse = {
@@ -13,4 +14,5 @@ export type CourseResponse = {
 	topics?: TTopic[]
 	createdAt: string
 	updatedAt: string
+	chapters?: TChapter[]
 }

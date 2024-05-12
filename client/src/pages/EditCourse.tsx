@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import CategoryForm from '../components/EditCourse/Category/CategoryForm'
+import ChaptersForm from '../components/EditCourse/ChapterForm'
 import DescForm from '../components/EditCourse/DescForm'
 import ImageForm from '../components/EditCourse/ImageForm'
 import PriceForm from '../components/EditCourse/PriceForm'
@@ -79,6 +80,7 @@ const EditCourse = () => {
 					<Typography variant='h6' sx={{ fontWeight: 'bold' }}>
 						Информация о видео
 					</Typography>
+					<ChaptersForm initialData={courseData} setData={setCourseData} />
 					<PriceForm initialData={courseData} setData={setCourseData} />
 				</Stack>
 			</Stack>
