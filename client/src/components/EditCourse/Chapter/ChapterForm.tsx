@@ -5,10 +5,11 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { titleFormSchema } from '../../libs/zod/editCourseSchemas'
-import { createChapter } from '../../services/ChapterService'
-import { CourseResponse } from '../../types/response/CourseResponse'
-import CardBackground from './CardBackground'
+import { titleFormSchema } from '../../../libs/zod/editCourseSchemas'
+import { createChapter } from '../../../services/ChapterService'
+import { CourseResponse } from '../../../types/response/CourseResponse'
+import CardBackground from '../CardBackground'
+import ChaptersList from './ChaptersList'
 
 type Props = {
 	initialData: CourseResponse | null
@@ -59,6 +60,7 @@ const ChaptersForm = ({ initialData, setData }: Props) => {
 				spacing={1}
 				alignItems={'center'}
 				justifyContent={'space-between'}
+				sx={{ mb: 2 }}
 			>
 				<Typography variant='body1' component='p' sx={{ fontWeight: 'bold' }}>
 					Главы курса
@@ -99,17 +101,11 @@ const ChaptersForm = ({ initialData, setData }: Props) => {
 								Нет глав
 							</Typography>
 						) : (
-							initialData?.chapters?.map(chapter => (
-								// TODO: create chapter list
-								<Typography
-									key={chapter._id}
-									variant='body2'
-									component='p'
-									sx={{ mt: 2 }}
-								>
-									{chapter.title}
-								</Typography>
-							))
+							<ChaptersList
+								onEdit={() => {}}
+								onReorder={() => {}}
+								chapters={initialData?.chapters || []}
+							/>
 						)}
 					</Box>
 					<Typography
