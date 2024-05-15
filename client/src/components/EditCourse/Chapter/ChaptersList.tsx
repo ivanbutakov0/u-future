@@ -1,20 +1,60 @@
-import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd'
+import {
+	DragDropContext,
+	Draggable,
+	Droppable,
+	DropResult,
+} from '@hello-pangea/dnd'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
 import EditIcon from '@mui/icons-material/Edit'
 import { Box, Chip, useTheme } from '@mui/material'
 import { blueGrey } from '@mui/material/colors'
+import { useEffect, useState } from 'react'
 import { TChapter } from '../../../types/TChapter'
 
 type ChaptersListProps = {
 	onEdit: (chapterId: string) => void
-	onReorder: () => void
-	chapters: TChapter[]
+	onReorder: (
+		bulkUpdateData: { id: string; position: number }[]
+	) => Promise<void>
+	items: TChapter[]
 }
 
-const ChaptersList = ({ onEdit, onReorder, chapters }: ChaptersListProps) => {
+const ChaptersList = ({ onEdit, onReorder, items }: ChaptersListProps) => {
+	const [chapters, setChapters] = useState<TChapter[]>(items)
 	const theme = useTheme()
+
+	useEffect(() => {
+		setChapters(items)
+	}, [items])
+
+	const onDragEnd = (result: DropResult) => {
+		const { destination, source } = result
+
+		if (!destination) return
+
+		if (destination.index === source.index) return
+
+		const items = Array.from(chapters)
+		const [reorderedItem] = items.splice(source.index, 1)
+		items.splice(destination.index, 0, reorderedItem)
+
+		setChapters(items)
+
+		const startIndex = Math.min(source.index, destination.index)
+		const endIndex = Math.max(source.index, destination.index)
+
+		const updatedChapters = items.slice(startIndex, endIndex + 1)
+
+		const bulkUpdateData = updatedChapters.map(chapter => ({
+			id: chapter._id,
+			position: items.findIndex(item => item._id === chapter._id),
+		}))
+
+		onReorder(bulkUpdateData)
+	}
+
 	return (
-		<DragDropContext onDragEnd={() => {}}>
+		<DragDropContext onDragEnd={onDragEnd}>
 			<Droppable droppableId='chapters'>
 				{provided => (
 					<Box

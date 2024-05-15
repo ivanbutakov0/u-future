@@ -1,4 +1,7 @@
-const { createChapterService } = require('../services/chapter.servise')
+const {
+	createChapterService,
+	updateChapterService,
+} = require('../services/chapter.servise')
 const { getCourseService } = require('../services/course.servise')
 
 const createChapter = async (req, res, next) => {
@@ -32,4 +35,23 @@ const createChapter = async (req, res, next) => {
 	}
 }
 
-module.exports = { createChapter }
+const reorderChapter = async (req, res, next) => {
+	try {
+		const { updateData } = req.body
+
+		if (!updateData) {
+			throw new Error('Update data is required')
+		}
+
+		// TODO: check if user is the owner of the course
+
+		updateData.forEach(async updateData => {
+			await updateChapterService(updateData)
+		})
+		res.status(200).json({ success: true })
+	} catch (err) {
+		next(err)
+	}
+}
+
+module.exports = { createChapter, reorderChapter }

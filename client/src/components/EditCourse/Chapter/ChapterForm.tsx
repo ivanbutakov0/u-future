@@ -1,12 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CloseIcon from '@mui/icons-material/Close'
+import SyncIcon from '@mui/icons-material/Sync'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { z } from 'zod'
 import { titleFormSchema } from '../../../libs/zod/editCourseSchemas'
-import { createChapter } from '../../../services/ChapterService'
+import { createChapter, reorderChapter } from '../../../services/ChapterService'
 import { CourseResponse } from '../../../types/response/CourseResponse'
 import CardBackground from '../CardBackground'
 import ChaptersList from './ChaptersList'
@@ -20,6 +22,7 @@ type TChaptersSchema = z.infer<typeof titleFormSchema>
 
 const ChaptersForm = ({ initialData, setData }: Props) => {
 	const [isCreating, setIsCreating] = useState(false)
+	const [isUpdating, setIsUpdating] = useState(false)
 	const {
 		register,
 		handleSubmit,
@@ -53,8 +56,52 @@ const ChaptersForm = ({ initialData, setData }: Props) => {
 		setIsCreating(false)
 	}
 
+	const onReorder = async (updateData: { id: string; position: number }[]) => {
+		try {
+			setIsUpdating(true)
+			await reorderChapter(updateData)
+			toast.success('Порядок глав успешно изменен')
+		} catch (err) {
+			console.log(err)
+			toast.error('Возникла ошибка')
+		} finally {
+			setIsUpdating(false)
+		}
+	}
+
 	return (
 		<CardBackground>
+			{isUpdating && (
+				<Box
+					component='div'
+					sx={{
+						left: 0,
+						top: 0,
+						position: 'absolute',
+						height: '100%',
+						width: '100%',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						backgroundColor: 'rgba(0, 0, 0, 0.1)',
+						borderRadius: 2,
+					}}
+				>
+					<SyncIcon
+						sx={{
+							animation: 'spin 2s linear infinite',
+							'@keyframes spin': {
+								'0%': {
+									transform: 'rotate(0deg)',
+								},
+								'100%': {
+									transform: 'rotate(360deg)',
+								},
+							},
+						}}
+					/>
+				</Box>
+			)}
 			<Stack
 				direction='row'
 				spacing={1}
@@ -103,8 +150,8 @@ const ChaptersForm = ({ initialData, setData }: Props) => {
 						) : (
 							<ChaptersList
 								onEdit={() => {}}
-								onReorder={() => {}}
-								chapters={initialData?.chapters || []}
+								onReorder={onReorder}
+								items={initialData?.chapters || []}
 							/>
 						)}
 					</Box>

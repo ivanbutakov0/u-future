@@ -69,7 +69,7 @@ const EditCourse = () => {
 		const userId = user?._id.toString()
 
 		if (!isFetching && courseUserId !== userId) {
-			toast.error('Этот курс не принадлежит вам')
+			toast.error('Вы не можете редактировать этот курс')
 			navigate('/')
 		}
 	}, [isFetching])

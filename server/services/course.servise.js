@@ -1,3 +1,4 @@
+const { Cursor } = require('mongoose')
 const Course = require('../models/course.model')
 const Topic = require('../models/topic.model')
 const { errorHandler } = require('../utils/error')
@@ -22,6 +23,9 @@ const getCourseService = async id => {
 	if (!course) {
 		throw errorHandler(404, 'Курс не найден')
 	}
+
+	course.chapters.sort((a, b) => a.position - b.position)
+
 	return course
 }
 

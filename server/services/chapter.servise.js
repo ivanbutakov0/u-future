@@ -8,4 +8,9 @@ const createChapterService = async (title, courseId, chapterPosition) => {
 	})
 }
 
-module.exports = { createChapterService }
+const updateChapterService = async updateData => {
+	const { id, position } = updateData
+	await Chapter.findByIdAndUpdate(id, { position })
+}
+
+module.exports = { createChapterService, updateChapterService }

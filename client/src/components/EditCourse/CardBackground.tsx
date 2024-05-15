@@ -10,6 +10,7 @@ const CardBackground = ({ children }: { children: ReactNode }) => {
 				backgroundColor: theme.palette.secondary.light,
 				borderRadius: 2,
 				p: 3,
+				position: 'relative',
 			}}
 		>
 			{children}

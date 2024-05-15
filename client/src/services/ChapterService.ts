@@ -8,3 +8,9 @@ export const createChapter = async (
 ): Promise<AxiosResponse<TChapter>> => {
 	return api.post<TChapter>('/chapter/create', { title, courseId })
 }
+
+export const reorderChapter = async (
+	updateData: { id: string; position: number }[]
+): Promise<AxiosResponse<TChapter>> => {
+	return api.put<TChapter>('/chapter/reorder', { updateData })
+}
