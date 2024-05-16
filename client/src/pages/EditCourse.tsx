@@ -1,3 +1,6 @@
+import AssignmentIcon from '@mui/icons-material/Assignment'
+import ChecklistIcon from '@mui/icons-material/Checklist'
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 import { Box, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -82,8 +85,17 @@ const EditCourse = () => {
 
 			<Stack direction={{ sm: 'row', xs: 'column' }} spacing={4}>
 				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
-					<Typography variant='h6' sx={{ fontWeight: 'bold' }}>
-						Информация о курсе
+					<Typography
+						variant='h6'
+						sx={{
+							fontWeight: 'bold',
+							display: 'flex',
+							alignItems: 'center',
+							gap: 1,
+						}}
+					>
+						<AssignmentIcon />
+						Настройка курса
 					</Typography>
 					<TitleForm initialData={courseData} setData={setCourseData} />
 					<DescForm initialData={courseData} setData={setCourseData} />
@@ -96,10 +108,31 @@ const EditCourse = () => {
 					/>
 				</Stack>
 				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
-					<Typography variant='h6' sx={{ fontWeight: 'bold' }}>
-						Информация о видео
+					<Typography
+						variant='h6'
+						sx={{
+							fontWeight: 'bold',
+							display: 'flex',
+							alignItems: 'center',
+							gap: 1,
+						}}
+					>
+						<ChecklistIcon />
+						Настройка глав
 					</Typography>
 					<ChaptersForm initialData={courseData} setData={setCourseData} />
+					<Typography
+						variant='h6'
+						sx={{
+							fontWeight: 'bold',
+							display: 'flex',
+							alignItems: 'center',
+							gap: 1,
+						}}
+					>
+						<MonetizationOnIcon />
+						Настройка цены
+					</Typography>
 					<PriceForm initialData={courseData} setData={setCourseData} />
 				</Stack>
 			</Stack>
