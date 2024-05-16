@@ -36,12 +36,12 @@ const EditCourse = () => {
 				if (!ignore) {
 					setCourseData(course.data)
 				}
-				setIsFetching(false)
 			} catch (err) {
-				setIsFetching(false)
 				console.log('error', err)
 				toast.error('Курс не найден')
 				navigate('/')
+			} finally {
+				setIsFetching(false)
 			}
 		}
 
@@ -71,11 +71,11 @@ const EditCourse = () => {
 		const courseUserId = courseData?.userId.toString()
 		const userId = user?._id.toString()
 
-		if (!isFetching && courseUserId !== userId) {
+		if (!isFetching && courseUserId && courseUserId !== userId) {
 			toast.error('Вы не можете редактировать этот курс')
 			navigate('/')
 		}
-	}, [isFetching])
+	}, [isFetching, courseData])
 
 	return (
 		<Box component='section' sx={{ pt: 4, pb: 4 }}>

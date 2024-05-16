@@ -5,6 +5,7 @@ import SyncIcon from '@mui/icons-material/Sync'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
 import { titleFormSchema } from '../../../libs/zod/editCourseSchemas'
@@ -23,6 +24,9 @@ type TChaptersSchema = z.infer<typeof titleFormSchema>
 const ChaptersForm = ({ initialData, setData }: Props) => {
 	const [isCreating, setIsCreating] = useState(false)
 	const [isUpdating, setIsUpdating] = useState(false)
+
+	const navigate = useNavigate()
+
 	const {
 		register,
 		handleSubmit,
@@ -67,6 +71,10 @@ const ChaptersForm = ({ initialData, setData }: Props) => {
 		} finally {
 			setIsUpdating(false)
 		}
+	}
+
+	const onEdit = (chapterId: string) => {
+		navigate(`/teachers/edit/${initialData?._id}/chapters/${chapterId}`)
 	}
 
 	return (
@@ -149,7 +157,7 @@ const ChaptersForm = ({ initialData, setData }: Props) => {
 							</Typography>
 						) : (
 							<ChaptersList
-								onEdit={() => {}}
+								onEdit={onEdit}
 								onReorder={onReorder}
 								items={initialData?.chapters || []}
 							/>

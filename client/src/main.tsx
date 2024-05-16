@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Layout from './components/Layout'
 import './index.scss'
 import CreateCourse from './pages/CreateCourse'
+import EditChapter from './pages/EditChapter'
 import EditCourse from './pages/EditCourse'
 import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login'
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
 					{
 						path: '/teachers/edit/:id',
 						element: <EditCourse />,
+					},
+					{
+						path: '/teachers/edit/:courseId/chapters/:chapterId',
+						element: <EditChapter />,
 					},
 				],
 			},
