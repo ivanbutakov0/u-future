@@ -13,4 +13,12 @@ const updateChapterService = async updateData => {
 	await Chapter.findByIdAndUpdate(id, { position })
 }
 
-module.exports = { createChapterService, updateChapterService }
+const getChapterByIdService = async id => {
+	return await Chapter.findById(id)
+}
+
+module.exports = {
+	createChapterService,
+	updateChapterService,
+	getChapterByIdService,
+}

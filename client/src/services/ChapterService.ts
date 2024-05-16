@@ -14,3 +14,9 @@ export const reorderChapter = async (
 ): Promise<AxiosResponse<TChapter>> => {
 	return api.put<TChapter>('/chapter/reorder', { updateData })
 }
+
+export const getChapterById = async (
+	chapterId: string
+): Promise<AxiosResponse<TChapter>> => {
+	return api.get<TChapter>(`/chapter/${chapterId}`)
+}
