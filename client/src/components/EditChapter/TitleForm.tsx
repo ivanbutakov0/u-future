@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { z } from 'zod'
 import { titleFormSchema } from '../../libs/zod/editCourseSchemas'
 import { TChapter } from '../../types/TChapter'
@@ -35,6 +36,7 @@ const TitleForm = ({ initialData, setData }: Props) => {
 			...initialData!,
 			title: data.title,
 		})
+		toast.success('Название главы изменено')
 		setIsEditing(false)
 	}
 

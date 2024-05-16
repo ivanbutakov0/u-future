@@ -20,3 +20,10 @@ export const getChapterById = async (
 ): Promise<AxiosResponse<TChapter>> => {
 	return api.get<TChapter>(`/chapter/${chapterId}`)
 }
+
+export const editChapterService = async (
+	id: string,
+	data: TChapter
+): Promise<AxiosResponse<TChapter>> => {
+	return api.put<TChapter>(`/chapter/edit/${id}`, data)
+}

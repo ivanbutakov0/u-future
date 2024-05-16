@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import TitleForm from '../components/EditChapter/TitleForm'
 import { RootState } from '../redux/store'
-import { getChapterById } from '../services/ChapterService'
+import { editChapterService, getChapterById } from '../services/ChapterService'
 import { TChapter } from '../types/TChapter'
 
 const EditChapter = () => {
@@ -31,6 +31,21 @@ const EditChapter = () => {
 		}
 		fetchChapter()
 	}, [])
+
+	useEffect(() => {
+		const editChapter = async () => {
+			try {
+				if (chapter) {
+					await editChapterService(chapter._id, chapter)
+				}
+			} catch (err) {
+				console.log(err)
+				toast.error('Произошла ошибка при редактировании главы')
+			}
+		}
+
+		editChapter()
+	}, [chapter])
 
 	return (
 		// TODO: create chapter title form
