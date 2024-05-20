@@ -18,19 +18,15 @@ const getChapterByIdService = async id => {
 }
 
 const editChapterService = async (chapterId, data) => {
-	try {
-		const editedChapter = await Chapter.findByIdAndUpdate(chapterId, data, {
-			new: true,
-		})
+	const editedChapter = await Chapter.findByIdAndUpdate(chapterId, data, {
+		new: true,
+	})
 
-		if (!editedChapter) {
-			throw new Error('Chapter not found')
-		}
-
-		return editedChapter
-	} catch (err) {
-		console.log(err)
+	if (!editedChapter) {
+		throw new Error('Chapter not found')
 	}
+
+	return editedChapter
 }
 
 module.exports = {

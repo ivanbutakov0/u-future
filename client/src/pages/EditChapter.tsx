@@ -1,7 +1,9 @@
+import { Box, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import DescForm from '../components/EditChapter/DescForm'
 import TitleForm from '../components/EditChapter/TitleForm'
 import { RootState } from '../redux/store'
 import { editChapterService, getChapterById } from '../services/ChapterService'
@@ -48,12 +50,43 @@ const EditChapter = () => {
 	}, [chapter])
 
 	return (
-		// TODO: create chapter title form
-		<TitleForm initialData={chapter} setData={setChapter} />
+		<Box component='section' sx={{ pt: 4, pb: 4 }}>
+			<Typography variant='h4' sx={{ mb: 6 }}>
+				Редактирование главы курса
+			</Typography>
 
-		// TODO: create chapter description form
-
-		// TODO: create chapter video url form
+			<Stack direction={{ sm: 'row', xs: 'column' }} spacing={4}>
+				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
+					<Typography
+						variant='h6'
+						sx={{
+							fontWeight: 'bold',
+							display: 'flex',
+							alignItems: 'center',
+							gap: 1,
+						}}
+					>
+						Кастомизация главы
+					</Typography>
+					<TitleForm initialData={chapter} setData={setChapter} />
+					<DescForm initialData={chapter} setData={setChapter} />
+				</Stack>
+				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
+					<Typography
+						variant='h6'
+						sx={{
+							fontWeight: 'bold',
+							display: 'flex',
+							alignItems: 'center',
+							gap: 1,
+						}}
+					>
+						Кастомизация видео
+					</Typography>
+					// TODO: create chapter video url form
+				</Stack>
+			</Stack>
+		</Box>
 	)
 }
 export default EditChapter
