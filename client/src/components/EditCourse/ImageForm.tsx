@@ -1,13 +1,7 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import EditIcon from '@mui/icons-material/Edit'
 import ImageIcon from '@mui/icons-material/Image'
-import {
-	Box,
-	CircularProgress,
-	Stack,
-	Typography,
-	useTheme,
-} from '@mui/material'
+import { Box, CircularProgress, Stack, Typography } from '@mui/material'
 import {
 	getDownloadURL,
 	getStorage,
@@ -27,7 +21,6 @@ type Props = {
 }
 
 const ImageForm = ({ initialData, setData }: Props) => {
-	const theme = useTheme()
 	const [file, setFile] = useState<File | null>(null)
 	const [isUploading, setIsUploading] = useState(false)
 

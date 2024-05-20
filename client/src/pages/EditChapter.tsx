@@ -1,7 +1,8 @@
-import { Box, Stack, Typography } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { Box, Link, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import DescForm from '../components/EditChapter/DescForm'
 import TitleForm from '../components/EditChapter/TitleForm'
@@ -51,8 +52,26 @@ const EditChapter = () => {
 
 	return (
 		<Box component='section' sx={{ pt: 4, pb: 4 }}>
+			<Link
+				component={RouterLink}
+				to={`/teachers/edit/${courseId}`}
+				sx={{
+					textDecoration: 'none',
+					color: 'text.primary',
+					display: 'flex',
+					alignItems: 'center',
+					gap: 1,
+					mb: 2,
+					'&:hover': {
+						textDecoration: 'underline',
+					},
+				}}
+			>
+				<ArrowBackIcon sx={{ width: '18px', height: '18px' }} />
+				Вернуться к редактированию курса
+			</Link>
 			<Typography variant='h4' sx={{ mb: 6 }}>
-				Редактирование главы курса
+				Редактирование главы
 			</Typography>
 
 			<Stack direction={{ sm: 'row', xs: 'column' }} spacing={4}>
