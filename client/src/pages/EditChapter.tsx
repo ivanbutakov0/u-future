@@ -1,9 +1,13 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import AssignmentIcon from '@mui/icons-material/Assignment'
+import LockIcon from '@mui/icons-material/Lock'
+import VideoCallIcon from '@mui/icons-material/VideoCall'
 import { Box, Link, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import AccessForm from '../components/EditChapter/AccessFrom'
 import DescForm from '../components/EditChapter/DescForm'
 import TitleForm from '../components/EditChapter/TitleForm'
 import { RootState } from '../redux/store'
@@ -85,10 +89,24 @@ const EditChapter = () => {
 							gap: 1,
 						}}
 					>
+						<AssignmentIcon />
 						Кастомизация главы
 					</Typography>
 					<TitleForm initialData={chapter} setData={setChapter} />
 					<DescForm initialData={chapter} setData={setChapter} />
+					<Typography
+						variant='h6'
+						sx={{
+							fontWeight: 'bold',
+							display: 'flex',
+							alignItems: 'center',
+							gap: 1,
+						}}
+					>
+						<LockIcon />
+						Настройка доступа
+					</Typography>
+					<AccessForm initialData={chapter} setData={setChapter} />
 				</Stack>
 				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
 					<Typography
@@ -100,6 +118,7 @@ const EditChapter = () => {
 							gap: 1,
 						}}
 					>
+						<VideoCallIcon />
 						Кастомизация видео
 					</Typography>
 					// TODO: create chapter video url form

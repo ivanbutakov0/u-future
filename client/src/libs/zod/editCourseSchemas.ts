@@ -15,3 +15,7 @@ export const topicFormSchema = z.object({
 export const priceFormSchema = z.object({
 	price: z.coerce.number().min(50, { message: 'Минимальная цена 50₽' }),
 })
+
+export const accessFromSchema = z.object({
+	isFree: z.boolean(),
+})
