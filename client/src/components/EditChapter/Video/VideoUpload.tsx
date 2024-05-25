@@ -1,4 +1,4 @@
-import { Tab, Tabs } from '@mui/material'
+import { Tab, Tabs, Typography } from '@mui/material'
 import { useState } from 'react'
 import { TChapter } from '../../../types/TChapter'
 import CardBackground from '../../EditCourse/CardBackground'
@@ -27,7 +27,10 @@ const VideoUpload = ({ initialData, setData }: VideoUploadProps) => {
 				<LinkVideoForm initialData={initialData} setData={setData} />
 			</CustomTabPanel>
 			<CustomTabPanel currentTabIndex={currentTabIndex} index={1}>
-				Item two
+				<Typography variant='body1' component='p' sx={{ mt: 2 }}>
+					Данный функционал находится в разработке, воспользуйтесь
+					альтернативным решением.
+				</Typography>
 			</CustomTabPanel>
 		</CardBackground>
 	)
