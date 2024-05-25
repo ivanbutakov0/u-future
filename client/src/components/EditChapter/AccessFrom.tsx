@@ -28,8 +28,6 @@ const AccessForm = ({ initialData, setData }: Props) => {
 	const [isEditing, setIsEditing] = useState<boolean>(false)
 	const [isFree, setIsFree] = useState<boolean>(initialData?.isFree || false)
 
-	console.log(isFree)
-
 	const {
 		register,
 		handleSubmit,

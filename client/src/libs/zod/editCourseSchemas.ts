@@ -19,3 +19,7 @@ export const priceFormSchema = z.object({
 export const accessFromSchema = z.object({
 	isFree: z.boolean(),
 })
+
+export const LinkVideoFormSchema = z.object({
+	videoUrl: z.string().min(1, { message: 'Введите ссылку на видео' }),
+})

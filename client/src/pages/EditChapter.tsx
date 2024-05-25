@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import AccessForm from '../components/EditChapter/AccessFrom'
 import DescForm from '../components/EditChapter/DescForm'
 import TitleForm from '../components/EditChapter/TitleForm'
+import VideoUpload from '../components/EditChapter/Video/VideoUpload'
 import { RootState } from '../redux/store'
 import { editChapterService, getChapterById } from '../services/ChapterService'
 import { TChapter } from '../types/TChapter'
@@ -121,7 +122,7 @@ const EditChapter = () => {
 						<VideoCallIcon />
 						Кастомизация видео
 					</Typography>
-					// TODO: create chapter video url form
+					<VideoUpload initialData={chapter} setData={setChapter} />
 				</Stack>
 			</Stack>
 		</Box>
