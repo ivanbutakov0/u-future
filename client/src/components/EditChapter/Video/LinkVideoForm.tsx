@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import CloseIcon from '@mui/icons-material/Close'
 import EditIcon from '@mui/icons-material/Edit'
+import VideocamOffIcon from '@mui/icons-material/VideocamOff'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -81,13 +82,30 @@ const LinkVideoForm = ({ initialData, setData }: Props) => {
 				)}
 			</Stack>
 			{!isEditing ? (
-				initialData?.videoUrl ? (
-					<VideoPlayer url={initialData.videoUrl} />
-				) : (
-					<Typography component='p' sx={{ mt: 2 }}>
-						Нет видео
-					</Typography>
-				)
+				<Box
+					component='div'
+					sx={{
+						mt: 2,
+						backgroundColor: '#e3e3e3',
+						transition: 'all 0.3s ease',
+						borderRadius: 2,
+						height: 200,
+						display: 'flex',
+						flexDirection: 'column',
+						gap: 1,
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					{initialData?.videoUrl ? (
+						<VideoPlayer url={initialData.videoUrl} />
+					) : (
+						<Stack direction='row' alignItems='center' gap={1}>
+							<VideocamOffIcon />
+							<Typography>Нет видео</Typography>
+						</Stack>
+					)}
+				</Box>
 			) : (
 				<Box component='form' onSubmit={handleSubmit(onSubmit)} noValidate>
 					<Stack
