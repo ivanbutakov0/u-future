@@ -4,12 +4,12 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import ReactPlayer from 'react-player/youtube'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
 import { LinkVideoFormSchema } from '../../../libs/zod/editCourseSchemas'
 import { TChapter } from '../../../types/TChapter'
 import CardBackground from '../../EditCourse/CardBackground'
+import VideoPlayer from '../../VideoPlayer'
 
 type Props = {
 	initialData: TChapter | null
@@ -82,12 +82,7 @@ const LinkVideoForm = ({ initialData, setData }: Props) => {
 			</Stack>
 			{!isEditing ? (
 				initialData?.videoUrl ? (
-					<ReactPlayer
-						url={initialData.videoUrl}
-						controls={true}
-						width='400px'
-						height='250px'
-					/>
+					<VideoPlayer url={initialData.videoUrl} />
 				) : (
 					<Typography component='p' sx={{ mt: 2 }}>
 						Нет видео
