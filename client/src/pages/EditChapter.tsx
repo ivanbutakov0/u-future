@@ -13,7 +13,11 @@ import DescForm from '../components/EditChapter/DescForm'
 import TitleForm from '../components/EditChapter/TitleForm'
 import VideoUpload from '../components/EditChapter/Video/VideoUpload'
 import { RootState } from '../redux/store'
-import { editChapterService, getChapterById } from '../services/ChapterService'
+import {
+	deleteChapterService,
+	editChapterService,
+	getChapterById,
+} from '../services/ChapterService'
 import { TChapter } from '../types/TChapter'
 
 const EditChapter = () => {
@@ -58,6 +62,17 @@ const EditChapter = () => {
 
 	const publishClickHandler = async () => {
 		setChapter({ ...chapter!, isPublished: !chapter?.isPublished })
+	}
+
+	const deleteChapterHandler = async () => {
+		try {
+			const deletedChapter = await deleteChapterService(chapterId!)
+			toast.success(`Глава «${deletedChapter.data.title}» удалена`)
+			navigate(`/teachers/edit/${courseId}`)
+		} catch (err) {
+			console.log(err)
+			toast.error('Произошла ошибка при удалении главы')
+		}
 	}
 
 	return (
@@ -108,15 +123,26 @@ const EditChapter = () => {
 				sx={{ mb: 6 }}
 			>
 				<Typography variant='h4'>Редактирование главы</Typography>
-				<Button
-					type='button'
-					variant='outlined'
-					size='small'
-					color='primary'
-					onClick={publishClickHandler}
-				>
-					{chapter?.isPublished ? 'Снять с публикации' : 'Опубликовать'}
-				</Button>
+				<Box component='div' sx={{ display: 'flex', gap: 1 }}>
+					<Button
+						type='button'
+						variant='outlined'
+						size='small'
+						color='primary'
+						onClick={publishClickHandler}
+					>
+						{chapter?.isPublished ? 'Снять с публикации' : 'Опубликовать'}
+					</Button>
+					<Button
+						type='button'
+						variant='outlined'
+						size='small'
+						color='error'
+						onClick={deleteChapterHandler}
+					>
+						Удалить
+					</Button>
+				</Box>
 			</Stack>
 
 			<Stack direction={{ sm: 'row', xs: 'column' }} spacing={4}>

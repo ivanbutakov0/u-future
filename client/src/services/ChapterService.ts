@@ -27,3 +27,9 @@ export const editChapterService = async (
 ): Promise<AxiosResponse<TChapter>> => {
 	return api.put<TChapter>(`/chapter/edit/${id}`, data)
 }
+
+export const deleteChapterService = async (
+	chapterId: string
+): Promise<AxiosResponse<TChapter>> => {
+	return api.delete<TChapter>(`/chapter/${chapterId}`)
+}

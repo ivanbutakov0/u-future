@@ -29,9 +29,20 @@ const editChapterService = async (chapterId, data) => {
 	return editedChapter
 }
 
+const deleteChapterService = async id => {
+	const deletedChapter = await Chapter.findByIdAndDelete(id)
+
+	if (!deletedChapter) {
+		throw new Error('Chapter not found')
+	}
+
+	return deletedChapter
+}
+
 module.exports = {
 	createChapterService,
 	updateChapterService,
 	getChapterByIdService,
 	editChapterService,
+	deleteChapterService,
 }

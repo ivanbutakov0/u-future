@@ -3,6 +3,7 @@ const {
 	updateChapterService,
 	getChapterByIdService,
 	editChapterService,
+	deleteChapterService,
 } = require('../services/chapter.servise')
 const { getCourseService } = require('../services/course.servise')
 
@@ -77,4 +78,21 @@ const editChapter = async (req, res, next) => {
 	}
 }
 
-module.exports = { createChapter, reorderChapter, getChapterById, editChapter }
+const deleteChapter = async (req, res, next) => {
+	try {
+		const { chapterId } = req.params
+
+		const deletedChapter = await deleteChapterService(chapterId)
+		res.json(deletedChapter)
+	} catch (err) {
+		next(err)
+	}
+}
+
+module.exports = {
+	createChapter,
+	reorderChapter,
+	getChapterById,
+	editChapter,
+	deleteChapter,
+}
