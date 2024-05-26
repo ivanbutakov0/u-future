@@ -61,6 +61,10 @@ const EditChapter = () => {
 	}, [chapter])
 
 	const publishClickHandler = async () => {
+		if (!chapter?.title || !chapter?.description || !chapter?.videoUrl) {
+			toast.error('Заполните все обязательные поля')
+			return
+		}
 		setChapter({ ...chapter!, isPublished: !chapter?.isPublished })
 	}
 
