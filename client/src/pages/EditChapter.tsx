@@ -3,7 +3,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment'
 import LockIcon from '@mui/icons-material/Lock'
 import VideoCallIcon from '@mui/icons-material/VideoCall'
 import WarningAmberIcon from '@mui/icons-material/WarningAmber'
-import { Box, Link, Stack, Typography } from '@mui/material'
+import { Box, Button, Link, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom'
@@ -56,6 +56,10 @@ const EditChapter = () => {
 		editChapter()
 	}, [chapter])
 
+	const publishClickHandler = async () => {
+		setChapter({ ...chapter!, isPublished: !chapter?.isPublished })
+	}
+
 	return (
 		<Box component='section' sx={{ pt: 4, pb: 4 }}>
 			{!chapter?.isPublished && (
@@ -96,9 +100,24 @@ const EditChapter = () => {
 				<ArrowBackIcon sx={{ width: '18px', height: '18px' }} />
 				Вернуться к редактированию курса
 			</Link>
-			<Typography variant='h4' sx={{ mb: 6 }}>
-				Редактирование главы
-			</Typography>
+			<Stack
+				direction='row'
+				alignItems='center'
+				justifyContent='space-between'
+				spacing={2}
+				sx={{ mb: 6 }}
+			>
+				<Typography variant='h4'>Редактирование главы</Typography>
+				<Button
+					type='button'
+					variant='outlined'
+					size='small'
+					color='primary'
+					onClick={publishClickHandler}
+				>
+					{chapter?.isPublished ? 'Снять с публикации' : 'Опубликовать'}
+				</Button>
+			</Stack>
 
 			<Stack direction={{ sm: 'row', xs: 'column' }} spacing={4}>
 				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
