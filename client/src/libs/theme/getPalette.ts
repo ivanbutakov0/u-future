@@ -19,6 +19,9 @@ const getPalette = (mode: PaletteMode) => ({
 						primary: '#040316',
 						secondary: '#91919e',
 					},
+					warning: {
+						main: '#ff9800',
+					},
 			  }
 			: {
 					primary: {

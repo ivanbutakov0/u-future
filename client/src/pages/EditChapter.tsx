@@ -2,6 +2,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import AssignmentIcon from '@mui/icons-material/Assignment'
 import LockIcon from '@mui/icons-material/Lock'
 import VideoCallIcon from '@mui/icons-material/VideoCall'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import { Box, Link, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -57,13 +58,33 @@ const EditChapter = () => {
 
 	return (
 		<Box component='section' sx={{ pt: 4, pb: 4 }}>
+			{!chapter?.isPublished && (
+				<Box
+					component='div'
+					sx={{
+						backgroundColor: 'warning.main',
+						px: 4,
+						py: 2,
+						mb: 3,
+						display: 'flex',
+						alignItems: 'center',
+						gap: 2,
+					}}
+				>
+					<WarningAmberIcon />
+					<Typography component='p' color='black'>
+						Данная глава еще не опубликована.
+					</Typography>
+				</Box>
+			)}
+
 			<Link
 				component={RouterLink}
 				to={`/teachers/edit/${courseId}`}
 				sx={{
 					textDecoration: 'none',
 					color: 'text.primary',
-					display: 'flex',
+					display: 'inline-flex',
 					alignItems: 'center',
 					gap: 1,
 					mb: 2,
