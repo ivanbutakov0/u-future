@@ -41,4 +41,14 @@ const editCourseService = async (id, data) => {
 	return editedCourse
 }
 
-module.exports = { createCourseService, getCourseService, editCourseService }
+const getTeacherCoursesService = async teacherId => {
+	const courses = await Course.find({ userId: teacherId })
+	return courses
+}
+
+module.exports = {
+	createCourseService,
+	getCourseService,
+	editCourseService,
+	getTeacherCoursesService,
+}

@@ -1,4 +1,5 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark'
 import {
 	List,
 	ListItem,
@@ -22,6 +23,11 @@ const teacherNavigationItems: teacherNavigationItem[] = [
 		text: 'Создать курс',
 		link: '/teachers/create',
 		icon: <AddCircleOutlineIcon />,
+	},
+	{
+		text: 'Мои курсы',
+		link: '/teachers/courses',
+		icon: <CollectionsBookmarkIcon />,
 	},
 ]
 

@@ -21,3 +21,9 @@ export const editCourseService = async (
 ): Promise<AxiosResponse<CourseResponse>> => {
 	return api.put<CourseResponse>(`/course/edit/${id}`, data)
 }
+
+export const getTeacherCourses = async (
+	teacherId: string
+): Promise<AxiosResponse<CourseResponse[]>> => {
+	return api.get<CourseResponse[]>(`/course/getTeacherCourses/${teacherId}`)
+}

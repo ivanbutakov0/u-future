@@ -12,6 +12,7 @@ import EditChapter from './pages/EditChapter'
 import EditCourse from './pages/EditCourse'
 import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login'
+import MyCourses from './pages/MyCourses'
 import SignUp from './pages/SignUp'
 import UnderConstruction from './pages/UnderConstruction'
 import { store } from './redux/store'
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
 					{
 						path: '/teachers/create',
 						element: <CreateCourse />,
+					},
+					{
+						path: '/teachers/courses',
+						element: <MyCourses />,
 					},
 					{
 						path: '/teachers/edit/:id',
