@@ -121,13 +121,12 @@ const ChaptersList = ({ onEdit, onReorder, items }: ChaptersListProps) => {
 											{chapter.isFree && (
 												<Chip color='success' label='Free' size='small' />
 											)}
-											<Chip
-												color='info'
-												label={
-													chapter.isPublished ? 'Опубликована' : 'Черновик'
-												}
-												size='small'
-											/>
+											{chapter.isPublished ? (
+												<Chip color='info' label='Опубликована' size='small' />
+											) : (
+												<Chip color='error' label='Черновик' size='small' />
+											)}
+
 											<EditIcon
 												sx={{
 													width: '16px',
