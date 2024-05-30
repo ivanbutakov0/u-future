@@ -13,8 +13,8 @@ import EditCourse from './pages/EditCourse'
 import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login'
 import MyCourses from './pages/MyCourses'
+import SearchPage from './pages/SearchPage'
 import SignUp from './pages/SignUp'
-import UnderConstruction from './pages/UnderConstruction'
 import { store } from './redux/store'
 
 const router = createBrowserRouter([
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/courses',
-				element: <UnderConstruction />,
+				element: <SearchPage />,
 			},
 			{
 				path: '/teachers',
