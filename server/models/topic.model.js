@@ -7,10 +7,6 @@ const TopicSchema = new mongoose.Schema(
 			required: true,
 			unique: true,
 		},
-		category: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Category',
-		},
 	},
 	{ timestamps: true }
 )
