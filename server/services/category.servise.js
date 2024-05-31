@@ -7,7 +7,10 @@ const createCategoryService = async name => {
 }
 
 const getAllParentCategoriesService = async () => {
-	const parentCategories = await ParentCategory.find().populate('categories')
+	const parentCategories = await ParentCategory.find().populate({
+		path: 'categories',
+		populate: 'allowedTopics',
+	})
 	return parentCategories
 }
 

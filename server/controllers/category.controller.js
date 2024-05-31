@@ -3,7 +3,7 @@ const {
 	getAllParentCategoriesService,
 } = require('../services/category.servise')
 
-const createCategory = async (req, res) => {
+const createCategory = async (req, res, next) => {
 	try {
 		const { name } = req.body
 		const category = await createCategoryService(name)
@@ -14,11 +14,12 @@ const createCategory = async (req, res) => {
 	}
 }
 
-const getAllParentCategories = async (req, res) => {
+const getAllParentCategories = async (req, res, next) => {
 	try {
 		const parentCategories = await getAllParentCategoriesService()
 		res.json(parentCategories)
 	} catch (err) {
+		console.log(err)
 		next(err)
 	}
 }
