@@ -17,8 +17,6 @@ const CategoryForm = ({ initialData, setData }: Props) => {
 	const [parentCategories, setParentCategories] = useState<ParentCategory[]>([])
 	const [isEditing, setIsEditing] = useState<boolean>(false)
 
-	console.log(parentCategories)
-
 	useEffect(() => {
 		const getCategories = async () => {
 			try {
