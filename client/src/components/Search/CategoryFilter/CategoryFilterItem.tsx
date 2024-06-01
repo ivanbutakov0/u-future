@@ -74,7 +74,10 @@ const CategoryFilterItem = ({
 								>
 									<ListItemText
 										primary={category.name}
-										primaryTypographyProps={{ textTransform: 'capitalize' }}
+										primaryTypographyProps={{
+											textTransform: 'capitalize',
+											fontSize: 14,
+										}}
 									/>
 								</ListItemButton>
 							</ListItem>

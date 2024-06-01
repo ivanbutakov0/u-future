@@ -5,11 +5,13 @@ import { TCategory } from '../../../types/TCategory'
 import { ParentCategory } from '../../../types/TParentCategory'
 import CategoryFilterItem from './CategoryFilterItem'
 
-const CategoryFilter = () => {
+type Props = {
+	selectedCategory: TCategory
+	setSelectedCategory: (category: TCategory) => void
+}
+
+const CategoryFilter = ({ selectedCategory, setSelectedCategory }: Props) => {
 	const [parentCategories, setParentCategories] = useState<ParentCategory[]>([])
-	const [selectedCategory, setSelectedCategory] = useState<TCategory>(
-		{} as TCategory
-	)
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	useEffect(() => {
@@ -34,14 +36,19 @@ const CategoryFilter = () => {
 	return (
 		<List
 			component='nav'
+			sx={{
+				width: 280,
+			}}
 			subheader={
 				<ListSubheader
 					component='div'
 					sx={{
 						backgroundColor: 'transparent',
 						fontWeight: 'bold',
-						textWrap: 'nowrap',
 						textTransform: 'capitalize',
+						lineHeight: '1.5',
+						py: 2,
+						position: 'relative',
 					}}
 				>
 					Текущий фильтр: {selectedCategory.name}
