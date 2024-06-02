@@ -28,12 +28,7 @@ const TopicFilter = ({
 	}
 
 	return (
-		<Box
-			component={'div'}
-			sx={{
-				maxWidth: '280px',
-			}}
-		>
+		<Box component={'div'} sx={{ textAlign: 'center' }}>
 			{allowedTopics?.length > 0 ? (
 				<FormGroup aria-label='position'>
 					{allowedTopics?.map(topic => (

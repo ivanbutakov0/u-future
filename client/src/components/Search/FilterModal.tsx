@@ -1,8 +1,17 @@
 import TuneIcon from '@mui/icons-material/Tune'
-import { Box, Button, Chip, Modal, Stack, Typography } from '@mui/material'
+import {
+	Box,
+	Button,
+	Chip,
+	Divider,
+	Modal,
+	Stack,
+	Typography,
+} from '@mui/material'
 import { useState } from 'react'
 import { TCategory } from '../../types/TCategory'
 import CategoryFilter from './CategoryFilter/CategoryFilter'
+import PriceFilter from './PriceFilter'
 import TopicFilter from './TopicFilter'
 
 const style = {
@@ -10,7 +19,11 @@ const style = {
 	top: '50%',
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
-	width: '80%',
+	width: {
+		xs: '90%',
+		sm: '400px',
+		md: '80%',
+	},
 	height: '60%',
 	bgcolor: 'background.paper',
 	border: '1px solid #ccc',
@@ -25,6 +38,9 @@ const FilterModal = () => {
 		{} as TCategory
 	)
 	const [selectedTopics, setSelectedTopics] = useState<string[]>([])
+	const [priceFilterValue, setPriceFilterValue] = useState<number[]>([
+		1000, 5000,
+	])
 
 	const handleOpen = () => setIsOpen(true)
 
@@ -68,14 +84,32 @@ const FilterModal = () => {
 							Очистить фильтры
 						</Button>
 					</Box>
+					<Typography
+						id='modal-modal-title'
+						variant='h6'
+						component='h2'
+						sx={{ ml: 10 }}
+					>
+						Фильтр по цене
+					</Typography>
+					<PriceFilter
+						priceFilterValue={priceFilterValue}
+						setPriceFilterValue={setPriceFilterValue}
+					/>
 					<Stack
-						direction='row'
+						direction={{ xs: 'column', md: 'row' }}
 						alignItems='start'
 						justifyContent={'space-between'}
 						gap={3}
+						sx={{ minHeight: '80%' }}
 					>
-						<Box component={'div'}>
-							<Typography id='modal-modal-title' variant='h6' component='h2'>
+						<Box component={'div'} sx={{ flex: 1 }}>
+							<Typography
+								id='modal-modal-title'
+								variant='h6'
+								component='h2'
+								sx={{ textAlign: 'center' }}
+							>
 								Фильтр по категории
 							</Typography>
 							<CategoryFilter
@@ -83,8 +117,14 @@ const FilterModal = () => {
 								setSelectedCategory={setSelectedCategory}
 							/>
 						</Box>
-						<Box component={'div'}>
-							<Typography id='modal-modal-title' variant='h6' component='h2'>
+						<Divider orientation='vertical' flexItem />
+						<Box component={'div'} sx={{ flex: 1 }}>
+							<Typography
+								id='modal-modal-title'
+								variant='h6'
+								component='h2'
+								sx={{ textAlign: 'center' }}
+							>
 								Фильтр по тематике
 							</Typography>
 							<TopicFilter
