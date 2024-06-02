@@ -32,15 +32,24 @@ const style = {
 	overflow: 'auto',
 }
 
-const FilterModal = () => {
+type Props = {
+	selectedCategory: TCategory
+	setSelectedCategory: any
+	selectedTopics: string[]
+	setSelectedTopics: any
+	priceFilterValue: number[]
+	setPriceFilterValue: any
+}
+
+const FilterModal = ({
+	selectedCategory,
+	setSelectedCategory,
+	selectedTopics,
+	setSelectedTopics,
+	priceFilterValue,
+	setPriceFilterValue,
+}: Props) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
-	const [selectedCategory, setSelectedCategory] = useState<TCategory>(
-		{} as TCategory
-	)
-	const [selectedTopics, setSelectedTopics] = useState<string[]>([])
-	const [priceFilterValue, setPriceFilterValue] = useState<number[]>([
-		1000, 5000,
-	])
 
 	const handleOpen = () => setIsOpen(true)
 
