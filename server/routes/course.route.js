@@ -5,6 +5,7 @@ const {
 	getCourse,
 	editCourse,
 	getTeacherCourses,
+	getCoursesByParams,
 } = require('../controllers/course.controller')
 
 const router = express.Router()
@@ -13,5 +14,9 @@ router.get('/getTeacherCourses/:teacherId', authMiddleware, getTeacherCourses)
 router.get('/:id', authMiddleware, getCourse)
 router.post('/create', authMiddleware, createCourse)
 router.put('/edit/:id', authMiddleware, editCourse)
+router.get(
+	'/search/:title/:price_min/:price_max/:category/:topics',
+	getCoursesByParams
+)
 
 module.exports = router

@@ -46,9 +46,15 @@ const getTeacherCoursesService = async teacherId => {
 	return courses
 }
 
+const getCoursesByParamsService = async params => {
+	const courses = await Course.find(params)
+	return courses
+}
+
 module.exports = {
 	createCourseService,
 	getCourseService,
 	editCourseService,
 	getTeacherCoursesService,
+	getCoursesByParamsService,
 }

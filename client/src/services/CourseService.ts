@@ -27,3 +27,15 @@ export const getTeacherCourses = async (
 ): Promise<AxiosResponse<CourseResponse[]>> => {
 	return api.get<CourseResponse[]>(`/course/getTeacherCourses/${teacherId}`)
 }
+
+export const getCoursesByParams = async (
+	title: string | null,
+	price_min: string | null,
+	price_max: string | null,
+	category: string | null,
+	topics: string | null
+): Promise<AxiosResponse<CourseResponse[]>> => {
+	return api.get<CourseResponse[]>(
+		`/course/search/${title}/${price_min}/${price_max}/${category}/${topics}`
+	)
+}

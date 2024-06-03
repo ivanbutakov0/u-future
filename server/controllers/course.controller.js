@@ -3,6 +3,7 @@ const {
 	getCourseService,
 	editCourseService,
 	getTeacherCoursesService,
+	getCoursesByParamsService,
 } = require('../services/course.servise')
 
 const createCourse = async (req, res, next) => {
@@ -49,4 +50,22 @@ const getTeacherCourses = async (req, res, next) => {
 	}
 }
 
-module.exports = { createCourse, getCourse, editCourse, getTeacherCourses }
+const getCoursesByParams = async (req, res, next) => {
+	const filteredParams = Object.fromEntries(
+		Object.entries(req.params).filter(([key, value]) => value !== 'null')
+	)
+	try {
+		const courses = await getCoursesByParamsService(filteredParams)
+		res.json(courses)
+	} catch (err) {
+		next(err)
+	}
+}
+
+module.exports = {
+	createCourse,
+	getCourse,
+	editCourse,
+	getTeacherCourses,
+	getCoursesByParams,
+}
