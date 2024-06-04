@@ -11,7 +11,7 @@ const {
 const router = express.Router()
 
 router.get('/getTeacherCourses/:teacherId', authMiddleware, getTeacherCourses)
-router.get('/:id', authMiddleware, getCourse)
+router.get('/:id', getCourse)
 router.post('/create', authMiddleware, createCourse)
 router.put('/edit/:id', authMiddleware, editCourse)
 router.get(

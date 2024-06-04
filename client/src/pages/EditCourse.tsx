@@ -22,6 +22,7 @@ const EditCourse = () => {
 	const [courseData, setCourseData] = useState<CourseResponse | null>(null)
 	const [isFetching, setIsFetching] = useState<boolean>(true)
 	const user = useSelector((state: RootState) => state.user.currentUser)
+	const isLoading = useSelector((state: RootState) => state.user.isLoading)
 	const navigate = useNavigate()
 
 	// Fetch course
@@ -66,11 +67,18 @@ const EditCourse = () => {
 		const courseUserId = courseData?.userId.toString()
 		const userId = user?._id.toString()
 
-		if (!isFetching && courseUserId && userId && courseUserId !== userId) {
-			toast.error('Вы не можете редактировать этот курс')
+		if (!isFetching && !isLoading && courseUserId && courseUserId !== userId) {
+			if (!userId) {
+				toast.error('Вы не авторизованы')
+				navigate('/login')
+				return
+			}
+			toast.error(
+				'Вы не можете редактировать этот курс, т.к. он создан другим пользователем'
+			)
 			navigate('/')
 		}
-	}, [isFetching, courseData])
+	}, [isFetching, courseData, user, isLoading])
 
 	return (
 		<Box component='section' sx={{ pt: 4, pb: 4 }}>
