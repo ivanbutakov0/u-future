@@ -140,6 +140,7 @@ const EditCourse = () => {
 					{courseData && (
 						<ChaptersForm initialData={courseData} setData={setCourseData} />
 					)}
+
 					<Typography
 						variant='h6'
 						sx={{
@@ -152,7 +153,11 @@ const EditCourse = () => {
 						<MonetizationOnIcon />
 						Настройка цены
 					</Typography>
-					<PriceForm initialData={courseData} setData={setCourseData} />
+
+					{isFetching && <PriceForm.Skeleton />}
+					{courseData && (
+						<PriceForm initialData={courseData} setData={setCourseData} />
+					)}
 				</Stack>
 			</Stack>
 		</Box>

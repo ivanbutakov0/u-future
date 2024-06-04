@@ -8,6 +8,7 @@ import {
 	Input,
 	InputAdornment,
 	InputLabel,
+	Skeleton,
 	Stack,
 	Typography,
 } from '@mui/material'
@@ -139,4 +140,32 @@ const PriceForm = ({ initialData, setData }: Props) => {
 		</CardBackground>
 	)
 }
+
+PriceForm.Skeleton = () => {
+	return (
+		<CardBackground>
+			<Stack
+				direction='row'
+				spacing={1}
+				alignItems={'center'}
+				justifyContent={'space-between'}
+			>
+				<Typography variant='body1' component='p' sx={{ fontWeight: 'bold' }}>
+					Цена курса
+				</Typography>
+
+				<Stack direction='row' spacing={1} alignItems={'center'}>
+					<EditIcon fontSize='small' />
+					<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+						Изменить
+					</Typography>
+				</Stack>
+			</Stack>
+			<Typography component='p' sx={{ mt: 2 }}>
+				<Skeleton variant='rectangular' width={50} height={30} />
+			</Typography>
+		</CardBackground>
+	)
+}
+
 export default PriceForm
