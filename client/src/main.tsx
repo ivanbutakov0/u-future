@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Layout from './components/Layout'
 import './index.scss'
+import CoursePageLayout from './pages/CoursePage'
 import CreateCourse from './pages/CreateCourse'
 import EditChapter from './pages/EditChapter'
 import EditCourse from './pages/EditCourse'
@@ -36,7 +37,27 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/courses',
-				element: <SearchPage />,
+
+				children: [
+					{
+						path: '/courses',
+						element: <SearchPage />,
+					},
+					{
+						path: '/courses/:id',
+						element: <CoursePageLayout />,
+						children: [
+							{
+								path: '/courses/:id/home',
+								element: <h1>Home</h1>,
+							},
+							{
+								path: '/courses/:id/:chapterId',
+								element: <h1>Chapters</h1>,
+							},
+						],
+					},
+				],
 			},
 			{
 				path: '/teachers',

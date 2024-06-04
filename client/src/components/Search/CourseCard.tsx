@@ -5,6 +5,7 @@ import {
 	CardMedia,
 	Typography,
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import { CourseResponse } from '../../types/response/CourseResponse'
 
 type Props = {
@@ -12,9 +13,13 @@ type Props = {
 }
 
 const CourseCard = ({ course }: Props) => {
+	const navigate = useNavigate()
+	const handleCardClick = () => {
+		navigate(`/courses/${course._id}/home`)
+	}
 	return (
 		<Card sx={{ maxWidth: 260 }}>
-			<CardActionArea>
+			<CardActionArea onClick={handleCardClick}>
 				<CardMedia
 					component='img'
 					height='140'
