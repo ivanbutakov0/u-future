@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import CloseIcon from '@mui/icons-material/Close'
 import EditIcon from '@mui/icons-material/Edit'
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Button, Skeleton, Stack, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
@@ -180,4 +180,48 @@ const TopicsForm = ({ topics, initialData, setData }: Props) => {
 		</CardBackground>
 	)
 }
+
+TopicsForm.Skeleton = () => {
+	return (
+		<CardBackground>
+			<Stack
+				direction='row'
+				spacing={1}
+				alignItems={'center'}
+				justifyContent={'space-between'}
+			>
+				<Typography variant='body1' component='p' sx={{ fontWeight: 'bold' }}>
+					Тематика курса
+				</Typography>
+
+				<Stack direction='row' spacing={1} alignItems={'center'}>
+					<EditIcon fontSize='small' />
+					<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+						Изменить
+					</Typography>
+				</Stack>
+			</Stack>
+
+			<Typography
+				variant='body1'
+				component='p'
+				sx={{ marginTop: 2, display: 'inline-block' }}
+			>
+				Текущая тематика:{' '}
+			</Typography>
+			<Typography
+				component='span'
+				sx={{
+					fontStyle: 'italic',
+					fontWeight: 'bold',
+					textTransform: 'capitalize',
+					display: 'inline-block',
+				}}
+			>
+				<Skeleton variant='text' width={100} />
+			</Typography>
+		</CardBackground>
+	)
+}
+
 export default TopicsForm

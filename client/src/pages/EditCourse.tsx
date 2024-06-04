@@ -113,11 +113,14 @@ const EditCourse = () => {
 						<CategoryForm initialData={courseData} setData={setCourseData} />
 					)}
 
-					<TopicsForm
-						topics={courseData?.category?.allowedTopics}
-						initialData={courseData}
-						setData={setCourseData}
-					/>
+					{isFetching && <TopicsForm.Skeleton />}
+					{courseData && (
+						<TopicsForm
+							topics={courseData?.category?.allowedTopics}
+							initialData={courseData}
+							setData={setCourseData}
+						/>
+					)}
 				</Stack>
 				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
 					<Typography
