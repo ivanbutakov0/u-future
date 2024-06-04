@@ -17,11 +17,12 @@ const GoogleAuth = () => {
 				const response = await googleAuth(code)
 				localStorage.setItem('token', response.data.accessToken)
 				dispatch(setCurrentUser(response.data.userData))
-				dispatch(setIsLoading(false))
+
 				navigate('/')
 			} catch (err) {
-				dispatch(setIsLoading(false))
 				console.log(err)
+			} finally {
+				dispatch(setIsLoading(false))
 			}
 		},
 	})

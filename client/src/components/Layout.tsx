@@ -42,6 +42,8 @@ const Layout = () => {
 
 	// Check authentication
 	useEffect(() => {
+		let cancelled = false
+
 		const checkAuth = async () => {
 			if (localStorage.getItem('token')) {
 				dispatch(setIsLoading(true))
@@ -62,7 +64,13 @@ const Layout = () => {
 			}
 		}
 
-		checkAuth()
+		if (!cancelled) {
+			checkAuth()
+		}
+
+		return () => {
+			cancelled = true
+		}
 	}, [])
 
 	return (

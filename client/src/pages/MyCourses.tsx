@@ -12,21 +12,25 @@ const MyCourses = () => {
 	const [courses, setCourses] = useState<CourseResponse[]>([])
 	const [filteredCourses, setFilteredCourses] = useState<CourseResponse[]>([])
 	const [searchQuery, setSearchQuery] = useState<string>('')
+	const [isFetching, setIsFetching] = useState<boolean>(true)
 
 	useEffect(() => {
 		const fetchCourses = async () => {
 			try {
+				setIsFetching(true)
 				const courses = await getTeacherCourses(user?._id!)
 				setCourses(courses.data)
 			} catch (err) {
 				console.log(err)
+			} finally {
+				setIsFetching(false)
 			}
 		}
 
-		if (!isLoading) {
+		if (!isLoading && user) {
 			fetchCourses()
 		}
-	}, [isLoading])
+	}, [isLoading, user])
 
 	useEffect(() => {
 		if (!searchQuery) {
@@ -57,10 +61,14 @@ const MyCourses = () => {
 				sx={{ mb: 4 }}
 				onChange={handleInputChange}
 			/>
-			{courses.length > 0 ? (
-				<MyCoursesTable
-					courses={filteredCourses.length > 0 ? filteredCourses : courses}
-				/>
+			{!isFetching ? (
+				courses.length > 0 ? (
+					<MyCoursesTable
+						courses={filteredCourses.length > 0 ? filteredCourses : courses}
+					/>
+				) : (
+					<Typography>У вас нет курсов</Typography>
+				)
 			) : (
 				<MyCoursesTable.Skeleton />
 			)}
