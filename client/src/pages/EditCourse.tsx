@@ -103,7 +103,11 @@ const EditCourse = () => {
 						<DescForm initialData={courseData} setData={setCourseData} />
 					)}
 
-					<ImageForm initialData={courseData} setData={setCourseData} />
+					{isFetching && <ImageForm.Skeleton />}
+					{courseData && (
+						<ImageForm initialData={courseData} setData={setCourseData} />
+					)}
+
 					<CategoryForm initialData={courseData} setData={setCourseData} />
 					<TopicsForm
 						topics={courseData?.category?.allowedTopics}

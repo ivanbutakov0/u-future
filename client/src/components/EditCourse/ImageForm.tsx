@@ -1,7 +1,13 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import EditIcon from '@mui/icons-material/Edit'
 import ImageIcon from '@mui/icons-material/Image'
-import { Box, CircularProgress, Stack, Typography } from '@mui/material'
+import {
+	Box,
+	CircularProgress,
+	Skeleton,
+	Stack,
+	Typography,
+} from '@mui/material'
 import {
 	getDownloadURL,
 	getStorage,
@@ -197,4 +203,32 @@ const ImageForm = ({ initialData, setData }: Props) => {
 		</CardBackground>
 	)
 }
+
+ImageForm.Skeleton = () => {
+	return (
+		<CardBackground>
+			<Stack
+				direction='row'
+				spacing={1}
+				alignItems={'center'}
+				justifyContent={'space-between'}
+				sx={{ mb: 2 }}
+			>
+				<Typography variant='body1' component='p' sx={{ fontWeight: 'bold' }}>
+					Превью курса
+				</Typography>
+
+				<Stack direction='row' spacing={1} alignItems={'center'}>
+					<EditIcon fontSize='small' />
+					<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+						Изменить
+					</Typography>
+				</Stack>
+			</Stack>
+
+			<Skeleton variant='rounded' width={'100%'} height={200} />
+		</CardBackground>
+	)
+}
+
 export default ImageForm
