@@ -1,7 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import CloseIcon from '@mui/icons-material/Close'
 import EditIcon from '@mui/icons-material/Edit'
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
+import {
+	Box,
+	Button,
+	Skeleton,
+	Stack,
+	TextField,
+	Typography,
+} from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -124,4 +131,29 @@ const TitleForm = ({ initialData, setData }: Props) => {
 		</CardBackground>
 	)
 }
+
+TitleForm.Skeleton = () => {
+	return (
+		<CardBackground>
+			<Stack
+				direction='row'
+				spacing={1}
+				alignItems={'center'}
+				justifyContent={'space-between'}
+			>
+				<Typography variant='body1' component='p' sx={{ fontWeight: 'bold' }}>
+					Название курса
+				</Typography>
+				<Stack direction='row' spacing={1} alignItems={'center'}>
+					<EditIcon fontSize='small' />
+					<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+						Изменить
+					</Typography>
+				</Stack>
+			</Stack>
+			<Skeleton variant='text' height={30} sx={{ mt: 2 }} />
+		</CardBackground>
+	)
+}
+
 export default TitleForm

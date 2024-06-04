@@ -24,8 +24,7 @@ const EditCourse = () => {
 	const user = useSelector((state: RootState) => state.user.currentUser)
 	const navigate = useNavigate()
 
-	// TODO: create skeleton if isFetching
-
+	// Fetch course
 	useEffect(() => {
 		const fetchCourse = async () => {
 			setIsFetching(true)
@@ -33,9 +32,8 @@ const EditCourse = () => {
 
 			try {
 				const course = await getCourse(courseId!)
-				if (!ignore) {
-					setCourseData(course.data)
-				}
+
+				setCourseData(course.data)
 			} catch (err) {
 				console.log('error', err)
 				toast.error('Курс не найден')
@@ -45,13 +43,10 @@ const EditCourse = () => {
 			}
 		}
 
-		let ignore = false
 		fetchCourse()
-		return () => {
-			ignore = true
-		}
 	}, [])
 
+	// Edit course if courseData has been changed
 	useEffect(() => {
 		const editCourse = async () => {
 			try {
@@ -71,7 +66,7 @@ const EditCourse = () => {
 		const courseUserId = courseData?.userId.toString()
 		const userId = user?._id.toString()
 
-		if (!isFetching && courseUserId && courseUserId !== userId) {
+		if (!isFetching && courseUserId && userId && courseUserId !== userId) {
 			toast.error('Вы не можете редактировать этот курс')
 			navigate('/')
 		}
@@ -97,7 +92,12 @@ const EditCourse = () => {
 						<AssignmentIcon />
 						Настройка курса
 					</Typography>
-					<TitleForm initialData={courseData} setData={setCourseData} />
+
+					{isFetching && <TitleForm.Skeleton />}
+					{courseData && (
+						<TitleForm initialData={courseData} setData={setCourseData} />
+					)}
+
 					<DescForm initialData={courseData} setData={setCourseData} />
 					<ImageForm initialData={courseData} setData={setCourseData} />
 					<CategoryForm initialData={courseData} setData={setCourseData} />
