@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ChapterPage from './components/Course/ChapterPage'
 import CourseHome from './components/Course/CourseHome'
 import Layout from './components/Layout'
 import './index.scss'
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
 							},
 							{
 								path: '/courses/:id/:chapterId',
-								element: <h1>Chapters</h1>,
+								element: <ChapterPage />,
 							},
 						],
 					},

@@ -48,7 +48,12 @@ const CoursePageLayout = () => {
 
 	return (
 		<CourseContext.Provider value={{ course, isFetching }}>
-			<Stack component='section' direction={'row'} gap={1} sx={{ py: 4 }}>
+			<Stack
+				component='section'
+				direction={'row'}
+				gap={1}
+				sx={{ py: 4, height: '100%' }}
+			>
 				<Box component='div' sx={{ flex: 3 }}>
 					<Outlet />
 				</Box>
