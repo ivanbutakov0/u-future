@@ -1,6 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close'
 import EditIcon from '@mui/icons-material/Edit'
-import { List, ListSubheader, Stack, Typography } from '@mui/material'
+import { List, ListSubheader, Skeleton, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { getAllParentCategories } from '../../../services/CategoryService'
 import { CourseResponse } from '../../../types/response/CourseResponse'
@@ -120,4 +120,48 @@ const CategoryForm = ({ initialData, setData }: Props) => {
 		</CardBackground>
 	)
 }
+
+CategoryForm.Skeleton = () => {
+	return (
+		<CardBackground>
+			<Stack
+				direction='row'
+				spacing={1}
+				alignItems={'center'}
+				justifyContent={'space-between'}
+			>
+				<Typography variant='body1' component='p' sx={{ fontWeight: 'bold' }}>
+					Категория курса
+				</Typography>
+
+				<Stack direction='row' spacing={1} alignItems={'center'}>
+					<EditIcon fontSize='small' />
+					<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+						Изменить
+					</Typography>
+				</Stack>
+			</Stack>
+
+			<Typography
+				variant='body1'
+				component='p'
+				sx={{ marginTop: 2, display: 'inline-block' }}
+			>
+				Текущая категория:{' '}
+			</Typography>
+			<Typography
+				component='span'
+				sx={{
+					fontStyle: 'italic',
+					fontWeight: 'bold',
+					textTransform: 'capitalize',
+					display: 'inline-block',
+				}}
+			>
+				<Skeleton variant='text' width={100} />
+			</Typography>
+		</CardBackground>
+	)
+}
+
 export default CategoryForm
