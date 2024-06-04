@@ -4,10 +4,10 @@ import EditIcon from '@mui/icons-material/Edit'
 import {
 	Box,
 	Button,
+	Skeleton,
 	Stack,
 	TextField,
 	Typography,
-	useTheme,
 } from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -25,7 +25,6 @@ type TLoginSchema = z.infer<typeof descFormSchema>
 
 const DescForm = ({ initialData, setData }: Props) => {
 	const [isEditing, setIsEditing] = useState(false)
-	const theme = useTheme()
 	const {
 		register,
 		handleSubmit,
@@ -132,4 +131,33 @@ const DescForm = ({ initialData, setData }: Props) => {
 		</CardBackground>
 	)
 }
+
+DescForm.Skeleton = () => {
+	return (
+		<CardBackground>
+			<Stack
+				direction='row'
+				spacing={1}
+				alignItems={'center'}
+				justifyContent={'space-between'}
+			>
+				<Typography variant='body1' component='p' sx={{ fontWeight: 'bold' }}>
+					Описание курса
+				</Typography>
+				<Stack direction='row' spacing={1} alignItems={'center'}>
+					<EditIcon fontSize='small' />
+					<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+						Изменить
+					</Typography>
+				</Stack>
+			</Stack>
+			<Typography component='p' sx={{ mt: 2 }}>
+				<Skeleton variant='text' width={'100%'} />
+				<Skeleton variant='text' width={'70%'} />
+				<Skeleton variant='text' width={'80%'} />
+			</Typography>
+		</CardBackground>
+	)
+}
+
 export default DescForm

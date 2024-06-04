@@ -98,7 +98,11 @@ const EditCourse = () => {
 						<TitleForm initialData={courseData} setData={setCourseData} />
 					)}
 
-					<DescForm initialData={courseData} setData={setCourseData} />
+					{isFetching && <DescForm.Skeleton />}
+					{courseData && (
+						<DescForm initialData={courseData} setData={setCourseData} />
+					)}
+
 					<ImageForm initialData={courseData} setData={setCourseData} />
 					<CategoryForm initialData={courseData} setData={setCourseData} />
 					<TopicsForm
