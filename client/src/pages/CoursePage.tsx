@@ -52,7 +52,7 @@ const CoursePageLayout = () => {
 				component='section'
 				direction={'row'}
 				gap={1}
-				sx={{ py: 4, height: '100%' }}
+				sx={{ py: 4, minHeight: '90vh' }}
 			>
 				<Box component='div' sx={{ flex: 3 }}>
 					<Outlet />

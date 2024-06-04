@@ -37,7 +37,12 @@ const CourseHome = () => {
 			</Typography>
 			<Stack direction={'row'} spacing={1} flexWrap={'wrap'} sx={{ mb: 2 }}>
 				{course.topics?.map(topic => (
-					<Chip key={topic.name} label={topic.name} color='primary' />
+					<Chip
+						key={topic.name}
+						label={topic.name}
+						color='primary'
+						variant='outlined'
+					/>
 				))}
 			</Stack>
 
