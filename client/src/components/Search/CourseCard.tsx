@@ -27,11 +27,15 @@ const CourseCard = ({ course }: Props) => {
 					alt='course image'
 				/>
 				<CardContent>
-					<Typography gutterBottom variant='h5' component='div'>
-						{course.title}
+					<Typography gutterBottom variant='body1' component='p'>
+						{course.title.length > 40
+							? course.title.slice(0, 40) + '...'
+							: course.title}
 					</Typography>
 					<Typography variant='body2' color='text.secondary'>
-						{course.description}
+						{course.description && course.description.length > 85
+							? course.description.slice(0, 85) + '...'
+							: course.description}
 					</Typography>
 				</CardContent>
 			</CardActionArea>
