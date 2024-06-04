@@ -135,7 +135,11 @@ const EditCourse = () => {
 						<ChecklistIcon />
 						Настройка глав
 					</Typography>
-					<ChaptersForm initialData={courseData} setData={setCourseData} />
+
+					{isFetching && <ChaptersForm.Skeleton />}
+					{courseData && (
+						<ChaptersForm initialData={courseData} setData={setCourseData} />
+					)}
 					<Typography
 						variant='h6'
 						sx={{

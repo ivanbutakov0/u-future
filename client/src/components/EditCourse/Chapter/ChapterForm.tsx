@@ -2,7 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CloseIcon from '@mui/icons-material/Close'
 import SyncIcon from '@mui/icons-material/Sync'
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
+import {
+	Box,
+	Button,
+	Skeleton,
+	Stack,
+	TextField,
+	Typography,
+} from '@mui/material'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -214,4 +221,35 @@ const ChaptersForm = ({ initialData, setData }: Props) => {
 		</CardBackground>
 	)
 }
+
+ChaptersForm.Skeleton = () => {
+	return (
+		<CardBackground>
+			<Stack
+				direction='row'
+				spacing={1}
+				alignItems={'center'}
+				justifyContent={'space-between'}
+				sx={{ mb: 2 }}
+			>
+				<Typography variant='body1' component='p' sx={{ fontWeight: 'bold' }}>
+					Главы курса
+				</Typography>
+				<Stack direction='row' spacing={1} alignItems={'center'}>
+					<AddCircleIcon fontSize='small' />
+					<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+						Добавить
+					</Typography>
+				</Stack>
+			</Stack>
+
+			<Stack direction='column' spacing={1}>
+				<Skeleton variant='rounded' width={'100%'} height={40} />
+				<Skeleton variant='rounded' width={'100%'} height={40} />
+				<Skeleton variant='rounded' width={'100%'} height={40} />
+			</Stack>
+		</CardBackground>
+	)
+}
+
 export default ChaptersForm
