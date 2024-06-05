@@ -17,6 +17,8 @@ const Header = () => {
 	const isUserLoading = useSelector((state: RootState) => state.user.isLoading)
 	const dispatch = useDispatch()
 
+	console.log(user)
+
 	const handleSideMenuOpen = () => {
 		dispatch(setSideMenuOpen(true))
 	}
@@ -74,7 +76,24 @@ const Header = () => {
 				)}
 
 				{isUserLoading && !user && <CustomAvatar.Skeleton />}
-				{user && <CustomAvatar />}
+				<Stack direction='row' alignItems='center' gap={2}>
+					{user && (
+						<Link
+							component={RouterLink}
+							color='inherit'
+							underline='none'
+							to='/balance'
+							sx={{
+								':hover': {
+									color: 'text.secondary',
+								},
+							}}
+						>
+							Баланс: {user.money}
+						</Link>
+					)}
+					{user && <CustomAvatar />}
+				</Stack>
 			</Toolbar>
 		</AppBar>
 	)
