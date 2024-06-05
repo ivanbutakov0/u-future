@@ -6,10 +6,12 @@ const {
 	getAllUsers,
 	loginGoogleUser,
 	updateUserService,
+	addCourseToCartService,
 } = require('../services/user.servise')
 const { validationResult } = require('express-validator')
 const { errorHandler } = require('../utils/error')
 const { OAuth2Client } = require('google-auth-library')
+const User = require('../models/user.model')
 
 const registration = async (req, res, next) => {
 	try {
@@ -122,6 +124,27 @@ const updateUser = async (req, res, next) => {
 	}
 }
 
+const addCourseToCart = async (req, res, next) => {
+	try {
+		const { id, courseId } = req.body
+
+		const user = await User.findById(id).populate('cart')
+
+		const existingCourse = user.cart.find(
+			course => course._id.toString() === courseId
+		)
+
+		if (existingCourse) {
+			return next(errorHandler(400, 'Курс уже добавлен в корзину'))
+		}
+
+		const userData = await addCourseToCartService(id, courseId)
+		res.json(userData)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	registration,
 	googleAuth,
@@ -130,4 +153,5 @@ module.exports = {
 	refresh,
 	getUsers,
 	updateUser,
+	addCourseToCart,
 }

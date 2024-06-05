@@ -122,7 +122,16 @@ const getAllUsers = async () => {
 }
 
 const updateUserService = async (id, data) => {
+	console.log(data)
 	const user = await User.findByIdAndUpdate(id, data, { new: true })
+	return user
+}
+
+const addCourseToCartService = async (id, courseId) => {
+	const user = await User.findById(id)
+	user.cart.push(courseId)
+	await user.save()
+
 	return user
 }
 
@@ -134,4 +143,5 @@ module.exports = {
 	refreshService,
 	getAllUsers,
 	updateUserService,
+	addCourseToCartService,
 }

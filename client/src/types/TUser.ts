@@ -10,4 +10,5 @@ export type TUser = {
 	updatedAt: string
 	money: number
 	boughtCourses: CourseResponse[]
+	cart: CourseResponse[]
 }

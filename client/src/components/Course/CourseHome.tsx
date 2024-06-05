@@ -1,9 +1,48 @@
 import { Box, Button, Chip, Skeleton, Stack, Typography } from '@mui/material'
 import { useContext } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { CourseContext, TCourseContext } from '../../pages/CoursePage'
+import { addToCart } from '../../redux/cart/cartSlice'
+import { RootState } from '../../redux/store'
+import { addCourseToCart } from '../../services/UserService'
 
 const CourseHome = () => {
 	const { course, isFetching } = useContext<TCourseContext>(CourseContext)
+	const user = useSelector((state: RootState) => state.user.currentUser)
+	const cart = useSelector((state: RootState) => state.cart.items)
+
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
+
+	const handleAddToCartClick = async () => {
+		if (!user) {
+			toast.error('Для добавления в корзину необходимо авторизоваться')
+			navigate('/login')
+		}
+
+		try {
+			const response = await addCourseToCart(user?._id!, course._id)
+
+			if (response.status !== 200) {
+				toast.error(
+					'Произошла ошибка на сервере при добавлении курса в корзину'
+				)
+				return
+			}
+
+			console.log(response)
+
+			dispatch(addToCart(course))
+			toast.success('Курс добавлен в корзину')
+		} catch (err: any) {
+			console.log(err)
+			toast.error(err.response.data.message)
+		}
+	}
+
+	const handleRemoveFromCartClick = () => {}
 
 	if (isFetching) {
 		return <CourseHome.Skeleton />
@@ -55,9 +94,25 @@ const CourseHome = () => {
 				<Typography component='p' variant='h5'>
 					{course.price}₽
 				</Typography>
-				<Button type='button' variant='contained' color='primary'>
-					Добавить в корзину
-				</Button>
+				{cart.some(item => item._id === course._id) ? (
+					<Button
+						type='button'
+						variant='contained'
+						color='primary'
+						onClick={handleRemoveFromCartClick}
+					>
+						Убрать из корзины
+					</Button>
+				) : (
+					<Button
+						type='button'
+						variant='contained'
+						color='primary'
+						onClick={handleAddToCartClick}
+					>
+						Добавить в корзину
+					</Button>
+				)}
 			</Stack>
 		</Box>
 	)
