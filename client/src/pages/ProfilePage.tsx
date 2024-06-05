@@ -8,9 +8,11 @@ import {
 	Typography,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from '../redux/store'
+import { setCurrentUser } from '../redux/user/userSlice'
+import { updateUser } from '../services/UserService'
 
 const style = {
 	position: 'absolute' as 'absolute',
@@ -31,11 +33,10 @@ const ProfilePage = () => {
 	const isLoading = useSelector((state: RootState) => state.user.isLoading)
 
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
 	useEffect(() => {
 		let cancelled = false
-
-		console.log('isLoading', isLoading)
 
 		if (!isLoading && !user) {
 			if (cancelled) return
@@ -51,7 +52,16 @@ const ProfilePage = () => {
 	const handleClose = () => setOpen(false)
 
 	const handleMoneyClick = async (money: number) => {
-		console.log(money)
+		try {
+			const response = await updateUser(user?._id!, {
+				money: user?.money! + money,
+			})
+			if (response.status === 200) {
+				dispatch(setCurrentUser(response.data))
+			}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	if (isLoading) {

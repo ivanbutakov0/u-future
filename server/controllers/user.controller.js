@@ -5,6 +5,7 @@ const {
 	refreshService,
 	getAllUsers,
 	loginGoogleUser,
+	updateUserService,
 } = require('../services/user.servise')
 const { validationResult } = require('express-validator')
 const { errorHandler } = require('../utils/error')
@@ -111,6 +112,16 @@ const getUsers = async (req, res, next) => {
 	}
 }
 
+const updateUser = async (req, res, next) => {
+	try {
+		const { id, data } = req.body
+		const userData = await updateUserService(id, data)
+		res.json(userData)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	registration,
 	googleAuth,
@@ -118,4 +129,5 @@ module.exports = {
 	logout,
 	refresh,
 	getUsers,
+	updateUser,
 }

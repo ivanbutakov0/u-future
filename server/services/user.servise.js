@@ -121,6 +121,11 @@ const getAllUsers = async () => {
 	return users
 }
 
+const updateUserService = async (id, data) => {
+	const user = await User.findByIdAndUpdate(id, data, { new: true })
+	return user
+}
+
 module.exports = {
 	registerUser,
 	loginGoogleUser,
@@ -128,4 +133,5 @@ module.exports = {
 	logoutService,
 	refreshService,
 	getAllUsers,
+	updateUserService,
 }

@@ -6,6 +6,7 @@ const {
 	logout,
 	login,
 	googleAuth,
+	updateUser,
 } = require('../controllers/user.controller')
 const { body } = require('express-validator')
 const { authMiddleware } = require('../middleware/auth.middleware')
@@ -14,6 +15,7 @@ const router = express.Router()
 
 router.get('/', authMiddleware, getUsers)
 router.get('/refresh', refresh)
+router.patch('/update', authMiddleware, updateUser)
 router.post(
 	'/registration',
 	body('username', 'Имя должно быть больше 3 и меньше 20').isLength({
