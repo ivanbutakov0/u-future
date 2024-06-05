@@ -32,8 +32,6 @@ const CourseHome = () => {
 				return
 			}
 
-			console.log(response)
-
 			dispatch(addToCart(course))
 			toast.success('Курс добавлен в корзину')
 		} catch (err: any) {
