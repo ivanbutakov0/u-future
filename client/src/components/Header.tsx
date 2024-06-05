@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
 import { setSideMenuOpen } from '../redux/generalSettings/generalSettingsSlice'
 import { RootState } from '../redux/store'
+import Cart from './Cart'
 import { AppBar } from './SideMenu/settings'
 import CustomAvatar from './ui/CustomAvatar'
 import CustomLink from './ui/CustomLink'
@@ -87,9 +88,10 @@ const Header = () => {
 								},
 							}}
 						>
-							Баланс: {user.money}
+							Баланс: {user.money}₽
 						</Link>
 					)}
+					{user && <Cart />}
 					{user && <CustomAvatar />}
 				</Stack>
 			</Toolbar>
