@@ -17,8 +17,6 @@ const Header = () => {
 	const isUserLoading = useSelector((state: RootState) => state.user.isLoading)
 	const dispatch = useDispatch()
 
-	console.log(user)
-
 	const handleSideMenuOpen = () => {
 		dispatch(setSideMenuOpen(true))
 	}
@@ -82,7 +80,7 @@ const Header = () => {
 							component={RouterLink}
 							color='inherit'
 							underline='none'
-							to='/balance'
+							to='/profile'
 							sx={{
 								':hover': {
 									color: 'text.secondary',

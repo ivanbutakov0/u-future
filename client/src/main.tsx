@@ -16,6 +16,7 @@ import EditCourse from './pages/EditCourse'
 import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login'
 import MyCourses from './pages/MyCourses'
+import ProfilePage from './pages/ProfilePage'
 import SearchPage from './pages/SearchPage'
 import SignUp from './pages/SignUp'
 import { store } from './redux/store'
@@ -38,8 +39,11 @@ const router = createBrowserRouter([
 				element: <SignUp />,
 			},
 			{
+				path: '/profile',
+				element: <ProfilePage />,
+			},
+			{
 				path: '/courses',
-
 				children: [
 					{
 						path: '/courses',

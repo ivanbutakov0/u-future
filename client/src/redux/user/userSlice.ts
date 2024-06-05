@@ -4,7 +4,7 @@ import { userState } from '../../types/storeTypes/userSliceTypes'
 const initialState: userState = {
 	currentUser: null,
 	error: null,
-	isLoading: false,
+	isLoading: true,
 }
 
 export const userSlice = createSlice({
