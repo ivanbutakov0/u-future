@@ -6,7 +6,10 @@ import { toast } from 'react-toastify'
 import { CourseContext, TCourseContext } from '../../pages/CoursePage'
 import { RootState } from '../../redux/store'
 import { setCurrentUser } from '../../redux/user/userSlice'
-import { addCourseToCart } from '../../services/UserService'
+import {
+	addCourseToCart,
+	removeCourseFromCart,
+} from '../../services/UserService'
 
 const CourseHome = () => {
 	const [isCourseInCart, setIsCourseInCart] = useState<boolean>(false)
@@ -50,7 +53,26 @@ const CourseHome = () => {
 	}
 
 	// TODO: handleRemoveFromCartClick
-	const handleRemoveFromCartClick = () => {}
+	const handleRemoveFromCartClick = async () => {
+		if (!user) {
+			toast.error('Для добавления в корзину необходимо авторизоваться')
+			navigate('/login')
+		}
+
+		try {
+			const response = await removeCourseFromCart(user?._id!, course._id)
+
+			if (response.status !== 200) {
+				toast.error('Произошла ошибка на сервере при удалении курса из корзины')
+				return
+			}
+
+			dispatch(setCurrentUser(response.data))
+			toast.success('Курс удален из корзины')
+		} catch (err) {
+			console.log(err)
+		}
+	}
 
 	if (isFetching) {
 		return <CourseHome.Skeleton />

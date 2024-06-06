@@ -17,5 +17,12 @@ export const addCourseToCart = async (
 	id: string,
 	courseId: string
 ): Promise<AxiosResponse<TUser>> => {
-	return api.patch<TUser>(`/user/update-cart`, { id, courseId })
+	return api.patch<TUser>(`/user/add-course-to-cart`, { id, courseId })
+}
+
+export const removeCourseFromCart = async (
+	id: string,
+	courseId: string
+): Promise<AxiosResponse<TUser>> => {
+	return api.patch<TUser>(`/user/remove-course-from-cart`, { id, courseId })
 }

@@ -134,6 +134,23 @@ const addCourseToCartService = async (id, courseId) => {
 	return user
 }
 
+const getUserByIdService = async id => {
+	const user = await User.findById(id).populate('cart')
+	return user
+}
+
+const removeCourseFromCartService = async (id, courseId) => {
+	const user = await getUserByIdService(id)
+
+	const newCart = user.cart.filter(
+		course => course._id.toString() !== courseId.toString()
+	)
+
+	user.cart = newCart
+	await user.save()
+	return user
+}
+
 module.exports = {
 	registerUser,
 	loginGoogleUser,
@@ -143,4 +160,6 @@ module.exports = {
 	getAllUsers,
 	updateUserService,
 	addCourseToCartService,
+	removeCourseFromCartService,
+	getUserByIdService,
 }

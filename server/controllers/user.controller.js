@@ -7,6 +7,8 @@ const {
 	loginGoogleUser,
 	updateUserService,
 	addCourseToCartService,
+	removeCourseFromCartService,
+	getUserByIdService,
 } = require('../services/user.servise')
 const { validationResult } = require('express-validator')
 const { errorHandler } = require('../utils/error')
@@ -128,7 +130,7 @@ const addCourseToCart = async (req, res, next) => {
 	try {
 		const { id, courseId } = req.body
 
-		const user = await User.findById(id).populate('cart')
+		const user = await getUserByIdService(id)
 
 		const existingCourse = user.cart.find(
 			course => course._id.toString() === courseId
@@ -145,6 +147,16 @@ const addCourseToCart = async (req, res, next) => {
 	}
 }
 
+const removeCourseFromCart = async (req, res, next) => {
+	try {
+		const { id, courseId } = req.body
+		const userData = await removeCourseFromCartService(id, courseId)
+		res.json(userData)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	registration,
 	googleAuth,
@@ -154,4 +166,5 @@ module.exports = {
 	getUsers,
 	updateUser,
 	addCourseToCart,
+	removeCourseFromCart,
 }
