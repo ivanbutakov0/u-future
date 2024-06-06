@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { API_URL } from '../http'
 import getPalette from '../libs/theme/getPalette'
-import { setCart } from '../redux/cart/cartSlice'
 import { RootState } from '../redux/store'
 import { setColorMode } from '../redux/theme/themeSlice'
 import { setCurrentUser, setIsLoading } from '../redux/user/userSlice'
@@ -57,7 +56,6 @@ const Layout = () => {
 					)
 					localStorage.setItem('token', response.data.accessToken)
 					dispatch(setCurrentUser(response.data.userData))
-					dispatch(setCart(response.data.userData.cart))
 				} catch (err) {
 					console.log(err)
 				} finally {

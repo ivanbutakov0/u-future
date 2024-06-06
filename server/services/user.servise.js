@@ -70,7 +70,7 @@ const loginGoogleUser = async (email, username, avatar) => {
 }
 
 const loginUser = async (email, password) => {
-	const user = await User.findOne({ email })
+	const user = await User.findOne({ email }).populate('cart')
 	if (!user) {
 		throw new Error('Пользователь с таким email не найден')
 	}
@@ -105,7 +105,7 @@ const refreshService = async refreshToken => {
 		throw errorHandler(401, 'Нужно авторизоваться, неверный refreshToken')
 	}
 
-	const user = await User.findById(userData.id)
+	const user = await User.findById(userData.id).populate('cart')
 	const tokens = await generateTokens({ id: user._id })
 	await saveToken(user._id, tokens.refreshToken)
 
@@ -122,13 +122,12 @@ const getAllUsers = async () => {
 }
 
 const updateUserService = async (id, data) => {
-	console.log(data)
 	const user = await User.findByIdAndUpdate(id, data, { new: true })
 	return user
 }
 
 const addCourseToCartService = async (id, courseId) => {
-	const user = await User.findById(id)
+	const user = await User.findById(id).populate('cart')
 	user.cart.push(courseId)
 	await user.save()
 

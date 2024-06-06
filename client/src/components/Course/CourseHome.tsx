@@ -1,20 +1,29 @@
 import { Box, Button, Chip, Skeleton, Stack, Typography } from '@mui/material'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { CourseContext, TCourseContext } from '../../pages/CoursePage'
-import { addToCart } from '../../redux/cart/cartSlice'
 import { RootState } from '../../redux/store'
+import { setCurrentUser } from '../../redux/user/userSlice'
 import { addCourseToCart } from '../../services/UserService'
 
 const CourseHome = () => {
+	const [isCourseInCart, setIsCourseInCart] = useState<boolean>(false)
 	const { course, isFetching } = useContext<TCourseContext>(CourseContext)
 	const user = useSelector((state: RootState) => state.user.currentUser)
-	const cart = useSelector((state: RootState) => state.cart.items)
 
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (user && course) {
+			const courseInCart = user.cart.some(
+				courseItem => courseItem._id === course._id
+			)
+			setIsCourseInCart(courseInCart)
+		}
+	}, [user, course])
 
 	const handleAddToCartClick = async () => {
 		if (!user) {
@@ -32,7 +41,7 @@ const CourseHome = () => {
 				return
 			}
 
-			dispatch(addToCart(course))
+			dispatch(setCurrentUser(response.data))
 			toast.success('Курс добавлен в корзину')
 		} catch (err: any) {
 			console.log(err)
@@ -40,6 +49,7 @@ const CourseHome = () => {
 		}
 	}
 
+	// TODO: handleRemoveFromCartClick
 	const handleRemoveFromCartClick = () => {}
 
 	if (isFetching) {
@@ -92,7 +102,7 @@ const CourseHome = () => {
 				<Typography component='p' variant='h5'>
 					{course.price}₽
 				</Typography>
-				{cart.some(item => item._id === course._id) ? (
+				{isCourseInCart ? (
 					<Button
 						type='button'
 						variant='contained'

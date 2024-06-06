@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-import cartSlice from './cart/cartSlice'
 import generalSettingsReducer from './generalSettings/generalSettingsSlice'
 import themeReducer from './theme/themeSlice'
 import userReducer from './user/userSlice'
@@ -9,7 +8,6 @@ export const store = configureStore({
 		user: userReducer,
 		theme: themeReducer,
 		generalSettings: generalSettingsReducer,
-		cart: cartSlice,
 	},
 })
 

@@ -15,7 +15,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 
 const Cart = () => {
 	const navigate = useNavigate()
-	const cart = useSelector((state: RootState) => state.cart.items)
+	const user = useSelector((state: RootState) => state.user.currentUser)
 
 	const handleClick = () => {
 		navigate('/cart')
@@ -23,7 +23,7 @@ const Cart = () => {
 
 	return (
 		<IconButton aria-label='cart' onClick={handleClick}>
-			<StyledBadge badgeContent={cart.length} color='primary'>
+			<StyledBadge badgeContent={user?.cart.length} color='primary'>
 				<ShoppingCartIcon />
 			</StyledBadge>
 		</IconButton>
