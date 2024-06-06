@@ -47,7 +47,7 @@ const getTeacherCoursesService = async teacherId => {
 }
 
 const getCoursesByParamsService = async params => {
-	const courses = await Course.find(params)
+	const courses = await Course.find(params).populate('topics')
 	return courses
 }
 

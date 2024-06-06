@@ -9,6 +9,7 @@ import ChapterPage from './components/Course/ChapterPage'
 import CourseHome from './components/Course/CourseHome'
 import Layout from './components/Layout'
 import './index.scss'
+import CartPage from './pages/CartPage'
 import CoursePageLayout from './pages/CoursePage'
 import CreateCourse from './pages/CreateCourse'
 import EditChapter from './pages/EditChapter'
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
 			{
 				path: '/profile',
 				element: <ProfilePage />,
+			},
+			{
+				path: '/cart',
+				element: <CartPage />,
 			},
 			{
 				path: '/courses',

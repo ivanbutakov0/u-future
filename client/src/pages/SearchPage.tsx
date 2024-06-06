@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import CourseCard from '../components/Search/CourseCard'
+import CourseCard from '../components/CourseCard'
 import SearchHeader from '../components/Search/SearchHeader'
 import { getCoursesByParams } from '../services/CourseService'
 import { CourseResponse } from '../types/response/CourseResponse'

@@ -105,7 +105,7 @@ const refreshService = async refreshToken => {
 		throw errorHandler(401, 'Нужно авторизоваться, неверный refreshToken')
 	}
 
-	const user = await User.findById(userData.id).populate('cart')
+	const user = await getUserByIdService(userData.id)
 	const tokens = await generateTokens({ id: user._id })
 	await saveToken(user._id, tokens.refreshToken)
 
@@ -127,28 +127,50 @@ const updateUserService = async (id, data) => {
 }
 
 const addCourseToCartService = async (id, courseId) => {
-	const user = await User.findById(id).populate('cart')
-	user.cart.push(courseId)
-	await user.save()
+	// FIXME: refactor
+	const user = await getUserByIdService(id)
+	const newUser = await User.findByIdAndUpdate(
+		id,
+		{ cart: [...user.cart, courseId] },
+		{ new: true }
+	)
+		.populate('cart')
+		.populate({
+			path: 'cart',
+			populate: 'topics',
+		})
 
-	return user
+	return newUser
 }
 
 const getUserByIdService = async id => {
-	const user = await User.findById(id).populate('cart')
+	const user = await User.findById(id).populate('cart').populate({
+		path: 'cart',
+		populate: 'topics',
+	})
 	return user
 }
 
 const removeCourseFromCartService = async (id, courseId) => {
+	// FIXME: refactor
 	const user = await getUserByIdService(id)
 
 	const newCart = user.cart.filter(
 		course => course._id.toString() !== courseId.toString()
 	)
 
-	user.cart = newCart
-	await user.save()
-	return user
+	const newUser = await User.findByIdAndUpdate(
+		id,
+		{ cart: newCart },
+		{ new: true }
+	)
+		.populate('cart')
+		.populate({
+			path: 'cart',
+			populate: 'topics',
+		})
+
+	return newUser
 }
 
 module.exports = {
