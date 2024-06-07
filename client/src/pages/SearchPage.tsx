@@ -54,9 +54,9 @@ const SearchPage = () => {
 			}
 		}
 
-		const timeOut = setTimeout(fetchCourses, 1500)
+		fetchCourses()
 
-		return () => clearTimeout(timeOut)
+		//return () => clearTimeout(timeOut)
 	}, [title, priceMin, priceMax, category, topics])
 
 	const handlePageChange = (event: ChangeEvent<unknown>, newPage: number) => {
