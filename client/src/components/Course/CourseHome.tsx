@@ -19,6 +19,10 @@ const CourseHome = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
+	const isCourseAlreadyBought = user?.boughtCourses.some(
+		courseItem => courseItem._id === course?._id
+	)
+
 	useEffect(() => {
 		if (user && course) {
 			const courseInCart = user.cart.some(
@@ -115,35 +119,37 @@ const CourseHome = () => {
 				))}
 			</Stack>
 
-			<Stack
-				direction={'row'}
-				spacing={2}
-				justifyContent={'space-between'}
-				alignItems={'center'}
-			>
-				<Typography component='p' variant='h5'>
-					{course.price}₽
-				</Typography>
-				{isCourseInCart ? (
-					<Button
-						type='button'
-						variant='contained'
-						color='primary'
-						onClick={handleRemoveFromCartClick}
-					>
-						Убрать из корзины
-					</Button>
-				) : (
-					<Button
-						type='button'
-						variant='contained'
-						color='primary'
-						onClick={handleAddToCartClick}
-					>
-						Добавить в корзину
-					</Button>
-				)}
-			</Stack>
+			{!isCourseAlreadyBought && (
+				<Stack
+					direction={'row'}
+					spacing={2}
+					justifyContent={'space-between'}
+					alignItems={'center'}
+				>
+					<Typography component='p' variant='h5'>
+						{course.price}₽
+					</Typography>
+					{isCourseInCart ? (
+						<Button
+							type='button'
+							variant='contained'
+							color='primary'
+							onClick={handleRemoveFromCartClick}
+						>
+							Убрать из корзины
+						</Button>
+					) : (
+						<Button
+							type='button'
+							variant='contained'
+							color='primary'
+							onClick={handleAddToCartClick}
+						>
+							Добавить в корзину
+						</Button>
+					)}
+				</Stack>
+			)}
 		</Box>
 	)
 }
