@@ -1,4 +1,5 @@
 import { CourseResponse } from './response/CourseResponse'
+import { TChapter } from './TChapter'
 
 export type TUser = {
 	_id: string
@@ -11,4 +12,5 @@ export type TUser = {
 	money: number
 	boughtCourses: CourseResponse[]
 	cart: CourseResponse[]
+	finishedChapters: TChapter[]
 }

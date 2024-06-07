@@ -84,7 +84,7 @@ const CartPage = () => {
 					Корзина пуста
 				</Typography>
 				<Button type='button' variant='contained'>
-					<Link to='/search'>Перейти в каталог</Link>
+					<Link to='/courses'>Перейти в каталог</Link>
 				</Button>
 			</Box>
 		)

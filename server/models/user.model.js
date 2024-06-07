@@ -34,6 +34,11 @@ const UserSchema = new mongoose.Schema(
 			type: [mongoose.Schema.Types.ObjectId],
 			ref: 'Course',
 		},
+		finishedChapters: {
+			type: [mongoose.Schema.Types.ObjectId],
+			ref: 'Chapter',
+			default: [],
+		},
 	},
 	{ timestamps: true }
 )

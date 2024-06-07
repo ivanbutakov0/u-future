@@ -123,6 +123,13 @@ const getAllUsers = async () => {
 
 const updateUserService = async (id, data) => {
 	const user = await User.findByIdAndUpdate(id, data, { new: true })
+		.populate('cart')
+		.populate({
+			path: 'cart',
+			populate: 'topics',
+		})
+		.populate('boughtCourses')
+		.populate('finishedChapters')
 	return user
 }
 
@@ -140,6 +147,7 @@ const addCourseToCartService = async (id, courseId) => {
 			populate: 'topics',
 		})
 		.populate('boughtCourses')
+		.populate('finishedChapters')
 
 	return newUser
 }
@@ -152,6 +160,7 @@ const getUserByIdService = async id => {
 			populate: 'topics',
 		})
 		.populate('boughtCourses')
+		.populate('finishedChapters')
 	return user
 }
 
@@ -174,6 +183,7 @@ const removeCourseFromCartService = async (id, courseId) => {
 			populate: 'topics',
 		})
 		.populate('boughtCourses')
+		.populate('finishedChapters')
 
 	return newUser
 }

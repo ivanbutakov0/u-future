@@ -1,17 +1,52 @@
 import VideocamOffIcon from '@mui/icons-material/VideocamOff'
-import { Box, Skeleton, Stack, Typography } from '@mui/material'
+import { Box, Chip, Skeleton, Stack, Typography } from '@mui/material'
 import { useContext } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { CourseContext, TCourseContext } from '../../pages/CoursePage'
+import { RootState } from '../../redux/store'
+import { setCurrentUser } from '../../redux/user/userSlice'
+import { updateUser } from '../../services/UserService'
 import VideoPlayer from '../VideoPlayer'
 
 const ChapterPage = () => {
 	const { course, isFetching } = useContext<TCourseContext>(CourseContext)
 	const { chapterId } = useParams()
+
 	const chapter = course.chapters?.find(chapter => chapter._id === chapterId)
+	const user = useSelector((state: RootState) => state.user.currentUser)
+
+	const dispatch = useDispatch()
 
 	if (isFetching) {
 		return <ChapterPage.Skeleton />
+	}
+
+	const handleEndedVideo = async () => {
+		if (
+			user?.finishedChapters.some(
+				finishedChapter =>
+					finishedChapter._id.toString() === chapter?._id.toString()
+			)
+		) {
+			return
+		}
+
+		try {
+			const response = await updateUser(user?._id!, {
+				finishedChapters: [...user?.finishedChapters!, chapter!],
+			})
+
+			if (response.status !== 200) {
+				console.log('Something went wrong')
+				return
+			}
+
+			dispatch(setCurrentUser(response.data))
+			console.log(response)
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	return (
@@ -22,6 +57,20 @@ const ChapterPage = () => {
 			<Typography variant='body1' component={'p'}>
 				{chapter?.description}
 			</Typography>
+			{user?.finishedChapters.some(
+				finishedChapter =>
+					finishedChapter._id.toString() === chapter?._id.toString()
+			) ? (
+				<Chip label='Пройдено' color='success' sx={{ mt: 2 }} />
+			) : (
+				<Chip
+					label='Не пройдено'
+					color='error'
+					sx={{ mt: 2 }}
+					onClick={handleEndedVideo}
+				/>
+			)}
+
 			<Box
 				component='div'
 				sx={{
@@ -38,7 +87,7 @@ const ChapterPage = () => {
 				}}
 			>
 				{chapter?.videoUrl ? (
-					<VideoPlayer url={chapter.videoUrl} />
+					<VideoPlayer url={chapter.videoUrl} onEnded={handleEndedVideo} />
 				) : (
 					<Stack direction='row' alignItems='center' gap={1}>
 						<VideocamOffIcon />
