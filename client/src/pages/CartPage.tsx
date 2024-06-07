@@ -1,6 +1,6 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import CourseCard from '../components/CourseCard'
 import { RootState } from '../redux/store'
@@ -69,6 +69,25 @@ const CartPage = () => {
 		} catch (err) {
 			console.log(err)
 		}
+	}
+
+	if (user?.cart.length === 0) {
+		return (
+			<Box component='section' sx={{ py: 4 }}>
+				<Typography
+					variant='h4'
+					component='h2'
+					sx={{
+						mb: 2,
+					}}
+				>
+					Корзина пуста
+				</Typography>
+				<Button type='button' variant='contained'>
+					<Link to='/'>На главную</Link>
+				</Button>
+			</Box>
+		)
 	}
 
 	return (
