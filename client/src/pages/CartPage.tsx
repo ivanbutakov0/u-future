@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import CourseCard from '../components/CourseCard'
 import { RootState } from '../redux/store'
 import { setCurrentUser } from '../redux/user/userSlice'
-import { removeCourseFromCart } from '../services/UserService'
+import { removeCourseFromCart, updateUser } from '../services/UserService'
 
 const CartPage = () => {
 	const user = useSelector((state: RootState) => state.user.currentUser)
@@ -29,11 +29,27 @@ const CartPage = () => {
 
 			dispatch(setCurrentUser(response.data))
 			toast.success('Курс удален из корзины')
-		} catch (err) {}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
-	const handleClearCartClick = () => {
-		console.log('Clear cart')
+	const handleClearCartClick = async () => {
+		try {
+			const response = await updateUser(user?._id!, {
+				cart: [],
+			})
+
+			if (response.status !== 200) {
+				toast.error('Произошла ошибка при очистке корзины')
+				return
+			}
+
+			dispatch(setCurrentUser(response.data))
+			toast.success('Корзина очищена')
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	return (
