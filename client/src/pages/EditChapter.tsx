@@ -81,7 +81,7 @@ const EditChapter = () => {
 
 	return (
 		<Box component='section' sx={{ pt: 4, pb: 4 }}>
-			{!chapter?.isPublished && (
+			{chapter && !chapter?.isPublished && (
 				<Box
 					component='div'
 					sx={{

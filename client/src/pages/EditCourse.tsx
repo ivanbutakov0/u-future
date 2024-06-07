@@ -1,7 +1,8 @@
 import AssignmentIcon from '@mui/icons-material/Assignment'
 import ChecklistIcon from '@mui/icons-material/Checklist'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
-import { Box, Stack, Typography } from '@mui/material'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -80,11 +81,77 @@ const EditCourse = () => {
 		}
 	}, [isFetching, courseData, user, isLoading])
 
+	const publishClickHandler = async () => {
+		if (
+			!courseData?.title ||
+			!courseData?.description ||
+			!courseData?.imageUrl ||
+			!courseData.price ||
+			!courseData.category ||
+			!courseData.topics ||
+			!courseData.chapters
+		) {
+			toast.error('Заполните все обязательные поля')
+			return
+		}
+		setCourseData({ ...courseData!, isPublished: !courseData?.isPublished })
+	}
+
+	const deleteCourseHandler = async () => {}
+
 	return (
 		<Box component='section' sx={{ pt: 4, pb: 4 }}>
-			<Typography variant='h4' sx={{ mb: 6 }}>
-				Редактирование курса
-			</Typography>
+			{courseData && !courseData?.isPublished && (
+				<Box
+					component='div'
+					sx={{
+						backgroundColor: 'warning.main',
+						px: 4,
+						py: 2,
+						mb: 3,
+						display: 'flex',
+						alignItems: 'center',
+						gap: 2,
+					}}
+				>
+					<WarningAmberIcon />
+					<Typography component='p' color='black'>
+						Данная глава еще не опубликована.
+					</Typography>
+				</Box>
+			)}
+
+			<Stack
+				direction='row'
+				alignItems='center'
+				justifyContent='space-between'
+				spacing={2}
+				sx={{ mb: 6 }}
+			>
+				<Typography variant='h4' sx={{ mb: 6 }}>
+					Редактирование курса
+				</Typography>
+				<Box component='div' sx={{ display: 'flex', gap: 1 }}>
+					<Button
+						type='button'
+						variant='outlined'
+						size='small'
+						color='primary'
+						onClick={publishClickHandler}
+					>
+						{courseData?.isPublished ? 'Снять с публикации' : 'Опубликовать'}
+					</Button>
+					<Button
+						type='button'
+						variant='outlined'
+						size='small'
+						color='error'
+						onClick={deleteCourseHandler}
+					>
+						Удалить
+					</Button>
+				</Box>
+			</Stack>
 
 			<Stack direction={{ sm: 'row', xs: 'column' }} spacing={4}>
 				<Stack direction='column' spacing={2} sx={{ flex: 1 }}>
