@@ -9,10 +9,10 @@ const {
 	updateUser,
 	addCourseToCart,
 	removeCourseFromCart,
+	payForCart,
 } = require('../controllers/user.controller')
 const { body } = require('express-validator')
 const { authMiddleware } = require('../middleware/auth.middleware')
-const { addCourseToCartService } = require('../services/user.servise')
 
 const router = express.Router()
 
@@ -21,6 +21,7 @@ router.get('/refresh', refresh)
 router.patch('/update', authMiddleware, updateUser)
 router.patch('/add-course-to-cart', authMiddleware, addCourseToCart)
 router.patch('/remove-course-from-cart', authMiddleware, removeCourseFromCart)
+router.patch('/pay-for-cart', authMiddleware, payForCart)
 router.post(
 	'/registration',
 	body('username', 'Имя должно быть больше 3 и меньше 20').isLength({

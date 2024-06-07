@@ -13,7 +13,6 @@ const {
 const { validationResult } = require('express-validator')
 const { errorHandler } = require('../utils/error')
 const { OAuth2Client } = require('google-auth-library')
-const User = require('../models/user.model')
 
 const registration = async (req, res, next) => {
 	try {
@@ -157,6 +156,30 @@ const removeCourseFromCart = async (req, res, next) => {
 	}
 }
 
+const payForCart = async (req, res, next) => {
+	try {
+		const { userId, totalPrice } = req.body
+
+		const user = await getUserByIdService(userId)
+
+		if (user.money < totalPrice) {
+			return next(errorHandler(400, 'Недостаточно средств'))
+		}
+
+		//const userData = await payForCartService(user)
+
+		const userData = await updateUserService(userId, {
+			money: user.money - totalPrice,
+			boughtCourses: [...user.boughtCourses, ...user.cart],
+			cart: [],
+		})
+		res.json(userData)
+	} catch (err) {
+		console.log(err)
+		next(err)
+	}
+}
+
 module.exports = {
 	registration,
 	googleAuth,
@@ -167,4 +190,5 @@ module.exports = {
 	updateUser,
 	addCourseToCart,
 	removeCourseFromCart,
+	payForCart,
 }

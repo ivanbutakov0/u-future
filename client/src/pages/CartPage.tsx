@@ -1,21 +1,40 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import CourseCard from '../components/CourseCard'
 import { RootState } from '../redux/store'
 import { setCurrentUser } from '../redux/user/userSlice'
-import { removeCourseFromCart, updateUser } from '../services/UserService'
+import {
+	payForCart,
+	removeCourseFromCart,
+	updateUser,
+} from '../services/UserService'
 
 const CartPage = () => {
 	const user = useSelector((state: RootState) => state.user.currentUser)
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
 	const totalPrice = user?.cart.reduce((acc, course) => {
 		return acc + course?.price!
 	}, 0)
 
-	const handlePayClick = () => {
-		console.log('Pay')
+	const handlePayClick = async () => {
+		try {
+			const response = await payForCart(user?._id!, totalPrice!)
+
+			if (response.status !== 200) {
+				toast.error('Произошла ошибка при оплате')
+				return
+			}
+
+			dispatch(setCurrentUser(response.data))
+			toast.success('Корзина оплачена')
+			navigate('/')
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	const handleRemoveCourseFromCartClick = async (id: string) => {
