@@ -1,10 +1,14 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import CourseCard from '../components/CourseCard'
 import { RootState } from '../redux/store'
+import { setCurrentUser } from '../redux/user/userSlice'
+import { removeCourseFromCart } from '../services/UserService'
 
 const CartPage = () => {
 	const user = useSelector((state: RootState) => state.user.currentUser)
+	const dispatch = useDispatch()
 
 	const totalPrice = user?.cart.reduce((acc, course) => {
 		return acc + course?.price!
@@ -14,8 +18,18 @@ const CartPage = () => {
 		console.log('Pay')
 	}
 
-	const handleDeleteCourseClick = (id: string) => {
-		console.log(id)
+	const handleRemoveCourseFromCartClick = async (id: string) => {
+		try {
+			const response = await removeCourseFromCart(user?._id!, id)
+
+			if (response.status !== 200) {
+				toast.error('Произошла ошибка при удалении курса из корзины')
+				return
+			}
+
+			dispatch(setCurrentUser(response.data))
+			toast.success('Курс удален из корзины')
+		} catch (err) {}
 	}
 
 	const handleClearCartClick = () => {
@@ -47,7 +61,7 @@ const CartPage = () => {
 							variant='contained'
 							color='error'
 							size='small'
-							onClick={() => handleDeleteCourseClick(course._id)}
+							onClick={() => handleRemoveCourseFromCartClick(course._id)}
 						>
 							Удалить из корзины
 						</Button>
