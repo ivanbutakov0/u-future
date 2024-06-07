@@ -7,7 +7,9 @@ import {
 	Stack,
 	Typography,
 } from '@mui/material'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { RootState } from '../redux/store'
 import { CourseResponse } from '../types/response/CourseResponse'
 
 type Props = {
@@ -16,6 +18,7 @@ type Props = {
 
 const CourseCard = ({ course }: Props) => {
 	const navigate = useNavigate()
+	const user = useSelector((state: RootState) => state.user.currentUser)
 
 	const handleCardClick = () => {
 		navigate(`/courses/${course._id}/home`)
@@ -56,7 +59,12 @@ const CourseCard = ({ course }: Props) => {
 						variant='h6'
 						sx={{ textAlign: 'end', mt: 1, fontWeight: 'bold' }}
 					>
-						{course.price}₽
+						{user &&
+						user.boughtCourses.filter((boughtCourse: any) => {
+							return boughtCourse._id.toString() === course._id.toString()
+						}).length > 0
+							? 'Куплено'
+							: `${course.price}₽`}
 					</Typography>
 				</CardContent>
 			</CardActionArea>
