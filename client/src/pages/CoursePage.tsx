@@ -72,13 +72,16 @@ const CoursePageLayout = () => {
 							Array(5)
 								.fill(null)
 								.map((_, index) => <ChapterItem.Skeleton key={index} />)}
-						{course.chapters?.map(chapter => (
-							<ChapterItem
-								key={chapter._id}
-								chapter={chapter}
-								selected={chapter._id === selectedChapterId}
-							/>
-						))}
+						{course.chapters?.map(
+							chapter =>
+								chapter.isPublished && (
+									<ChapterItem
+										key={chapter._id}
+										chapter={chapter}
+										selected={chapter._id === selectedChapterId}
+									/>
+								)
+						)}
 					</List>
 				</Box>
 			</Stack>
