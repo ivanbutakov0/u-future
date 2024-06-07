@@ -4,6 +4,7 @@ const {
 	editCourseService,
 	getTeacherCoursesService,
 	getCoursesByParamsService,
+	deleteCourseService,
 } = require('../services/course.servise')
 
 const createCourse = async (req, res, next) => {
@@ -62,10 +63,29 @@ const getCoursesByParams = async (req, res, next) => {
 	}
 }
 
+const deleteCourse = async (req, res, next) => {
+	const { courseId, userId } = req.params
+
+	try {
+		const course = await getCourseService(courseId)
+
+		if (course.userId.toString() !== userId.toString()) {
+			return res.status(401).json({ message: 'You can not delete this course' })
+		}
+
+		const deletedCourse = await deleteCourseService(courseId)
+		res.json(deletedCourse)
+	} catch (err) {
+		console.log(err)
+		next(err)
+	}
+}
+
 module.exports = {
 	createCourse,
 	getCourse,
 	editCourse,
 	getTeacherCourses,
 	getCoursesByParams,
+	deleteCourse,
 }

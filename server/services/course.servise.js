@@ -53,10 +53,16 @@ const getCoursesByParamsService = async params => {
 	return courses
 }
 
+const deleteCourseService = async id => {
+	const deletedCourse = await Course.findByIdAndDelete(id)
+	return deletedCourse
+}
+
 module.exports = {
 	createCourseService,
 	getCourseService,
 	editCourseService,
 	getTeacherCoursesService,
 	getCoursesByParamsService,
+	deleteCourseService,
 }

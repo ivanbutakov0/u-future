@@ -6,6 +6,7 @@ const {
 	editCourse,
 	getTeacherCourses,
 	getCoursesByParams,
+	deleteCourse,
 } = require('../controllers/course.controller')
 
 const router = express.Router()
@@ -18,5 +19,6 @@ router.get(
 	'/search/:title/:price_min/:price_max/:category/:topics',
 	getCoursesByParams
 )
+router.delete('/delete/:courseId/:userId', authMiddleware, deleteCourse)
 
 module.exports = router

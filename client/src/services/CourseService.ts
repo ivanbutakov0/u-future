@@ -39,3 +39,10 @@ export const getCoursesByParams = async (
 		`/course/search/${title}/${price_min}/${price_max}/${category}/${topics}`
 	)
 }
+
+export const deleteCourse = async (
+	courseId: string,
+	userId: string
+): Promise<AxiosResponse<CourseResponse>> => {
+	return api.delete<CourseResponse>(`/course/delete/${courseId}/${userId}`)
+}

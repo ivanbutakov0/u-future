@@ -15,7 +15,11 @@ import PriceForm from '../components/EditCourse/PriceForm'
 import TitleForm from '../components/EditCourse/TitleForm'
 import TopicsForm from '../components/EditCourse/TopicsForm'
 import { RootState } from '../redux/store'
-import { editCourseService, getCourse } from '../services/CourseService'
+import {
+	deleteCourse,
+	editCourseService,
+	getCourse,
+} from '../services/CourseService'
 import { CourseResponse } from '../types/response/CourseResponse'
 
 const EditCourse = () => {
@@ -97,7 +101,24 @@ const EditCourse = () => {
 		setCourseData({ ...courseData!, isPublished: !courseData?.isPublished })
 	}
 
-	const deleteCourseHandler = async () => {}
+	const deleteCourseHandler = async () => {
+		try {
+			const response = await deleteCourse(courseData?._id!, user?._id!)
+
+			if (response.status !== 200) {
+				toast.error('Произошла ошибка при удалении курса')
+				return
+			}
+
+			console.log(response)
+
+			toast.success(`Курс «${response.data.title}» удален`)
+			navigate(`/teachers/courses`)
+		} catch (err) {
+			console.log(err)
+			toast.error('Произошла ошибка при удалении курса')
+		}
+	}
 
 	return (
 		<Box component='section' sx={{ pt: 4, pb: 4 }}>
