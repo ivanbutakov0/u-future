@@ -1,4 +1,5 @@
 import VideocamOffIcon from '@mui/icons-material/VideocamOff'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import { Box, Chip, Skeleton, Stack, Typography } from '@mui/material'
 import { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -47,6 +48,56 @@ const ChapterPage = () => {
 		} catch (err) {
 			console.log(err)
 		}
+	}
+
+	if (!user) {
+		return (
+			<Box
+				component='div'
+				sx={{
+					backgroundColor: 'warning.main',
+					px: 4,
+					py: 2,
+					mb: 3,
+					display: 'flex',
+					alignItems: 'center',
+					gap: 2,
+				}}
+			>
+				<WarningAmberIcon />
+				<Typography component='p' color='black'>
+					Чтобы получить доступ к данной главе вам нужно приобрести курс.
+				</Typography>
+			</Box>
+		)
+	}
+
+	if (
+		user &&
+		!chapter?.isFree &&
+		!user.boughtCourses?.some(
+			boughtCourse => boughtCourse._id.toString() === course._id.toString()
+		)
+	) {
+		return (
+			<Box
+				component='div'
+				sx={{
+					backgroundColor: 'warning.main',
+					px: 4,
+					py: 2,
+					mb: 3,
+					display: 'flex',
+					alignItems: 'center',
+					gap: 2,
+				}}
+			>
+				<WarningAmberIcon />
+				<Typography component='p' color='black'>
+					Чтобы получить доступ к данной главе вам нужно приобрести курс.
+				</Typography>
+			</Box>
+		)
 	}
 
 	return (
