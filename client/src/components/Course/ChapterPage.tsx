@@ -66,7 +66,7 @@ const ChapterPage = () => {
 			>
 				<WarningAmberIcon />
 				<Typography component='p' color='black'>
-					Чтобы получить доступ к данной главе вам нужно приобрести курс.
+					Чтобы получить доступ к данной главе вам нужно зарегистрироваться.
 				</Typography>
 			</Box>
 		)
