@@ -137,7 +137,7 @@ const EditCourse = () => {
 				>
 					<WarningAmberIcon />
 					<Typography component='p' color='black'>
-						Дынный курс еще не опубликован.
+						Данный курс еще не опубликован.
 					</Typography>
 				</Box>
 			)}
