@@ -1,6 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu'
 import SchoolIcon from '@mui/icons-material/School'
-import { IconButton, Link, ListItem, Stack, Toolbar } from '@mui/material'
+import { IconButton, Link, Stack, Toolbar } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
 import { setSideMenuOpen } from '../redux/generalSettings/generalSettingsSlice'
@@ -24,7 +24,9 @@ const Header = () => {
 
 	return (
 		<AppBar position='fixed' color='default' open={isSideMenuOpen}>
-			<Toolbar sx={{ justifyContent: 'space-between' }}>
+			<Toolbar
+				sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
+			>
 				<Stack direction='row' alignItems='center' gap={2}>
 					<IconButton
 						color='inherit'
@@ -59,24 +61,16 @@ const Header = () => {
 					</Stack>
 				</Stack>
 
-				<Stack
-					direction='row'
-					alignItems='center'
-					gap={2}
-					sx={{ display: { xs: 'none', sm: 'flex' } }}
-				></Stack>
-
 				{!user && !isUserLoading && (
-					<ListItem disablePadding>
-						<CustomLink to='/login' navLink type='button' paddings='small'>
-							Войти
-						</CustomLink>
-					</ListItem>
+					<CustomLink to='/login' navLink type='button' paddings='small'>
+						Войти
+					</CustomLink>
 				)}
 
 				{isUserLoading && !user && <CustomAvatar.Skeleton />}
-				<Stack direction='row' alignItems='center' gap={2}>
-					{user && (
+
+				{user && (
+					<Stack direction='row' alignItems='center' gap={2}>
 						<Link
 							component={RouterLink}
 							color='inherit'
@@ -90,10 +84,11 @@ const Header = () => {
 						>
 							Баланс: {user.money}₽
 						</Link>
-					)}
-					{user && <Cart />}
-					{user && <CustomAvatar />}
-				</Stack>
+
+						<Cart />
+						<CustomAvatar />
+					</Stack>
+				)}
 			</Toolbar>
 		</AppBar>
 	)
