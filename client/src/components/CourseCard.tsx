@@ -44,7 +44,15 @@ const CourseCard = ({ course }: Props) => {
 							? course.description.slice(0, 85) + '...'
 							: course.description}
 					</Typography>
-					<Stack direction='row' spacing={1} alignItems='center' mt={2}>
+					<Stack
+						direction='row'
+						alignItems='center'
+						mt={2}
+						flexWrap={'wrap'}
+						sx={{
+							gap: 1,
+						}}
+					>
 						{course?.topics?.map(topic => (
 							<Chip
 								label={topic.name}
