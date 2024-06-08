@@ -90,7 +90,6 @@ const EditCourse = () => {
 			!courseData?.title ||
 			!courseData?.description ||
 			!courseData?.imageUrl ||
-			!courseData.price ||
 			!courseData.category ||
 			!courseData.topics ||
 			!courseData.chapters
