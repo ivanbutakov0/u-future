@@ -9,6 +9,7 @@ const chapterRouter = require('./routes/chapter.route')
 const { errorMiddleware } = require('./middleware/error.middleware')
 require('dotenv').config()
 
+const path = require('path')
 const PORT = process.env.PORT || 3000
 const CLIENT_URL = process.env.CLIENT_URL
 const app = express()

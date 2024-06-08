@@ -15,6 +15,7 @@ import CreateCourse from './pages/CreateCourse'
 import EditChapter from './pages/EditChapter'
 import EditCourse from './pages/EditCourse'
 import ErrorPage from './pages/ErrorPage'
+import HomePage from './pages/HomePage'
 import Login from './pages/Login'
 import MyCourses from './pages/MyCourses'
 import ProfilePage from './pages/ProfilePage'
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: '/',
-				element: <h1>Home</h1>,
+				element: <HomePage />,
 			},
 			{
 				path: '/login',
