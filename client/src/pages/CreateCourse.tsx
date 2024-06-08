@@ -32,7 +32,7 @@ const CreateCourse = () => {
 		try {
 			const response = await createCourse(data.name, userId!)
 			toast.success(`Курс "${response.data.title}" успешно создан`)
-			navigate('/')
+			navigate(`/teachers/edit/${response.data._id}`)
 		} catch (err: any) {
 			toast.error('Произошла ошибка при создании курса')
 			console.log(err)
