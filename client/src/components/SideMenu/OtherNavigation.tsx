@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from '../../redux/store'
 import { toggleColorMode } from '../../redux/theme/themeSlice'
-import DarkModeSwitch from '../ui/DarkModeSwitch'
 
 const OtherNavigation = () => {
 	const dispatch = useDispatch()
@@ -52,12 +51,12 @@ const OtherNavigation = () => {
 					/>
 				</ListItemButton>
 			</ListItem>
-			<ListItem disablePadding sx={{ display: 'block' }}>
+			{/* <ListItem disablePadding sx={{ display: 'block' }}>
 				<DarkModeSwitch
 					onClick={onSwitchToggle}
 					checked={themeMode === 'dark'}
 				/>
-			</ListItem>
+			</ListItem> */}
 		</List>
 	)
 }

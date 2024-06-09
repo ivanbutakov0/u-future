@@ -13,7 +13,6 @@ import { Outlet } from 'react-router-dom'
 import { API_URL } from '../http'
 import getPalette from '../libs/theme/getPalette'
 import { RootState } from '../redux/store'
-import { setColorMode } from '../redux/theme/themeSlice'
 import { setCurrentUser, setIsLoading } from '../redux/user/userSlice'
 import { AuthResponse } from '../types/response/AuthResponse'
 import Header from './Header'
@@ -31,11 +30,11 @@ const Layout = () => {
 		(useMediaQuery('(prefers-color-scheme: dark)') ? 'dark' : 'light')
 
 	// Set color mode
-	useEffect(() => {
+	/* useEffect(() => {
 		if (prefersMode) {
 			dispatch(setColorMode(prefersMode))
 		}
-	}, [])
+	}, []) */
 
 	// Update the theme only if the mode changes
 	const theme = useMemo(() => createTheme(getPalette(themeMode)), [themeMode])
