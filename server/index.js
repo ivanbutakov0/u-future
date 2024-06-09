@@ -23,7 +23,7 @@ app.use(cookieParser())
 // Enable CORS
 app.use(
 	cors({
-		origin: 'https://u-future-client.vercel.app/',
+		origin: CLIENT_URL,
 		credentials: true,
 	})
 )
