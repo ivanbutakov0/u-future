@@ -51,6 +51,7 @@ const CourseCard = ({ course }: Props) => {
 						flexWrap={'wrap'}
 						sx={{
 							gap: 1,
+							mb: 2,
 						}}
 					>
 						{course?.topics?.map(topic => (
@@ -65,7 +66,14 @@ const CourseCard = ({ course }: Props) => {
 					<Typography
 						component='p'
 						variant='h6'
-						sx={{ textAlign: 'end', mt: 1, fontWeight: 'bold' }}
+						sx={{
+							textAlign: 'end',
+							mt: 1,
+							fontWeight: 'bold',
+							position: 'absolute',
+							bottom: 5,
+							right: 15,
+						}}
 					>
 						{user &&
 						user.boughtCourses.filter((boughtCourse: any) => {

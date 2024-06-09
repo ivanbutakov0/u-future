@@ -96,7 +96,12 @@ const SearchPage = () => {
 				<Grid
 					container
 					spacing={2}
-					sx={{ my: 2, justifyContent: 'center', mx: 'auto', width: '100%' }}
+					sx={{
+						my: 2,
+						justifyContent: 'center',
+						mx: 'auto',
+						width: '100%',
+					}}
 				>
 					{courses
 						.slice(
@@ -104,7 +109,15 @@ const SearchPage = () => {
 							currentPage * coursesPerPage
 						)
 						.map(course => (
-							<Grid item key={course._id} xs={12} sm={6} md={4} lg={3}>
+							<Grid
+								item
+								key={course._id}
+								xs={12}
+								sm={6}
+								md={4}
+								lg={3}
+								sx={{ display: 'flex' }}
+							>
 								<CourseCard course={course} />
 							</Grid>
 						))}

@@ -129,6 +129,7 @@ const updateUserService = async (id, data) => {
 			populate: 'topics',
 		})
 		.populate('boughtCourses')
+		.populate({ path: 'boughtCourses', populate: 'topics' })
 		.populate('finishedChapters')
 	return user
 }
@@ -147,6 +148,7 @@ const addCourseToCartService = async (id, courseId) => {
 			populate: 'topics',
 		})
 		.populate('boughtCourses')
+		.populate({ path: 'boughtCourses', populate: 'topics' })
 		.populate('finishedChapters')
 
 	return newUser
@@ -160,6 +162,7 @@ const getUserByIdService = async id => {
 			populate: 'topics',
 		})
 		.populate('boughtCourses')
+		.populate({ path: 'boughtCourses', populate: 'topics' })
 		.populate('finishedChapters')
 	return user
 }
@@ -183,6 +186,7 @@ const removeCourseFromCartService = async (id, courseId) => {
 			populate: 'topics',
 		})
 		.populate('boughtCourses')
+		.populate({ path: 'boughtCourses', populate: 'topics' })
 		.populate('finishedChapters')
 
 	return newUser
