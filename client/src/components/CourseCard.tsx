@@ -26,14 +26,14 @@ const CourseCard = ({ course }: Props) => {
 
 	return (
 		<Card sx={{ width: '260px' }}>
-			<CardActionArea onClick={handleCardClick}>
+			<CardActionArea onClick={handleCardClick} sx={{ height: '100%' }}>
 				<CardMedia
 					component='img'
 					height='140'
 					image={course.imageUrl}
 					alt='course image'
 				/>
-				<CardContent>
+				<CardContent sx={{ height: '100%' }}>
 					<Typography gutterBottom variant='body1' component='p'>
 						{course.title.length > 40
 							? course.title.slice(0, 40) + '...'

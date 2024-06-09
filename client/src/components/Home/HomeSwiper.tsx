@@ -36,7 +36,7 @@ const HomeSwiper = () => {
 					}}
 				>
 					<img
-						src='../../../public/students-at-work.jpg'
+						src='/students-at-work.jpg'
 						alt='students at work'
 						width='100%'
 						height='100%'
@@ -52,7 +52,7 @@ const HomeSwiper = () => {
 					}}
 				>
 					<img
-						src='../../../public/studying.jpg'
+						src='/studying.jpg'
 						alt='studying'
 						width='100%'
 						height='100%'
@@ -68,7 +68,7 @@ const HomeSwiper = () => {
 					}}
 				>
 					<img
-						src='../../../public/library.jpg'
+						src='/library.jpg'
 						alt='library'
 						width='100%'
 						height='100%'

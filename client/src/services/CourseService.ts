@@ -46,3 +46,12 @@ export const deleteCourse = async (
 ): Promise<AxiosResponse<CourseResponse>> => {
 	return api.delete<CourseResponse>(`/course/delete/${courseId}/${userId}`)
 }
+
+export const getCoursesByParentCategory = async (
+	category: string,
+	limit: number
+): Promise<AxiosResponse<CourseResponse[]>> => {
+	return api.get<CourseResponse[]>(
+		`/course/getCoursesByParentCategory/${category}/${limit}`
+	)
+}

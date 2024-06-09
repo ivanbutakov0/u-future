@@ -2,6 +2,9 @@ const { Cursor } = require('mongoose')
 const Course = require('../models/course.model')
 const Topic = require('../models/topic.model')
 const { errorHandler } = require('../utils/error')
+const { getAllParentCategories } = require('../controllers/category.controller')
+const Category = require('../models/category.model')
+const ParentCategory = require('../models/parentCategory.model')
 
 const createCourseService = async (title, userId) => {
 	const course = await Course.create({
@@ -58,6 +61,26 @@ const deleteCourseService = async id => {
 	return deletedCourse
 }
 
+const getCoursesByParentCategoryService = async (category, limit) => {
+	const parentCategory = await ParentCategory.find({
+		name: category,
+	})
+
+	if (!parentCategory) {
+		throw errorHandler(404, 'Категория не найдена')
+	}
+
+	const suitCategories = parentCategory.map(parent => parent.categories).flat()
+
+	const courses = await Course.find({
+		category: { $in: suitCategories },
+		isPublished: true,
+	})
+		.limit(limit === 0 ? undefined : limit)
+		.populate('topics')
+	return courses
+}
+
 module.exports = {
 	createCourseService,
 	getCourseService,
@@ -65,4 +88,5 @@ module.exports = {
 	getTeacherCoursesService,
 	getCoursesByParamsService,
 	deleteCourseService,
+	getCoursesByParentCategoryService,
 }

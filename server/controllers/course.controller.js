@@ -5,6 +5,7 @@ const {
 	getTeacherCoursesService,
 	getCoursesByParamsService,
 	deleteCourseService,
+	getCoursesByParentCategoryService,
 } = require('../services/course.servise')
 
 const createCourse = async (req, res, next) => {
@@ -81,6 +82,17 @@ const deleteCourse = async (req, res, next) => {
 	}
 }
 
+const getCoursesByParentCategory = async (req, res, next) => {
+	const category = req.params.category
+	const limit = parseInt(req.params.limit) || 0
+	try {
+		const courses = await getCoursesByParentCategoryService(category, limit)
+		res.json(courses)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	createCourse,
 	getCourse,
@@ -88,4 +100,5 @@ module.exports = {
 	getTeacherCourses,
 	getCoursesByParams,
 	deleteCourse,
+	getCoursesByParentCategory,
 }
