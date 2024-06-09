@@ -20,7 +20,7 @@ const CourseGroup = ({ title, category }: Props) => {
 		const fetchCourses = async () => {
 			setIsFetching(true)
 			try {
-				const response = await getCoursesByParentCategory(category, 5)
+				const response = await getCoursesByParentCategory(category, 4)
 
 				if (response.status !== 200) {
 					console.log('error', response)

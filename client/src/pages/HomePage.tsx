@@ -7,6 +7,7 @@ const HomePage = () => {
 		<Box component='section' sx={{ pb: 4 }}>
 			<HomeSwiper />
 			<CourseGroup title='Курсы по разработке' category='разработка' />
+			<CourseGroup title='Курсы по бизнесу' category='Бизнес' />
 		</Box>
 	)
 }
