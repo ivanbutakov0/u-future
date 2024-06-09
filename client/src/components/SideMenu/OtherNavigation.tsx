@@ -6,24 +6,23 @@ import {
 	ListItemIcon,
 	ListItemText,
 } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from '../../redux/store'
-import { toggleColorMode } from '../../redux/theme/themeSlice'
 
 const OtherNavigation = () => {
-	const dispatch = useDispatch()
+	//const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const themeMode = useSelector((state: RootState) => state.theme.mode)
+	//const themeMode = useSelector((state: RootState) => state.theme.mode)
 	const isSideMenuOpen = useSelector(
 		(state: RootState) => state.generalSettings.isSideMenuOpen
 	)
 
-	const onSwitchToggle = () => {
+	/* const onSwitchToggle = () => {
 		dispatch(toggleColorMode())
 		localStorage.setItem('themeMode', themeMode === 'light' ? 'dark' : 'light')
-	}
+	} */
 
 	return (
 		<List>

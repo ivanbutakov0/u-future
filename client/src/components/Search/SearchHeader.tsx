@@ -12,7 +12,7 @@ const SearchHeader = () => {
 	const [priceFilterValue, setPriceFilterValue] = useState<number[]>([0, 10000])
 	const [title, setTitle] = useState('')
 
-	const [searchParams, setSearchParams] = useSearchParams()
+	const [_searchParams, setSearchParams] = useSearchParams()
 
 	// Function to create search parameters object from component state
 	const createSearchParamsObject = (): URLSearchParamsInit => {
@@ -54,6 +54,7 @@ const SearchHeader = () => {
 
 		setTitle(title)
 	}
+
 	return (
 		<Stack
 			direction='row'

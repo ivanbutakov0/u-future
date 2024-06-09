@@ -1,11 +1,5 @@
 import { ThemeProvider } from '@emotion/react'
-import {
-	Box,
-	Container,
-	createTheme,
-	CssBaseline,
-	useMediaQuery,
-} from '@mui/material'
+import { Box, Container, createTheme, CssBaseline } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,9 +19,9 @@ const Layout = () => {
 		(state: RootState) => state.generalSettings.isSideMenuOpen
 	)
 	const themeMode = useSelector((state: any) => state.theme.mode)
-	const prefersMode =
+	/* const prefersMode =
 		localStorage.getItem('themeMode') ||
-		(useMediaQuery('(prefers-color-scheme: dark)') ? 'dark' : 'light')
+		(useMediaQuery('(prefers-color-scheme: dark)') ? 'dark' : 'light') */
 
 	// Set color mode
 	/* useEffect(() => {
