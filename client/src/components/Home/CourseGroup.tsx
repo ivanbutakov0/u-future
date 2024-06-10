@@ -1,4 +1,4 @@
-import { Link, Stack, Typography } from '@mui/material'
+import { Box, Link, Skeleton, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { getCoursesByParentCategory } from '../../services/CourseService'
@@ -47,6 +47,8 @@ const CourseGroup = ({ title, category }: Props) => {
 
 	if (!courses.length && !isFetching) return
 
+	if (isFetching) return <CourseGroup.Skeleton />
+
 	return (
 		<>
 			<Typography variant='h4' component={'h1'} sx={{ mt: 4 }}>
@@ -68,4 +70,28 @@ const CourseGroup = ({ title, category }: Props) => {
 		</>
 	)
 }
+
+CourseGroup.Skeleton = () => {
+	return (
+		<Stack direction='row' flexWrap={'wrap'} sx={{ gap: 2, mt: 4 }}>
+			{Array.from({ length: 5 }).map((_, index) => {
+				return (
+					<Box sx={{ width: '260px' }} key={index}>
+						<Skeleton
+							variant='rectangular'
+							width='100%'
+							height={140}
+							sx={{ mb: 1 }}
+						/>
+						<Skeleton variant='text' width='50%' height={50} />
+						<Skeleton variant='text' width='80%' />
+						<Skeleton variant='text' width='50%' />
+						<Skeleton variant='text' width='60%' />
+					</Box>
+				)
+			})}
+		</Stack>
+	)
+}
+
 export default CourseGroup
